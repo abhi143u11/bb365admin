@@ -18,6 +18,11 @@ class Images extends Model
         return $this->hasOne('App\Models\Categories', 'id', 'cat_id');
     }
 
+     public function subcategories()
+    {
+        return $this->hasOne('App\Models\SubCategories', 'sub_cat_id', 'sub_cat_id');
+    }
+
 
     
 }

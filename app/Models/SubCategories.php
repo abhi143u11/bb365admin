@@ -11,8 +11,10 @@ class SubCategories extends Model
     protected $primaryKey = 'sub_cat_id';
     protected $table = 'sub_categories';
     protected $fillable = ['sub_cat_name','img','active'];
-                           
+     public function categories()
+    {
+        return $this->hasOne('App\Models\Categories', 'id', 'cat_id');
+    }                  
   
-
 }
 

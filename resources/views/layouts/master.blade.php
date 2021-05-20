@@ -97,8 +97,8 @@
                         <a href="{{url('/dashboard')}}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboard</span></a>
                     </li>
-    <li class="{{'products' == request()->path() ? 'active' : ''}}">
-                        <a href="{{url('/products')}}"><i class="fa fa-th"></i> <span
+    <li class="{{'images' == request()->path() ? 'active' : ''}}">
+                        <a href="{{url('/images')}}"><i class="fa fa-th"></i> <span
                                 class="nav-label">Images</span></a>
                     </li> 
                     <!-- <li class="{{'bill' == request()->path() ? 'active' : ''}}">

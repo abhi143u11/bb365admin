@@ -18,7 +18,7 @@ Categories
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ action('ProductsCategoriesController@insert') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ action('CategoriesController@insert') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -35,6 +35,16 @@ Categories
                         <label for="order no">Order No</label>
                         <input type="text" name="order_no" class="form-control" id="order_no">
                     </div>
+ <div class="form-group">
+                            <label for="active">Active:</label>
+                            <select class="form-control" name="cat_type" id="cat_type">
+                                <option value="">Select Category Type</option>
+                                <option value="1">Business</option>    
+                                <option value="2">Common</option>    
+                                <option value="3">Festival</option>    
+                            </select>
+                        </div>
+                    
 
                     <div class="form-group">
                             <label for="active">Active:</label>

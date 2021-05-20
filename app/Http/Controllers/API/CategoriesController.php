@@ -13,7 +13,7 @@ class CategoriesController extends Controller
   
       public function allcategories()
     {
-        $categories = Categories::where('active',1)->get();
+        $categories = Categories::where('cat_type',1)->where('active',1)->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{

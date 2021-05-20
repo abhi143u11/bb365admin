@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-//use Intervention\Image\ImageManagerStatic as Image;
-use App\Models\ProductsCategories;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use App\Models\Images;
+use App\Models\Categories;
+use App\Models\SubCategories;
+Use DB;
+use Auth;
 
-class ProductsCategoriesController extends Controller
+
+class CategoriesController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +26,8 @@ class ProductsCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = ProductsCategories::all();
-        return view('admin.products.categories',compact('categories'));
+        $categories = Categories::all();
+        return view('admin.images.categories',compact('categories'));
     }
 
     /**
@@ -51,7 +59,7 @@ class ProductsCategoriesController extends Controller
                 return back()->with('status', $validator->messages()->first());
             }
 
-          $categories = new ProductsCategories();
+          $categories = new Categories();
           $categories->cat_name = $request->input('name');
           $categories->order_no = $request->input('order_no');
           $categories->active = $request->input('active');
@@ -91,8 +99,8 @@ class ProductsCategoriesController extends Controller
      */
     public function edit($id)
     {
-       $categories = ProductsCategories::findorFail($id);
-       return view('admin.products.editcategories',compact('categories'));
+       $categories = Categories::findorFail($id);
+       return view('admin.images.editcategories',compact('categories'));
     }
 
     /**
@@ -114,7 +122,7 @@ class ProductsCategoriesController extends Controller
              Session::flash('statuscode','error');
              return back()->with('status', $validator->messages()->first());
           }
-        $categories = ProductsCategories::findorFail($id);
+        $categories = Categories::findorFail($id);
         $categories->cat_name = $request->input('name');
         $categories->order_no = $request->input('order_no');
         $categories->active = $request->input('active');
@@ -148,7 +156,7 @@ class ProductsCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $categories = ProductsCategories::findorFail($id);
+        $categories = Categories::findorFail($id);
         $filename = $categories->img;
         $imagepath = 'images/'.$filename;
           if(File::exists($imagepath)) {
@@ -160,4 +168,37 @@ class ProductsCategoriesController extends Controller
        return redirect('/categories')
              ->with('status', 'Data Deleted successfully');
     }
+
+
+      public function allcategories()
+    {
+        $categories = Categories::where('active',1)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
 }
+
+      public function categorieswithsub()
+    {
+        $categories = Categories::with('subcategories')->where('active',1)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
+}
+
+//   public function subcategories($catid)
+//     {
+//         $subcategories = SubCategories::where('cat_id',$catid)->get();
+//         if($subcategories->count() > 0){
+//         return response()->json($subcategories);
+//     }else{
+//         return response()->json("");
+//     }
+// }
+
+
+}   

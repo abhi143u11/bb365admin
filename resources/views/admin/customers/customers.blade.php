@@ -24,6 +24,7 @@ Customers Address's
                         <label for="phone"><b>Mobile No:</b></label>
                         <input type="text" name="phone" class="form-control" id="">
                     </div>
+                    
 
               <div class="form-group col-md-6">
                   <a href="{{ url('customers') }}" class="btn btn-danger">Cancel</a>
@@ -76,6 +77,9 @@ Customers Address's
             <div class="table-responsive">
             <table class="table table-striped" id="myTable">
                     <thead>
+                      <th>
+                       Logo
+                      </th>
                     <th>
                        Name
                       </th>
@@ -92,6 +96,9 @@ Customers Address's
                     <tbody>
                     @foreach($customers as $row)
                       <tr>
+                       <td>
+                                <img src="{{ URL::to('/') }}/public/images/logo/{{ $row->photo }}" class="img-thumbnail" width='80' />
+                            </td>
                       <td>
                           {{ $row->name }}
                         </td>
@@ -111,9 +118,7 @@ Customers Address's
                                 data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i
                                         class="fa fa-trash"></i> </a>
 
-                              <a href="https://api.whatsapp.com/send?phone={{ $row->phone }}&text=Hello {{ $row->name }},Download Sun19Farms Application From Following Link http://onelink.to/ennkzm" target="_blank"
-                                class="btn-sm btn btn-success" style="background-color:#00bfa5; border-color:#00bfa5;" ><i
-                                        class="fa fa-whatsapp"></i> </a>
+                             
                                     </td>
                       </tr>
                       @endforeach

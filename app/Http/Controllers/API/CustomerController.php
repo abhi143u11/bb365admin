@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Models\CustomerAddress;
+use Intervention\Image\Facades\Image;
 
 class CustomerController extends Controller
   {
@@ -79,30 +80,15 @@ class CustomerController extends Controller
 
             $device_token = $request->input('device_token');
             $device_type = $request->input('device_type');
-            $business_name = $request->input('business_name');
-            $category_id = $request->input('category_id');
-            $phone2 = $request->input('phone2');
-            $address = $request->input('address');
-            $city = $request->input('city');
+        
          
   
-              if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name =  str_slug($request->input('name'),"_").'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/logo/');
-            $image->move($destinationPath, $name);
-            $photo = $name;
-                  }
+         
 
             Users::where('phone', $phone)->update([
+              
                 'device_token' => $device_token,
-                'business_name' => $business_name,
-                'category_id' => $category_id,
-                'phone2' => $phone2,
-                'address' => $address,
-                'city' => $city,
-                'device_token' => $device_token,
-                'device_type' => $device_type,
+                'device_type' => $device_type
                
                 ]);
 
@@ -110,6 +96,50 @@ class CustomerController extends Controller
     }
     
     }
+
+
+      //Update Customer Details
+    public function update(Request $request){
+
+     
+       
+
+     $user  = Users::findorFail($request->input('id'));
+
+           
+           $user->business_name = $request->input('business_name');
+            $user->category_id = $request->input('category_id');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->phone1 = $request->input('phone1');
+            $user->phone2 = $request->input('phone2');
+            $user->address = $request->input('address');
+            $user->city = $request->input('city');
+         
+  
+              if ($request->input('photo')) {
+            $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id').'.png';
+            $destinationPath = public_path('/images/logo/');
+          Image::make($image)->save($destinationPath.$name);     
+  
+           $user->photo = $name;
+                  }
+
+           
+               if($user->update()){
+  return response()->json(['error' => false,'data' =>$user]);
+               }else{
+  return response()->json(['error' => true,'data' =>"Something went"]);
+               }
+               
+            
+
+      
+    
+    
+    }
+
 
     
 

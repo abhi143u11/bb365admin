@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-// use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use App\Models\Images;
 use App\Models\Categories;
+use App\Models\SubCategories;
 Use DB;
 use Auth;
 
@@ -22,62 +23,19 @@ class ImagesController extends Controller
     public function index()
     {
       
-        $images = Images::with('categories')->get();
-        $categories = Categories::all();
-      return view('admin.images.images',compact('images','categories'));
+        $images = Images::with('subcategories')->get();
+        $subcategories = SubCategories::all();
+      return view('admin.images.images',compact('images','subcategories'));
     }
-
-    public function bulkedit()
-    {
-      
-        $images = Images::with('categories')->get();
-        $categories = Categories::all();
-      return view('admin.images.edit-bulkproduct',compact('images','categories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
-      // print_r($request->all());
-      // exit;
- 
-        for($i = 0; $i < count($request->mrp); $i++) {
-
-          DB::table('images')
-          ->where('product_id', $request->ids[$i])
-          ->update([
-            'mrp' => $request->mrp[$i],
-            'quantity' => $request->qty[$i],
-            'original_price' => $request->orginal[$i],
-            ]);
-          }
-
-       Session::flash('statuscode','success');
-       return redirect('/images')
-            ->with('status','Data Added Successfully ');
-     
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function insert(Request $request)
     {
      
         $validator = Validator::make($request->all(), [
-         'image' => 'required|max:10000|mimes:jpg,jpeg,svg,png',
-         'featured' => 'required',
-         'category_id' => 'required',
-         'type'=>'required'
+         'image' => 'required|max:2048|mimes:jpg,jpeg,png',
+      
+         'sub_cat_id' => 'required',
+         'image_type'=>'required'
            
              ]);
              if ($validator->fails()) {
@@ -89,17 +47,30 @@ class ImagesController extends Controller
            
             
             if ($request->hasFile('image')) {
+                   $image = $request->file('image');
+              $name = time().'.'.$image->getClientOriginalExtension();
+             $ImageUpload = Image::make($image);
+
+              $ImageUpload->resize(300,300);
+              
+              $thumbnailPath = 'public/images/thumbnails/';
+              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+            
+
             $image = $request->file('image');
-            $name = time().'.'.$image->getClientOriginalExtension();
+           // $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images/images/');
             $image->move($destinationPath, $name);
             $images->image = $name;
                   }
   
         
-            $images->featured = $request->input('featured');
-             $images->type = $request->input('type');
-            $images->cat_id = $request->input('category_id');
+           
+             $images->image_type = $request->input('image_type');
+             $images->post_type = $request->input('post_type');
+  
+      
+            $images->sub_cat_id = $request->input('sub_cat_id');
           
             $images->save();
 
@@ -163,8 +134,16 @@ class ImagesController extends Controller
          
     
             if ($request->hasFile('image')) {
-              $image = $request->file('image');
+               $image = $request->file('image');
               $name = time().'.'.$image->getClientOriginalExtension();
+              $image->resize(300,300);
+              $destinationPath = public_path('/images/thumbnails/');
+              $image->move($destinationPath, $name);
+              $images->image = $name;
+
+
+              $image = $request->file('image');
+             // $name = time().'.'.$image->getClientOriginalExtension();
               $destinationPath = public_path('/images/images/');
               $image->move($destinationPath, $name);
               $images->image = $name;
@@ -172,8 +151,7 @@ class ImagesController extends Controller
                     
          
             $images->featured = $request->input('featured');
-            $images->cat_id = $request->input('category_id');
-         
+       
          
             $images->update();
 

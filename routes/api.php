@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Creating Customer Along With wallet and Card 
 Route::post('insert','API\CustomerController@create');
+Route::post('update','API\CustomerController@update');
 
 //Displaying All Users 
 Route::get('users','API\CustomerController@index');

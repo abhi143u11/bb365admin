@@ -42,34 +42,35 @@ Images
                         <input type="file" name="image" class="form-control">
                     </div>
   <div class="form-group col-md-6">
-                            <label for="subcategory_id">Type:</label>
-                            <select class="form-control" name="type" id="type">
+                            <label for="subcategory_id">Image Type:</label>
+                            <select class="form-control" name="image_type" id="image_type">
                                                        
                                 <option value="0">Free</option>    
-                                <option value="1">Paid</option>
+                                <option value="1" selected="selected">Paid</option>
                             </select>
                         </div>
-                  
-                    <div class="form-group col-md-6">
-                            <label for="subcategory_id">Featured:</label>
-                            <select class="form-control" name="featured" id="featured">
+                   <div class="form-group col-md-6">
+                            <label for="post_type">Post Type:</label>
+                            <select class="form-control" name="post_type" id="post_type">
                                                        
-                                <option value="0">No</option>    
-                                <option value="1">Yes</option>
+                                <option value="1">Post</option>    
+                                <option value="2">Story</option>
                             </select>
                         </div>
-
+                   
+                   
+                   
                      
                         <div class="form-group col-md-6">
                             <label for="category_id">Category:</label>
-                            <select class="form-control" name="category_id" id="category_id">
+                            <select class="form-control" name="sub_cat_id" id="sub_cat_id">
                                 <option value="">Select Category</option>
-                                @foreach ($categories as $value)
-                                <option value="{{ $value->id }}">{{ $value->cat_name }}</option>
+                                @foreach ($subcategories as $value)
+                                <option value="{{ $value->sub_cat_id  }}" >{{ $value->sub_cat_name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        
+                           
                       
 
                         </div>
@@ -139,40 +140,38 @@ Images
                            Categorie
                         </th>
                          <th>
-                           Type
+                          Image Type
                         </th>
-                      <th>Featured</th>
+                      <th>Post Type</th>
                         <th>
                             Action
                         </th>
                     </thead>
                     <tbody>
                     @foreach ($images as $image)
-                 
+               
                         <tr>
                               <td>
-                                <img src="{{ URL::to('/') }}/public/images/images/{{ $image->image }}" class="img-thumbnail" width='120' />
+                                <img src="{{ URL::to('/') }}/public/images/thumbnails/{{ $image->image }}" class="img-thumbnail" width='80' />
                             </td>
                          
                             <td>
-                                {{ $image->categories['cat_name'] }}
+                                {{ $image->subcategories['sub_cat_name'] }}
                             </td>
                              <td>
-                                <?php  if($image->type==0){ echo 'Free'; }else{ echo 'Paid'; } ?>
+                                <?php  if($image->post_type==1){ echo 'Paid'; }else{ echo 'Free'; } ?>
                             </td>
                           <td>
-                                <?php  if($image->featured==0){ echo 'No'; }else{ echo 'Yes'; } ?>
+                                <?php  if($image->image_type==1){ echo 'Post'; }else{ echo 'Story'; } ?>
                             </td>
                           
                             <td data-url="{{ url('images-delete/' . $image->image_id ) }}">
-                                <a href="{{ url('images-edit/' . $image->image_id ) }}" class="btn-sm btn btn-warning"
-                                data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="fa fa-edit"></i>  </a>
+                              
 
                                 <a href="javascript:void(0)" 
                                 class="btn-sm btn btn-danger deletebtn"
-                                data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i
-                                        class="fa fa-trash"></i> </a>
+                                data-toggle="tooltip" data-placement="top" class="btn-md btn btn-danger" title="Delete"><i
+                                        class="fa fa-trash"></i> Delete </a>
                             </td>
                         </tr>
                         @endforeach
@@ -199,13 +198,14 @@ jQuery(document).ready(function() {
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
-                    var listItems = "";
-                    jQuery('select[name="subcategoryid"]').empty();
+                    var listItems = "<option>Select Sub Category</option>";
+                    jQuery('select[name="sub_cat_id"]').empty();
                     jQuery.each(data, function(key, value) {
-                        listItems += "<option value='" + key +
-                            "'>" + value + "</option>";
+                        console.log(value);
+                        listItems += "<option value='" + value['sub_cat_id'] +
+                            "'>" + value['sub_cat_name'] + "</option>";
                     });
-                    $("#subcategoryid").html(listItems);
+                    $("#sub_cat_id").html(listItems);
                 }
             });
         }

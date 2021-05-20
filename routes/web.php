@@ -4,6 +4,7 @@ use App\Models\Users;
 use App\Models\Transaction;
 use App\Models\BillProduct;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,7 +89,7 @@ Route::get('/home', 'HomeController@index')->name('home');
    Route::get('/bulkproducts','ImagesController@bulkedit');
    Route::post('bulkproducts_insert','ImagesController@create');
 
-   //Products Categories
+   //Categories
    Route::get('/categories','CategoriesController@index');
    Route::post('categories_insert', [
      'uses' => 'CategoriesController@insert'
@@ -96,7 +97,17 @@ Route::get('/home', 'HomeController@index')->name('home');
    Route::get('/categories-edit/{id}','CategoriesController@edit');
    Route::PUT('/categories-update/{id}','CategoriesController@update');
    Route::delete('/categories-delete/{id}','CategoriesController@destroy');
+    Route::get('getsubcat/{id}', 'SubCategoriesController@subcategories');
+Route::resource('categories', 'CategoriesController');
 
+       //SubCategories
+   Route::get('/subcategories','SubCategoriesController@index');
+   Route::post('subcategories_insert', [
+     'uses' => 'SubCategoriesController@insert'
+   ]);
+   Route::get('/subcategory-edit/{id}','SubCategoriesController@edit');
+   Route::PUT('/subcategory-update/{id}','SubCategoriesController@update');
+   Route::delete('/subcategory-delete/{id}','SubCategoriesController@destroy');
   
     //Pages
     Route::get('/pages','PagesController@index');
@@ -188,8 +199,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
      //Bills
   Route::get('/bill','BillController@index')->name('bill.index');
-  Route::post('/bill-insert', 'BillController@insert')->name('bill.insert');;
-  Route::get('bill-edit/getsubcat/{id}','ImagesController@getSubCategory');
+  Route::post('/bill-insert', 'BillController@insert')->name('bill.insert');
   Route::get('/bill-edit/{id}','BillController@edit');
   Route::PUT('/bill-update/{id}','BillController@update');
   Route::get('/billproduct-edit/{id}','BillProductController@edit');
@@ -199,23 +209,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Bill Product
     Route::get('/billproduct','BillProductController@index');
-    Route::get('getsubcat/{id}','BillProductController@getSubCategory');
     Route::post('billproduct_insert', [
       'uses' => 'BillProductController@insert'
     ]);
-    Route::get('billproduct-edit/getsubcat/{id}','BillProductController@getSubCategory');
     Route::get('/billproduct-edit/{id}','BillProductController@edit');
     Route::PUT('/billproduct-update/{id}','BillProductController@update');
     Route::delete('/billproduct-delete/{id}','BillProductController@destroy');
 
     //Coupons
    Route::get('/coupons','CouponsController@index');
-   Route::get('getsubcat/{id}','CouponsController@getSubCategory');
    Route::post('coupons_insert', [
      'uses' => 'CouponsController@store'
    ]);
    Route::get('/coupons-edit/{id}','CouponsController@edit');
-   Route::get('coupons-edit/getsubcat/{id}','CouponsController@getSubCategory');
    Route::PUT('/coupons-update/{id}','CouponsController@update');
    Route::delete('/coupons-delete/{id}','CouponsController@delete');
 
