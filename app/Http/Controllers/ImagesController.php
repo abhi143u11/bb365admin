@@ -76,7 +76,7 @@ class ImagesController extends Controller
 
         $images = Images::all();
         Session::flash('statuscode','success');
-        return redirect('/images')
+        return redirect('/imagesnew')
              ->with('status','Data Added Successfully ');
          
     }
@@ -157,7 +157,7 @@ class ImagesController extends Controller
 
         $images = Images::all(); 
         Session::flash('statuscode','info');
-        return redirect('/images')
+        return redirect('/imagesnew')
                ->with('status', 'Data Updated successfully');
       
     }
@@ -174,13 +174,13 @@ class ImagesController extends Controller
       $images = Images::findOrFail($product_id);
       $filename = $images->image;
       $imagepath = 'images/images/'.$filename;
-        // if(File::exists($imagepath)) {
-        //     File::delete($imagepath);
-        //   }
+        if(File::exists($imagepath)) {
+            File::delete($imagepath);
+          }
       $images->delete();
 
       Session::flash('statuscode','success');
-      return redirect('/images')->with('status','Record Deleted Successfully');
+      return redirect('/imagesnew')->with('status','Record Deleted Successfully');
    
     }
 }
