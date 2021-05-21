@@ -137,7 +137,7 @@ Categories
                         @foreach ($categories as $categorie)
                         <tr>
                             <td>
-                                <img src="{{ URL::to('/') }}/public/images/category/{{ $categorie->img }}" class="img-thumbnail" width='60' />
+                                <img src="{{ URL::to('/') }}/images/category/{{ $categorie->img }}" class="img-thumbnail" width='60' />
                             </td>
                             <td>
                                 {{ $categorie->cat_name }}

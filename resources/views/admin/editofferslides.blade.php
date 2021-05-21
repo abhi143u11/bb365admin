@@ -24,7 +24,7 @@
                                     {{ method_field('PUT') }}
                                     <input type="hidden" class="" name="id" id="id" value="{{ $offerslides->id }}">
 
-                                    <img src="{{ URL::to('/') }}/public/images/slider/{{ $offerslides->image }}" class="img-thumbnail" width='60' />
+                                    <img src="{{ URL::to('/') }}/images/slider/{{ $offerslides->image }}" class="img-thumbnail" width='60' />
                                     <div class="form-group">
                                     </div>
 

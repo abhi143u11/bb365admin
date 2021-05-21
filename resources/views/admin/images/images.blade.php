@@ -152,7 +152,7 @@ Images
                
                         <tr>
                               <td>
-                                <img src="{{ URL::to('/') }}/public/images/thumbnails/{{ $image->image }}" class="img-thumbnail" width='80' />
+                                <img src="{{ URL::to('/') }}/images/thumbnails/{{ $image->image }}" class="img-thumbnail" width='80' />
                             </td>
                          
                             <td>

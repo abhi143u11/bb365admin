@@ -25,7 +25,7 @@
                                     <input type="hidden" class="" name="id" id="id" value="{{ $subcategory->sub_cat_id  }}">
 
                                     <div class="form-group col-md-6">
-                                        <img src="{{ URL::to('/') }}/public/images/subcategory/{{ $subcategory->img }}" class="img-thumbnail" width="70">
+                                        <img src="{{ URL::to('/') }}/images/subcategory/{{ $subcategory->img }}" class="img-thumbnail" width="70">
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="image" id="image"

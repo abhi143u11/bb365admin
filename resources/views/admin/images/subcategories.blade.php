@@ -134,7 +134,7 @@ Sub Category
                        
                         <tr>
                             <td>
-                                <img src="{{ URL::to('/') }}/public/images/subcategory/{{ $subcategory->img }}" class="img-thumbnail" width='60' />
+                                <img src="{{ URL::to('/') }}/images/subcategory/{{ $subcategory->img }}" class="img-thumbnail" width='60' />
                             </td>
                             <td>
                                 {{ $subcategory->sub_cat_name }}

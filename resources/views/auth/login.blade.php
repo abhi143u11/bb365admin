@@ -17,7 +17,7 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <style>
     body {
-        background: url('public/uploads/veg2.jpg') no-repeat center center fixed;
+        background: url('uploads/veg2.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -40,7 +40,7 @@
 
             <h1 class="logo-name"></h1>
                <div class="pad" style="padding-bottom:20px;">
-            <img src="{{url('public/uploads/logo.jpg')}}" width="200">
+            <img src="{{url('uploads/logo.jpg')}}" width="200">
         </div>
         </div>
         <h5>{{ __('Login') }}</h5>
