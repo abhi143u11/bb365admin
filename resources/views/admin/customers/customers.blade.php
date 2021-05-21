@@ -97,7 +97,7 @@ Customers Address's
                     @foreach($customers as $row)
                       <tr>
                        <td>
-                                <img src="{{ URL::to('/') }}/public/images/logo/{{ $row->photo }}" class="img-thumbnail" width='80' />
+                                <img src="{{ URL::to('/') }}/images/logo/{{ $row->photo }}" class="img-thumbnail" width='80' />
                             </td>
                       <td>
                           {{ $row->name }}

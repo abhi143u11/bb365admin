@@ -105,7 +105,7 @@
                             @foreach ($slides as $slide)
                                 <tr>
                                     <td>
-                                        <img src="{{ URL::to('/') }}/public/images/slider/{{ $slide->image }}" class="img-thumbnail" width='80' />
+                                        <img src="{{ URL::to('/') }}/images/slider/{{ $slide->image }}" class="img-thumbnail" width='80' />
                                     </td>
                                     <td>
                                        {{ $slide->categories['cat_name'] }}

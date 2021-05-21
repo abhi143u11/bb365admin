@@ -82,7 +82,7 @@
 
                         <div class="dropdown profile-element ">
                         <div class="HeaderLogo" >
-                            <img alt="image" class="" src="{{url('public/uploads/bb365.png')}}" width="100%" />
+                            <img alt="image" class="" src="{{url('uploads/bb365.png')}}" width="100%" />
 
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold"></span>
