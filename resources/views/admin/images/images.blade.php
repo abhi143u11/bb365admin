@@ -165,7 +165,7 @@ Images
                                 <?php  if($image->image_type==1){ echo 'Post'; }else{ echo 'Story'; } ?>
                             </td>
                           
-                            <td data-url="{{ url('images-delete/' . $image->image_id ) }}">
+                            <td data-url="{{ url('imagesnew-delete/' . $image->image_id ) }}">
                               
 
                                 <a href="javascript:void(0)" 

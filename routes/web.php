@@ -77,13 +77,13 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::delete('/customers-delete/{id}','CustomerController@delete');
 
    //Products
-   Route::get('/images','ImagesController@index');
+   Route::get('/imagesnew','ImagesController@index');
    Route::post('images_insert', [
      'uses' => 'ImagesController@insert'
    ]);
-   Route::get('/images-edit/{product_id}','ImagesController@edit');
-   Route::PUT('images-update/{product_id}','ImagesController@update');
-   Route::delete('/images-delete/{product_id}','ImagesController@delete');
+   Route::get('/imagesnew-edit/{product_id}','ImagesController@edit');
+   Route::PUT('imagesnew-update/{product_id}','ImagesController@update');
+   Route::delete('/imagesnew-delete/{product_id}','ImagesController@delete');
 
    //Bulk Edit
    Route::get('/bulkproducts','ImagesController@bulkedit');
