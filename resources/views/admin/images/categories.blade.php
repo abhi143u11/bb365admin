@@ -36,7 +36,7 @@ Categories
                         <input type="text" name="order_no" class="form-control" id="order_no">
                     </div>
  <div class="form-group">
-                            <label for="active">Active:</label>
+                            <label for="active">Category Type:</label>
                             <select class="form-control" name="cat_type" id="cat_type">
                                 <option value="">Select Category Type</option>
                                 <option value="1">Business</option>    
@@ -52,6 +52,15 @@ Categories
                                 <option value="">Select Active</option>
                                 <option value="1">Active</option>    
                                 <option value="0">In-Active</option>    
+                            </select>
+                        </div>
+                    <div class="form-group">
+                            <label for="active">subcat:</label>
+                            <select class="form-control" name="subcat" id="subcat">
+                                <option value="">Sub Categories ?</option>
+                                <option value="0">No SubCategories</option>    
+                                <option value="1">Has SubCategories</option>    
+                              
                             </select>
                         </div>
 

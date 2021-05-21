@@ -53,6 +53,25 @@
                                     <option value="0"  {{ $categories->active  == "0" ? 'selected="selected"' : '' }}>In-Active</option>      
                                 </select>
                             </div>
+                        <div class="form-group">
+                                <label for="active">Category Type:</label>
+                                <select class="form-control" name="cat_type" id="cat_type">
+                                 
+                                           <option value="">Select Category Type</option>
+                                <option value="1" {{ $categories->cat_type  == "1" ? 'selected="selected"' : '' }}>Business</option>    
+                                <option value="2" {{ $categories->cat_type  == "2" ? 'selected="selected"' : '' }}>Common</option>    
+                                <option value="3" {{ $categories->cat_type  == "3" ? 'selected="selected"' : '' }}>Festival</option>    
+                                     
+                                </select>
+                            </div>
+                        <div class="form-group">
+                                <label for="active">Active:</label>
+                                <select class="form-control" name="subcat" id="subcat">
+                                    <option value="">Select Subcat</option>
+                                    <option value="1" {{ $categories->subcat  == "1" ? 'selected="selected"' : '' }}>Has subcat</option>    
+                                    <option value="0"  {{ $categories->subcat  == "0" ? 'selected="selected"' : '' }}>No-subcat</option>      
+                                </select>
+                            </div>
                                  
                                     <button name="submit" class="btn btn-success">Update</button>
                                     <a href="{{ url('categories') }}" class="btn btn-danger">Cancel</a>

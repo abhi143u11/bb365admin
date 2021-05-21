@@ -1,0 +1,1 @@
+ALTER TABLE `categories` ADD `subcat` TINYINT(1) NULL DEFAULT '0' AFTER `cat_type`;

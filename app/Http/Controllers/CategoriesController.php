@@ -64,6 +64,7 @@ class CategoriesController extends Controller
           $categories->order_no = $request->input('order_no');
           $categories->active = $request->input('active');
           $categories->cat_type = $request->input('cat_type');
+          $categories->subcat = $request->input('subcat');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -127,6 +128,8 @@ class CategoriesController extends Controller
         $categories->cat_name = $request->input('name');
         $categories->order_no = $request->input('order_no');
         $categories->active = $request->input('active');
+        $categories->cat_type = $request->input('cat_type');
+        $categories->subcat = $request->input('subcat');
   
     //    if($image   = $request->file('image')){
     //   $filename = str_replace(' ', '-', time().'1.'.$image->getClientOriginalName());
