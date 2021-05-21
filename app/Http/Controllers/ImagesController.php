@@ -53,7 +53,7 @@ class ImagesController extends Controller
 
               $ImageUpload->resize(300,300);
               
-              $thumbnailPath = 'public/images/thumbnails/';
+              $thumbnailPath = public_path('images/thumbnails/');
               $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
             
 
