@@ -36,7 +36,7 @@ class SubCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::all();
+        $categories = Categories::orderby('cat_type','desc')->get();
         $subcategories = SubCategories::with('categories')->get();
         return view('admin.images.subcategories',compact('categories','subcategories'));
     }
@@ -125,7 +125,7 @@ class SubCategoriesController extends Controller
     public function edit($id)
     {
        $subcategory = SubCategories::findorFail($id);
-       $categories = Categories::all();
+       $categories = Categories::orderby('cat_type','desc')->get();
        return view('admin.images.editsubcategories',compact('categories','subcategory'));
     }
 

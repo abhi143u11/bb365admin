@@ -131,6 +131,14 @@ Route::resource('categories', 'CategoriesController');
     //Notification   
     Route::resource('notification', 'NotificationController');
 
+
+  //subscription
+        Route::get('/subscriptions','SubscriptionController@index');
+        Route::post('save-subscriptions','SubscriptionController@store');
+        Route::get('/edit-subscriptions/{subscription_id}','SubscriptionController@edit');
+        Route::put('/subscriptions-update/{subscription_id}', 'SubscriptionController@update');
+        Route::delete('/subscriptions-delete/{subscription_id}', 'SubscriptionController@delete');
+
   // //Notification Message
   // Route::resource('notification-message', 'NotificationMessageController');
   // Route::post('/notification-message/store','NotificationMessageController@store')->name('notification-message.store');
@@ -185,10 +193,7 @@ Route::resource('categories', 'CategoriesController');
     Route::PUT('/videos-update/{id}','VideoController@update');
     Route::delete('/videos-delete/{id}','VideoController@destroy');
 
-    // Instagram
-    Route::get('insta','InstaController@index');
-    Route::post('insta_insert','InstaController@store');
-    Route::delete('/insta-delete/{id}','InstaController@destroy');
+    
 
     //Transaction
     Route::get('/transaction', 'TransactionController@index');

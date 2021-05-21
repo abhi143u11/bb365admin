@@ -24,7 +24,7 @@
                                     {{ method_field('PUT') }}
                                     <input type="hidden" class="" name="id" id="id" value="{{ $offerslides->id }}">
 
-                                    <img src="{{ URL::to('/') }}/images/{{ $offerslides->image }}" class="img-thumbnail" width='60' />
+                                    <img src="{{ URL::to('/') }}/public/images/slider/{{ $offerslides->image }}" class="img-thumbnail" width='60' />
                                     <div class="form-group">
                                     </div>
 
@@ -41,9 +41,9 @@
                                     <select class="form-control" name="category_id" id="category_id">
                                             <option value="">Select Categorie</option>
                                             @foreach ($categories as $value)
-                                            <option value="{{$value['id']}}"
-                                                {{ $value['id'] == $offerslides->category_id ? 'selected="selected"' : '' }}>
-                                                {{$value['cat_name']}}</option>
+                                            <option value="{{$value['sub_cat_id']}}"
+                                                {{ $value['sub_cat_id'] == $offerslides->category_id ? 'selected="selected"' : '' }}>
+                                                {{$value['sub_cat_name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>

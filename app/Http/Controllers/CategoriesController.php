@@ -63,6 +63,7 @@ class CategoriesController extends Controller
           $categories->cat_name = $request->input('name');
           $categories->order_no = $request->input('order_no');
           $categories->active = $request->input('active');
+          $categories->cat_type = $request->input('cat_type');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

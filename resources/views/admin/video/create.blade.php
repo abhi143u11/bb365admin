@@ -52,11 +52,11 @@ Video
                     </div>
 
                     <div class="form-group">
-                            <label for="product"><b>Products:</b></label>
+                            <label for="product"><b>Categories:</b></label>
                             <select class="form-control" name="product" id="product" style="width:100%;">
-                                <option value="">Select Product</option>
-                                @foreach ($products as $product)
-                                <option value="{{ $product->product_id  }}">{{ $product->product_name  }}</option>
+                                <option value="">Select Categories</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->sub_cat_id  }}">{{ $product->sub_cat_id  }}</option>
                                 @endforeach
                             </select>
                         </div>

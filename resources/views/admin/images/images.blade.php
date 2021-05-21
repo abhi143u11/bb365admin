@@ -186,32 +186,7 @@ Images
 
 @section('scripts')
 
-<!-- dropdown.blade.php -->
-<script type="text/javascript">
-jQuery(document).ready(function() {
-    jQuery('select[name="category_id"]').on('change', function() {
-        var category_id = jQuery(this).val();
-        if (category_id) {
-            jQuery.ajax({
-                url: 'getsubcat/' + category_id,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                    var listItems = "<option>Select Sub Category</option>";
-                    jQuery('select[name="sub_cat_id"]').empty();
-                    jQuery.each(data, function(key, value) {
-                        console.log(value);
-                        listItems += "<option value='" + value['sub_cat_id'] +
-                            "'>" + value['sub_cat_name'] + "</option>";
-                    });
-                    $("#sub_cat_id").html(listItems);
-                }
-            });
-        }
-    });
-});
-</script>
+
 
 <script>
 $(document).ready(function() {

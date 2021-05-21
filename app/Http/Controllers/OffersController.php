@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 //use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\OfferSlider;
 use App\Models\Categories;
+use App\Models\SubCategories;
 
 class OffersController extends Controller
 {
@@ -20,7 +21,7 @@ class OffersController extends Controller
     public function showslider(){
 
         $slides = OfferSlider::with('categories')->get();
-        $categories = Categories::all();
+        $categories = SubCategories::all();
         return view('admin.offersslider',compact('slides','categories'));
     }
 
@@ -28,7 +29,7 @@ class OffersController extends Controller
     {
         {
             $validator = Validator::make($request->all(), [
-              'image' => 'required|mimes:jpg,jpeg,png,gif,svg|max:20000'
+              'image' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048'
 
          ]);
          if ($validator->fails()) {
@@ -46,7 +47,7 @@ class OffersController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time().'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('/images');
+                $destinationPath = public_path('/images/slider/');
                 $image->move($destinationPath, $name);
                 $offers->image = $name;
                       }
@@ -66,7 +67,7 @@ class OffersController extends Controller
     public function editslide($id)
     {
         $offerslides = OfferSlider::findorFail($id);
-        $categories = Categories::all();
+        $categories = SubCategories::all();
         return view('admin.editofferslides',
               compact('offerslides','categories'));
     }
@@ -93,9 +94,9 @@ class OffersController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
+            $destinationPath = public_path('/images/slider/');
             $image->move($destinationPath, $name);
-            $products->image = $name;
+            $offers->image = $name;
                   }
 
         if($request->input('category_id')){

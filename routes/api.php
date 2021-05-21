@@ -50,6 +50,8 @@ Route::post('customer-card/update','API\CustomerController@updatewithcard');
 //All Categories 
 Route::get('categories','API\CategoriesController@allcategories');
 Route::get('catwithsub','API\CategoriesController@categorieswithsub');
+Route::get('subcategorieslist','API\CategoriesController@subcategorieslist');
+Route::get('catbybusiness/{catid}','API\CategoriesController@catbybusiness');
 
 //Transaction
 Route::get('transaction','API\TransactionController@transaction');
@@ -72,3 +74,6 @@ Route::get('allvideos','API\VideoController@allvideos');
 
 //Email & Notificaton Not Sent
 Route::get('notsent','API\BillController@allnotsent');
+
+//All Packages
+Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');

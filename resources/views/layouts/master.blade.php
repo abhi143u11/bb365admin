@@ -97,9 +97,13 @@
                         <a href="{{url('/dashboard')}}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboard</span></a>
                     </li>
-    <li class="{{'images' == request()->path() ? 'active' : ''}}">
+                      <li class="{{'images' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/images')}}"><i class="fa fa-th"></i> <span
                                 class="nav-label">Images</span></a>
+                    </li> 
+    <li class="{{'subcategories' == request()->path() ? 'active' : ''}}">
+                        <a href="{{url('/subcategories')}}"><i class="fa fa-th"></i> <span
+                                class="nav-label">Sub Categories</span></a>
                     </li> 
                     <!-- <li class="{{'bill' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/bill')}}"><i class="fa fa-files-o"></i> <span

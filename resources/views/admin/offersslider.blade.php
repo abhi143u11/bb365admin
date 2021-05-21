@@ -32,7 +32,7 @@
                             <select class="form-control" name="category_id" id="category_id">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $value)
-                                <option value="{{ $value->id }}">{{ $value->cat_name }}</option>
+                                <option value="{{ $value->sub_cat_id }}">{{ $value->sub_cat_name }}</option>
                                 @endforeach
                             </select>
                         </div> 
@@ -105,7 +105,7 @@
                             @foreach ($slides as $slide)
                                 <tr>
                                     <td>
-                                        <img src="{{ URL::to('/') }}/images/{{ $slide->image }}" class="img-thumbnail" width='80' />
+                                        <img src="{{ URL::to('/') }}/public/images/slider/{{ $slide->image }}" class="img-thumbnail" width='80' />
                                     </td>
                                     <td>
                                        {{ $slide->categories['cat_name'] }}

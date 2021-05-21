@@ -62,7 +62,7 @@
                             </div>
                                  
                                     <button name="submit" class="btn btn-success">Update</button>
-                                    <a href="{{ url('subcategory') }}" class="btn btn-danger">Cancel</a>
+                                    <a href="{{ url('subcategories') }}" class="btn btn-danger">Cancel</a>
                                 </form>
                             </div>
                         </div>

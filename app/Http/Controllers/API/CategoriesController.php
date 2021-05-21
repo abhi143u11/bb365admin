@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use App\Models\SubCategories;
 
 
 class CategoriesController extends Controller
@@ -23,7 +24,17 @@ class CategoriesController extends Controller
 
       public function categorieswithsub()
     {
-        $categories = Categories::with('subcategories')->where('active',1)->get();
+        $categories = Categories::with('subcategories')->where('cat_type',2)->where('active',1)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
+    }
+
+     public function subcategorieslist()
+    {
+        $categories = SubCategories::select('sub_cat_id','sub_cat_name')->where('active',1)->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{
@@ -31,4 +42,15 @@ class CategoriesController extends Controller
     }
 }
 
-}   
+    public function catbybusiness($catid)
+    {
+        $categories = Categories::with('subcategories')->where('id',$catid)->where('active',1)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
+}
+}
+
+

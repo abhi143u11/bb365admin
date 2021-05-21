@@ -11,9 +11,9 @@ class OfferSlider extends Model
         'image','category_id'
     ];
 
-    public function categories()
+    public function subcategories()
     {
-        return $this->hasOne('App\Models\ProductsCategories', 'id', 'category_id');
+        return $this->hasOne('App\Models\SubCategories', 'sub_cat_id', 'category_id');
     }
 
 }
