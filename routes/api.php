@@ -52,6 +52,7 @@ Route::get('categories','API\CategoriesController@allcategories');
 Route::get('catwithsub','API\CategoriesController@categorieswithsub');
 Route::get('subcategorieslist','API\CategoriesController@subcategorieslist');
 Route::get('catbybusiness/{catid}','API\CategoriesController@catbybusiness');
+Route::get('subcatimages/{subcatid}','API\CategoriesController@subcatimages');
 
 //Transaction
 Route::get('transaction','API\TransactionController@transaction');

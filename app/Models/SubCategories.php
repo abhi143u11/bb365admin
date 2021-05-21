@@ -14,7 +14,12 @@ class SubCategories extends Model
      public function categories()
     {
         return $this->hasOne('App\Models\Categories', 'id', 'cat_id');
-    }                  
+    }    
+    
+      public function images()
+    {
+        return $this->hasMany('App\Models\Images', 'sub_cat_id', 'sub_cat_id');
+    } 
   
 }
 
