@@ -108,7 +108,7 @@
                                         <img src="{{ URL::to('/') }}/images/slider/{{ $slide->image }}" class="img-thumbnail" width='80' />
                                     </td>
                                     <td>
-                                       {{ $slide->categories['cat_name'] }}
+                                       {{ $slide->categories['sub_cat_name'] }}
                                     </td>
                                     <td data-url="{{ url('slider-delete/' . $slide->id) }}">
                                          <a href="{{ url('slider-edit/' . $slide->id) }}"

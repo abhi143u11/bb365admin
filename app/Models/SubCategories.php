@@ -22,4 +22,3 @@ class SubCategories extends Model
     } 
   
 }
-

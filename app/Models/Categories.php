@@ -19,4 +19,3 @@ class Categories extends Model
       }
 
 }
-
