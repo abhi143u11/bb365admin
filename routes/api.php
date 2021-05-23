@@ -21,7 +21,8 @@ Route::post('update','API\CustomerController@update');
 
 //Displaying All Users 
 Route::get('users','API\CustomerController@index');
-Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
+Route::get('userdetail/{userid}','API\CustomerController@userdetail');
+Route::get('customerdownloads','API\CustomerController@customerdownloads');
 
 
 //Displaying particuler Pages based on Id

@@ -27,16 +27,14 @@ class CustomerController extends Controller
 
  //Displaying Customer details like Wallet,Address and Cards
 
-    public function customerdetails($phonenumber){
+    public function userdetail($userid){
     
-        $customerdetails = Users::where('phone',$phonenumber)
-                           ->with('address')
-                           ->get();
+        $customerdetails = Users::findorFail($userid);
         if($customerdetails->count() > 0){
         //return response()->json(['error' => false, 'customer' => $customerdetails]);
-        return response()->json($customerdetails,200);
+        return response()->json(['error' =>false,'data'=>$customerdetails],200);
         }else{
-            return response()->json(['error' =>true, 'customer' => "No Data Found"], 200);}
+            return response()->json(['error' =>true, 'data' => "No Data Found"], 200);}
         
     }
     

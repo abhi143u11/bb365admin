@@ -68,10 +68,10 @@ class BillController extends Controller
 
          $user  = Users::findorFail($request->input('userid'));
 
-           $user->package_type = $request->input('subscription_id');
-           $user->package_start = $from_date;
-            $user->package_end =  $to_date;
-            $user->downloads = $downloads;
+        $user->package_type = $request->input('subscription_id');
+        $user->package_start = $from_date;
+        $user->package_end =  $to_date;
+        $user->downloads = $downloads;
           
           
 
