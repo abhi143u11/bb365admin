@@ -140,11 +140,26 @@ class CustomerController extends Controller
     
     }
 
+     public function customerdownloads($customerid){
+          
+  
+         $user  = Users::findorFail($customerid);
+
+         if($user->downloads>$user->todays_downloads)
+         {
+           $user->todays_downloads = $user->todays_downloads+1;
+         }else{
+           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+         }
+ if($user->update()){
+          return response()->json(['error' => false,'data' =>"Success",'user'=>$user]);
+ }else{
+  return response()->json(['error' => true,'data' =>"Something went Wrong"]);
+               }
+        
+     }
+
 
     
 
  }
-
-
-
-

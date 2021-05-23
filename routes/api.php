@@ -21,7 +21,7 @@ Route::post('update','API\CustomerController@update');
 
 //Displaying All Users 
 Route::get('users','API\CustomerController@index');
-
+Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
 
 
 //Displaying particuler Pages based on Id
@@ -54,27 +54,13 @@ Route::get('subcategorieslist','API\CategoriesController@subcategorieslist');
 Route::get('catbybusiness/{catid}','API\CategoriesController@catbybusiness');
 Route::get('subcatimages/{subcatid}','API\CategoriesController@subcatimages');
 
-//Transaction
-Route::get('transaction','API\TransactionController@transaction');
-Route::post('transaction/add','API\TransactionController@transactionstore');
+
 
 //Bills
 Route::post('bill/add','API\BillController@addbill');
-Route::post('bill/cancel','API\BillController@cancelbill');
-Route::get('orders/{id}','API\BillController@Orders');
-
-
-Route::get('product/search/{data}','API\ProductController@productssearch2');
-
-//All Blogs
-Route::get('blogs','API\BlogController@allblogs');
 
 //All Videos
 Route::get('allvideos','API\VideoController@allvideos');
-
-
-//Email & Notificaton Not Sent
-Route::get('notsent','API\BillController@allnotsent');
 
 //All Packages
 Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
