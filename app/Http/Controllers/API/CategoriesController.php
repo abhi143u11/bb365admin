@@ -34,7 +34,7 @@ class CategoriesController extends Controller
 
      public function subcategorieslist()
     {
-        $categories = SubCategories::select('sub_cat_id','sub_cat_name')->where('active',1)->get();
+        $categories = SubCategories::with('imagelist')->where('active',1)->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{
@@ -62,5 +62,3 @@ class CategoriesController extends Controller
     }
 }
 }
-
-
