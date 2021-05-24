@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Models\CustomerAddress;
 use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
+
 
 class CustomerController extends Controller
   {
@@ -142,7 +144,9 @@ class CustomerController extends Controller
           
   
          $user  = Users::findorFail($customerid);
-
+      
+          
+    
          if($user->downloads>$user->todays_downloads)
          {
            $user->todays_downloads = $user->todays_downloads+1;
@@ -155,9 +159,8 @@ class CustomerController extends Controller
   return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
         
-     }
-
-
+     
     
+    }
 
  }
