@@ -159,10 +159,10 @@ Images
                                 {{ $image->subcategories['sub_cat_name'] }}
                             </td>
                              <td>
-                                <?php  if($image->post_type==1){ echo 'Paid'; }else{ echo 'Free'; } ?>
+                                <?php  if($image->post_type==2){ echo 'Story'; }else{ echo 'Post'; } ?>
                             </td>
                           <td>
-                                <?php  if($image->image_type==1){ echo 'Post'; }else{ echo 'Story'; } ?>
+                                <?php  if($image->image_type==1){ echo 'Paid'; }else{ echo 'Free'; } ?>
                             </td>
                           
                             <td data-url="{{ url('imagesnew-delete/' . $image->image_id ) }}">

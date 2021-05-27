@@ -30,7 +30,7 @@ class ImagesController extends Controller
 
     public function insert(Request $request)
     {
-     
+     dd($request->all());
         $validator = Validator::make($request->all(), [
          'image' => 'required|max:2048|mimes:jpg,jpeg,png',
       

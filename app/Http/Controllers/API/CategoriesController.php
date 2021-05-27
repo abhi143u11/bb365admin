@@ -54,7 +54,21 @@ class CategoriesController extends Controller
 
    public function subcatimages($subcatid)
     {
-        $categories = Subcategories::with('images')->where('sub_cat_id',$subcatid)->get();
+        $categories = Subcategories::with(['images' => function($query) {
+    $query->where('post_type', 1);
+}])->where('sub_cat_id',$subcatid)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
+}
+
+   public function subcatstoryimages($subcatid)
+    {
+        $categories = Subcategories::with(['images' => function($query) {
+    $query->where('post_type', 2);
+}])->where('sub_cat_id',$subcatid)->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{
