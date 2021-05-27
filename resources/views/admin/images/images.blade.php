@@ -184,15 +184,16 @@ Images
     <div class="ibox">
         <div class="ibox-title">
             <h4 class="card-title">@yield('title')
-                <button type="button" class="pull-right btn btn-primary" data-toggle="modal"
+                <button type="button" style="margin-right: 130px !important;"  class="pull-right btn btn-primary" data-toggle="modal"
                     data-target="#exampleModal">
                     + ADD @yield('title')
                 </button>
 
-                <button type="button" class="pull-left btn btn-primary" data-toggle="modal"
+                <button type="button"  class="pull-right btn btn-info" data-toggle="modal"
                     data-target="#exampleModal1">
                     + ADD Bulk 
                 </button>
+
             </h4>
         </div>
         <div class="ibox-content">
@@ -289,12 +290,13 @@ $(document).ready(function() {
         // alert(sub_cat_id);
 
         $.ajax({
-          url: "bulkinsert/?id="+image_type+"/"+post_type+"/"+sub_cat_id,
-          type:"get",
-         
-          success:function(response){
-            console.log(response);
-          },
+          type: "get",
+  url: "bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id,
+
+  success: function(url){
+         window.location.href = "bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id;
+    
+  },
          });
         });
         });
