@@ -6,6 +6,10 @@ Images
 @endsection
 
 @section('content')
+   <meta name="_token" content="{{csrf_token()}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+
 <style>
 .modal {
     z-index: 100000 !important;
@@ -70,8 +74,6 @@ Images
                                 @endforeach
                             </select>
                         </div>
-                           
-                      
 
                         </div>
 
@@ -83,6 +85,66 @@ Images
 
         </div>
         </form>
+    </div>
+</div>
+
+<!-- end  Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1"  role="dialog" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Add New Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+     
+
+                 <div class="row">
+
+             <div class="form-group col-md-6">
+                            <label for="subcategory_id">Image Type:</label>
+                            <select class="form-control" name="image_type" id="image_type1">                     
+                                <option value="0">Free</option>    
+                                <option value="1" selected="selected">Paid</option>
+                            </select>
+                        </div>
+
+                   <div class="form-group col-md-6">
+                            <label for="post_type">Post Type:</label>
+                            <select class="form-control" name="post_type" id="post_type1">              
+                                <option value="1">Post</option>    
+                                <option value="2">Story</option>
+                            </select>
+                        </div>
+                   
+                   
+                        <div class="form-group col-md-6">
+                            <label for="category_id">Category:</label>
+                            <select class="form-control" name="sub_cat_id" id="sub_cat_id1">
+                                <option value="">Select Category</option>
+                                @foreach ($subcategories as $value)
+                                <option value="{{ $value->sub_cat_id  }}" >{{ $value->sub_cat_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        </div>
+
+       
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Submit" id="bulk" name="submit">
+            </div>
+      </form>
+        </div>
+     
     </div>
 </div>
 
@@ -125,6 +187,11 @@ Images
                 <button type="button" class="pull-right btn btn-primary" data-toggle="modal"
                     data-target="#exampleModal">
                     + ADD @yield('title')
+                </button>
+
+                <button type="button" class="pull-left btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModal1">
+                    + ADD Bulk 
                 </button>
             </h4>
         </div>
@@ -209,5 +276,28 @@ $(document).ready(function() {
 });
 
 </script>
+  <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#bulk').on('click',function(event){
+        event.preventDefault();
+//
+
+        let image_type = $('#image_type1').val();
+        let post_type = $('#post_type1').val();
+        let sub_cat_id = $('#sub_cat_id1').val();
+        // alert(sub_cat_id);
+
+        $.ajax({
+          url: "bulkinsert/?id="+image_type+"/"+post_type+"/"+sub_cat_id,
+          type:"get",
+         
+          success:function(response){
+            console.log(response);
+          },
+         });
+        });
+        });
+      </script>
 
 @endsection

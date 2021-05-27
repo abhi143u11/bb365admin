@@ -30,7 +30,7 @@ class ImagesController extends Controller
 
     public function insert(Request $request)
     {
-     dd($request->all());
+    //  dd($request->all());
         $validator = Validator::make($request->all(), [
          'image' => 'required|max:2048|mimes:jpg,jpeg,png',
       
@@ -80,6 +80,62 @@ class ImagesController extends Controller
              ->with('status','Data Added Successfully ');
          
     }
+
+
+       public function bulkinsert(Request $request,$type,$sub_cat_id,$img_type)
+    {
+  //  dd($request->file('file'));
+        // $validator = Validator::make($request->all(), [
+        //  'file' => 'required|max:2048|mimes:jpg,jpeg,png',
+      
+        //  'sub_cat_id' => 'required',
+        //  'image_type'=>'required'
+           
+        //      ]);
+        //      if ($validator->fails()) {
+        //      //   Session::flash('statuscode','error');
+        //       //  return back()->with('status', $validator->messages()->first());
+        //            return response()->json(['error'=>$validator->messages()->first()]);
+        //     }
+
+            $images = new Images();
+           
+            
+            if ($request->hasFile('file')) {
+                   $image = $request->file('file');
+              $name = time().'.'.$image->getClientOriginalExtension();
+              // print_r($name);
+              // exit;
+             $ImageUpload = Image::make($image);
+
+              $ImageUpload->resize(300,300);
+              
+              $thumbnailPath = public_path('images/thumbnails/');
+              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+            
+
+            $image = $request->file('file');
+           // $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/images/');
+            $image->move($destinationPath, $name);
+            $images->image = $name;
+                  }
+  
+        
+           
+         $images->image_type = $img_type;
+          $images->post_type = $type;
+  
+      
+           $images->sub_cat_id = $sub_cat_id;
+          
+            $images->save();
+
+        $images = Images::all();
+        return response()->json(['success'=>$name]);
+         
+    }
+
 
     /**
      * Display the specified resource.

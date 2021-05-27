@@ -16,6 +16,9 @@ use App\Models\BillProduct;
 |
 */
 
+Route::get('bulk', function () {
+     return view('admin.images.bulk-upload');
+  });
 
 
 Route::get('/', function () {
@@ -78,6 +81,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
    //Products
    Route::get('/imagesnew','ImagesController@index');
+   Route::post('/bulkinsert/{type}/{sub_cat_id}/{img_type}','ImagesController@bulkinsert');
    Route::post('images_insert', [
      'uses' => 'ImagesController@insert'
    ]);
