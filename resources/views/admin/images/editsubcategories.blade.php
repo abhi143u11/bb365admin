@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <form action="{{ url('subcategory-update/' . $subcategory->sub_cat_id ) }}" method="POST"
                                     enctype="multipart/form-data">
 
