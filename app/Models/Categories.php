@@ -14,7 +14,7 @@ class Categories extends Model
                            
     public function subcategories() {
 
-    return $this->hasMany('App\Models\SubCategories','cat_id','id')->with('images');
+    return $this->hasMany('App\Models\SubCategories','cat_id','id')->with('images')->where('active',1)->orderBy('festival_date','asc');
 
       }
 
