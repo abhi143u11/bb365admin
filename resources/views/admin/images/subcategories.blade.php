@@ -30,11 +30,11 @@ Sub Category
                         <input type="file" name="image" class="custom-file-input" id="image">
                         <label class="custom-file-label" for="image"><b>Choose Image </b></label>
                     </div>
-
+<!-- 
                     <div class="form-group col-md-6">
                         <label for="order no">Order No</label>
                         <input type="text" name="order_no" class="form-control" id="order_no">
-                    </div>
+                    </div> -->
  <div class="form-group col-md-6">
                             <label for="subcategory_id">Festival Date:</label>
                           <input type="date" name="festival_date" class="form-control">
@@ -125,6 +125,9 @@ Sub Category
                       <th>
                              Category
                         </th>
+                      <th>
+                             Festival Date
+                        </th>
                         <th>
                             Action
                         </th>
@@ -141,6 +144,9 @@ Sub Category
                             </td>
                              <td>
                                 {{ $subcategory->categories['cat_name'] }}
+                            </td>
+                             <td>
+                                {{ $subcategory->festival_date }}
                             </td>
                            
                             <td data-url="{{ url('subcategory-delete/' . $subcategory->sub_cat_id) }}">
