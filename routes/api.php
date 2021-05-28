@@ -54,6 +54,7 @@ Route::get('catwithsub','API\CategoriesController@categorieswithsub');
 Route::get('subcategorieslist','API\CategoriesController@subcategorieslist');
 Route::get('catbybusiness/{catid}','API\CategoriesController@catbybusiness');
 Route::get('subcatimages/{subcatid}','API\CategoriesController@subcatimages');
+Route::get('subcatvideos/{subcatid}','API\CategoriesController@subcatvideos');
 Route::get('subcatimages/story/{subcatid}','API\CategoriesController@subcatstoryimages');
 
 

@@ -24,7 +24,20 @@ class CategoriesController extends Controller
 
       public function categorieswithsub()
     {
-        $categories = Categories::with('subcategories')->where('cat_type',2)->where('active',1)->get();
+    //     $categories = Categories::with('subcategories')->with('subcategories' => 
+    //     function($query) {
+     
+    //         $query->with('images')->take(1); //last 1
+        
+    // })->where('active',1)->get();
+//  $categories = Categories::with(['subcategories','subcategories.images'=>function ($q){
+  
+//     $q->orderBy('created_at', 'desc')->take(1);
+
+// }])->get();
+
+ $categories = Categories::where('active', 1)->where('cat_type',2)->with('subcategories')->orderBy('order_no','asc')->get();
+
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{
@@ -64,10 +77,22 @@ class CategoriesController extends Controller
     }
 }
 
+   public function subcatvideos($subcatid)
+    {
+        $categories = Subcategories::with(['images' => function($query) {
+    $query->where('post_type', 3);
+}])->where('sub_cat_id',$subcatid)->get();
+        if($categories->count() > 0){
+        return response()->json(['error' =>false, 'data' =>  $categories],200);
+    }else{
+        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+    }
+}
+
    public function subcatstoryimages($subcatid)
     {
         $categories = Subcategories::with(['images' => function($query) {
-    $query->where('post_type', 2);
+    $query->where('post_type', 1);
 }])->where('sub_cat_id',$subcatid)->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
