@@ -43,28 +43,32 @@ Images
                  <div class="row">
                         <div class="form-group col-md-6">
                         <label for="image" >Choose Image :</label>
-                        <input type="file" name="image" class="form-control">
+                        <input type="file" name="image" accept=".jpeg,.png,.gif,.jpg" class="form-control">
                     </div>
-  <div class="form-group col-md-6">
+
+                 <div class="form-group col-md-6">
                             <label for="subcategory_id">Image Type:</label>
-                            <select class="form-control" name="image_type" id="image_type">
-                                                       
+                            <select class="form-control" name="image_type"  id="image_type">           
                                 <option value="0">Free</option>    
                                 <option value="1" selected="selected">Paid</option>
                             </select>
                         </div>
+
+              <div id="video" class="form-group col-md-6">
+                        <label for="video" >Select Video:</label>
+                        <input type="file" name="video" accept=".mp4" class="form-control">
+                    </div>
+
+
                    <div class="form-group col-md-6">
                             <label for="post_type">Post Type:</label>
                             <select class="form-control" name="post_type" id="post_type">
-                                                       
                                 <option value="1">Post</option>    
                                 <option value="2">Story</option>
+                                 <option value="3">Video</option>
                             </select>
                         </div>
                    
-                   
-                   
-                     
                         <div class="form-group col-md-6">
                             <label for="category_id">Category:</label>
                             <select class="form-control" name="sub_cat_id" id="sub_cat_id">
@@ -75,7 +79,7 @@ Images
                             </select>
                         </div>
 
-                        </div>
+                  </div>
 
             </div>
             <div class="modal-footer">
@@ -120,6 +124,7 @@ Images
                             <select class="form-control" name="post_type" id="post_type1">              
                                 <option value="1">Post</option>    
                                 <option value="2">Story</option>
+                                <option value="3">Video</option>
                             </select>
                         </div>
                    
@@ -295,11 +300,31 @@ $(document).ready(function() {
 
   success: function(url){
          window.location.href = "bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id;
-    
+
   },
          });
         });
         });
+
+         $(function () {
+        $("select[name=post_type]").click(function () {
+            if ($(this).val() == "3") {
+
+            $('#video').show();
+
+            }else{
+               $('#video').hide(); 
+            }
+
+             });
+            });
+
+
+            $(document).ready(function() {
+            $('#video').hide();
+            });
+
+
       </script>
 
 @endsection

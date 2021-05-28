@@ -30,10 +30,11 @@ Categories
 <script type="text/javascript">
         Dropzone.options.dropzone =
          {
-            maxFilesize: 12,
+            maxFilesize: 20,
             renameFile: function(file) {
-                var dt = new Date();
+                var dt = new Date(); 
                 var time = dt.getTime();
+        //   console.log(time);
                return time+file.name;
             },
             acceptedFiles: ".jpeg,.jpg,.png,.gif",

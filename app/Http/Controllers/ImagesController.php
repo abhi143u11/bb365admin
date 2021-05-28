@@ -63,9 +63,19 @@ class ImagesController extends Controller
             $image->move($destinationPath, $name);
             $images->image = $name;
                   }
+
+
+            if ($request->hasFile('video')) {
+                 $video = $request->file('video');
+              $name = time().'.'.$video->getClientOriginalExtension();
+
+              $destinationPath = public_path('images/videos/');
+               $video->move($destinationPath, $name);
+            
+               $images->video = $name;
+                  }
   
         
-           
              $images->image_type = $request->input('image_type');
              $images->post_type = $request->input('post_type');
   
@@ -82,7 +92,7 @@ class ImagesController extends Controller
     }
 
 
-       public function bulkinsert(Request $request,$type,$sub_cat_id,$img_type)
+       public function bulkinsert(Request $request,$img_type,$type,$sub_cat_id)
     {
   //  dd($request->file('file'));
         // $validator = Validator::make($request->all(), [
@@ -103,9 +113,12 @@ class ImagesController extends Controller
             
             if ($request->hasFile('file')) {
                    $image = $request->file('file');
-              $name = time().'.'.$image->getClientOriginalExtension();
-              // print_r($name);
+         
+              $name = time().'.'.$image->getClientOriginalName();
+
+              //                 print_r($name);
               // exit;
+        
              $ImageUpload = Image::make($image);
 
               $ImageUpload->resize(300,300);
@@ -196,7 +209,6 @@ class ImagesController extends Controller
               $destinationPath = public_path('/images/thumbnails/');
               $image->move($destinationPath, $name);
               $images->image = $name;
-
 
               $image = $request->file('image');
              // $name = time().'.'.$image->getClientOriginalExtension();
