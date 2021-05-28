@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <form action="{{ url('subcategory-update/' . $subcategory->sub_cat_id ) }}" method="POST"
                                     enctype="multipart/form-data">
 
@@ -33,17 +33,20 @@
                                         <label class="custom-file-label" for="image"><b>Choose Image</b></label>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group">
                                         <label>Name</label>
                                         <input type="name" name="name" value="{{ $subcategory->sub_cat_name }}" class="form-control"
                                             id="name" aria-describedby="phoneHelp">
                                     </div>
                                  
-<div class="form-group col-md-6">
+<div class="form-group ">
                             <label for="subcategory_id">Festival Date:</label>
-                          <input type="date" name="festival_date" class="form-control">
+                          <input type="date" name="festival_date" value="{{ $subcategory->festival_date }}" class="form-control">
                         </div>
-                  <div class="form-group col-md-6">
+
+                  
+
+                  <div class="form-group ">
                             <label for="category_id">Category:</label>
                             <select class="form-control" name="category_id" id="category_id">
                                 <option value="">Select Category</option>
@@ -52,7 +55,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group ">
                                 <label for="active">Active:</label>
                                 <select class="form-control" name="active" id="active">
                                     <option value="">Select Active</option>
