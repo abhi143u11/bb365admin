@@ -58,8 +58,8 @@ class CategoriesController extends Controller
    public function subcatimages($subcatid)
     {
         $categories = Subcategories::with(['images' => function($query) {
-    $query->where('post_type', 1);
-}])->where('sub_cat_id',$subcatid)->get();
+    $query->where('post_type', 1)->inRandomOrder();
+}])->where('sub_cat_id',$subcatid)->inRandomOrder()->get();
         if($categories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $categories],200);
     }else{
