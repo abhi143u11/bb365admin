@@ -43,7 +43,7 @@ Route::get('allproducts','API\ProductController@allproductslist');
 Route::post('customer/update','API\CustomerController@customerupdate');
 
 //notification 
-Route::get('notification/{phone}','API\NotificationController@Notification');
+Route::get('notification','API\NotificationController@Notification');
 
 //updating customer Device-Token with card number
 Route::post('customer-card/update','API\CustomerController@updatewithcard');

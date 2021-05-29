@@ -11,11 +11,11 @@ use App\Models\Users;
 
 class NotificationController extends Controller
 {
-    public function Notification($phone)
+    public function Notification()
     {
-        $users = Users::where('phone',$phone)->first();
-        $customer_id = $users->id;
-        $notification = NotificationMessage::where('customer_id',$customer_id)->orderBy('id', 'DESC')->limit(10)->get();
+    
+   
+        $notification = NotificationMessage::limit(10)->get();
         return response()->json(['error' => false, 'notification' => $notification], 200, []);
 
     }
