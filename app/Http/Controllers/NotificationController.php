@@ -9,6 +9,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\Notification;
 use App\User;
 use App\Models\NotificationMessage;
+use App\Models\SubCategories;
 use App\Models\Users;
 use Illuminate\Support\Facades\File;
 use LaravelFCM\Message\OptionsBuilder;
@@ -51,12 +52,16 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
 
+    $sub_cat_id_name = explode("-",$request->sub_cat_id);
 
+    // print_r($sub_cat_id_name[1]);exit;
+  
         $notification_message = new NotificationMessage;
-   
+
 
         $notification_message->t_title = $request->input('t_title');
         $notification_message->t_message = $request->input('t_message');
+        $path = "";
             if($image = $request->file('image')){
         $filename = str_replace(' ', '-',time().$image->getClientOriginalName());
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -74,6 +79,7 @@ class NotificationController extends Controller
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
+
  if($path!=""){
         $notificationBuilder = new PayloadNotificationBuilder($notification_message->t_title);
         $notificationBuilder->setBody($notification_message->t_message)
@@ -91,23 +97,25 @@ class NotificationController extends Controller
         }
       
                $dataBuilder = new PayloadDataBuilder();
+
                 if($path!=""){
-    $dataBuilder->addData([
-    "image"=>$path,
-    'category' =>"25",
-    "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
-     
-    "notification_type" => "category",
-    ""=> 'android_channel_id'
-]);
-        }else{
-            $dataBuilder->addData([
-  "image"=>$path,
-    'category' =>"25",
-     
-     "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
-    "notification_type" => "category",
-]);
+                      $dataBuilder->addData([
+                      "image"=>$path,
+                      'category' =>$sub_cat_id_name[0],
+                      'category_name' =>$sub_cat_id_name[1],
+                      "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
+                      
+                      "notification_type" => "category",
+                      ""=> 'android_channel_id'
+                  ]);
+                          }else{
+                              $dataBuilder->addData([
+                    "image"=>$path,
+                         'category' =>$sub_cat_id_name[0],
+                      'category_name' =>$sub_cat_id_name[1],
+                      "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
+                      "notification_type" => "category",
+                  ]);
         }
 
         
@@ -125,8 +133,6 @@ class NotificationController extends Controller
         $notification_message = NotificationMessage::all();
 
 
-       
-    
 
         Session::flash('statuscode','success');
         return redirect('/notification-message')
@@ -143,8 +149,8 @@ class NotificationController extends Controller
     public function show()
     {
         $notification_message = NotificationMessage::all();
-        $customers  = Users::where('usertype','customer')->get();
-      return view('admin.notificationmessage',compact('notification_message','customers'));
+        $subcategories  = SubCategories::all();
+      return view('admin.notificationmessage',compact('notification_message','subcategories'));
     }
 
     /**

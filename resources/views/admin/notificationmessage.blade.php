@@ -21,12 +21,12 @@
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label for="customer_id"><b>Customers:</b></label>
-                            <select class="form-control" name="customer_id" id="customername" style="width:100%;">
-                                <option value="">Select Customer</option>
-                                <option value="all">Select All</option>
-                                @foreach ($customers as $value)
-                                <option value="{{ $value->id }}">{{ $value->name }}-{{ $value->phone }}</option>
+                            <label for="sub_cat_id"><b>Categorie:</b></label>
+                            <select class="form-control" name="sub_cat_id" id="categorie" style="width:100%;">
+                                <option value="">Select Categorie</option>
+                                <!-- <option value="all">Select All</option> -->
+                                @foreach ($subcategories as $subcategorie)
+                                <option value="{{ $subcategorie->sub_cat_id }}-{{ $subcategorie->sub_cat_name }}">{{ $subcategorie->sub_cat_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -173,7 +173,7 @@
             $('#t_message').val(msg);
         }
     
-$("#customername").select2();
+$("#categorie").select2();
 
 </script>
 
