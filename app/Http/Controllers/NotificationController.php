@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-//use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Models\Notification;
 use App\User;
 use App\Models\NotificationMessage;
@@ -51,146 +51,82 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
 
-             // print_r($request->customer_id);
-        // exit;
-
-    if($request->input('customer_id')!="all"){
-        $validator = Validator::make($request->all(), [
-            't_title' => 'required',
-            't_message' => 'required',
-            'customer_id' => 'required'
-
-             ]);
-             if ($validator->fails()) {
-                Session::flash('statuscode','error');
-                return back()->with('status', $validator->messages()->first());
-         }
 
         $notification_message = new NotificationMessage;
-        $customer_id = $request->input('customer_id');
+   
 
         $notification_message->t_title = $request->input('t_title');
         $notification_message->t_message = $request->input('t_message');
-        $notification_message->customer_id = $request->input('customer_id');
-
-        if($image       = $request->file('image')){
-        $filename = str_replace(' ', '-', time().'67.'.$image->getClientOriginalName());
+            if($image = $request->file('image')){
+        $filename = str_replace(' ', '-',time().$image->getClientOriginalName());
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+         $path = 
+         'https://admin.brandbuilder365.com/images/notification/'.time().'.'.$ext;
+   
         $image_resize = Image::make($image->getRealPath());
-        $image_resize->save(public_path('images/' .$filename));
-        $notification_message->image = $filename;}
-
+        $image_resize->resize(600,400);
+        $image_resize->save(public_path('images/notification/' .time().'.'.$ext));
+      
+        $notification_message->image = $path;
+      }
+    // dd($path);
         $notification_message->save();
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
-
+ if($path!=""){
         $notificationBuilder = new PayloadNotificationBuilder($notification_message->t_title);
         $notificationBuilder->setBody($notification_message->t_message)
-                                
+       
+                            ->setImage($path)
+
                             ->setSound('default');
+        }else{
+               $notificationBuilder = new PayloadNotificationBuilder($notification_message->t_title);
+        $notificationBuilder->setBody($notification_message->t_message)
+       
+                         
 
-        $dataBuilder = new PayloadDataBuilder();
-        // $dataBuilder->addData(['data' => 
-        // '{
-        //     "apns": 
-        //     {
-        //     "payload": {
-        //         "aps": {
-        //             "mutable-content": 1
-        //         }
-        //     },
-        //     "fcm_options": {
-        //         "image": "https://beepixl.com/wp-content/uploads/2020/01/Group-806.jpg"
-        //     }
-        //   }
+                            ->setSound('default');
+        }
       
-        // }'
-        // ]);
+               $dataBuilder = new PayloadDataBuilder();
+                if($path!=""){
+    $dataBuilder->addData([
+    "image"=>$path,
+    'category' =>"25",
+    "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
+     
+    "notification_type" => "category",
+    ""=> 'android_channel_id'
+]);
+        }else{
+            $dataBuilder->addData([
+  "image"=>$path,
+    'category' =>"25",
+     
+     "click_action" => "FLUTTER_NOTIFICATION_CLICK", 
+    "notification_type" => "category",
+]);
+        }
 
+        
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        // You must change it to get your tokens
+       
 
-        $tokens = Users::where('id',$customer_id)->whereNotNull('device_token')->pluck('device_token')->toArray();
-
-        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
-
-        $notification_message = NotificationMessage::all();
-
-    }else{
-        $validator = Validator::make($request->all(), [
-            't_title' => 'required',
-            't_message' => 'required',
-        //    'customer_id' => 'required'
-
-             ]);
-             if ($validator->fails()) {
-                Session::flash('statuscode','error');
-                return back()->with('status', $validator->messages()->first());
-         }
-
-        $notification_message = new NotificationMessage;
-   //     $customer_id = $request->input('customer_id');
-
-        $notification_message->t_title = $request->input('t_title');
-        $notification_message->t_message = $request->input('t_message');
-      //  $notification_message->customer_id = $request->input('customer_id');
-
-        // if($image       = $request->file('image')){
-        // $filename = str_replace(' ', '-', time().'67.'.$image->getClientOriginalName());
-        // $image_resize = Image::make($image->getRealPath());
-        // $image_resize->save(public_path('images/' .$filename));
-        // $notification_message->image = $filename;}
-
-        $notification_message->save();
-
-        $optionBuilder = new OptionsBuilder();
-        $optionBuilder->setTimeToLive(60*20);
-
-        $notificationBuilder = new PayloadNotificationBuilder($notification_message->t_title);
-        $notificationBuilder->setBody($notification_message->t_message)
-                                
-                            ->setSound('default');
-
-        $dataBuilder = new PayloadDataBuilder();
-        // $dataBuilder->addData(['data' => 
-        // '{
-        //     "apns": 
-        //     {
-        //     "payload": {
-        //         "aps": {
-        //             "mutable-content": 1
-        //         }
-        //     },
-        //     "fcm_options": {
-        //         "image": "https://beepixl.com/wp-content/uploads/2020/01/Group-806.jpg"
-        //     }
-        //   }
-      
-        // }'
-        // ]);
-
-        $option = $optionBuilder->build();
-        $notification = $notificationBuilder->build();
-        $data = $dataBuilder->build();
-
-        // You must change it to get your tokens
-
-     //   $tokens = Users::where('usertype','customer')->whereNotNull('device_token')->pluck('device_token')->toArray();
-
-      //  $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
         
       $topic = new Topics();
-      $topic->topic('sunfarms');
+      $topic->topic('bb365');
       
-      $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
+      $topicResponse = FCM::sendToTopic($topic, $option , $notification,   $data );
         $notification_message = NotificationMessage::all();
 
 
        
-    }
+    
 
         Session::flash('statuscode','success');
         return redirect('/notification-message')
