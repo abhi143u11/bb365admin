@@ -244,7 +244,7 @@ Images
                                 <a href="javascript:void(0)" 
                                 class="btn-sm btn btn-danger deletebtn"
                                 data-toggle="tooltip" data-placement="top" class="btn-md btn btn-danger" title="Delete"><i
-                                        class="fa fa-trash"></i> Delete </a>
+                                        class="fa fa-trash"></i>  </a>
                             </td>
                         </tr>
                         @endforeach

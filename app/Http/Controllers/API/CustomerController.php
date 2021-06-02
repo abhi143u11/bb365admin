@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Models\CustomerAddress;
+use App\Models\CatDownloads;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 
@@ -141,12 +142,9 @@ class CustomerController extends Controller
     }
 
      public function customerdownloads($customerid){
-          
   
          $user  = Users::findorFail($customerid);
       
-          
-    
          if($user->downloads>$user->todays_downloads)
          {
            $user->todays_downloads = $user->todays_downloads+1;
@@ -158,6 +156,43 @@ class CustomerController extends Controller
  }else{
   return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
+        
+     
+    
+    }
+
+     public function catdownloads($customerid,$category_id){
+
+   $user  = Users::findorFail($customerid);
+  
+         $downloadcount = CatDownloads::where('user_id',$customerid)->where('category_id',$category_id)->whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+
+         //print_r($downloadcount);
+        //  exit;
+
+
+      if($downloadcount<2){
+
+     
+         if($user->downloads>$user->todays_downloads)
+         {
+           $user->todays_downloads = $user->todays_downloads+1;
+         }else{
+           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
+            if($user->update()){
+              
+          CatDownloads::create([
+        'user_id' => $customerid,
+        'category_id' => $category_id,
+          ]);
+                      return response()->json(['error' => false,'data' =>"Success",'user'=>$user]);
+            }else{
+              return response()->json(['error' => true,'data' =>"Something went Wrong"]);
+               }
+              }else{
+                  return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
         
      
     

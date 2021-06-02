@@ -20,6 +20,10 @@ class SubCategories extends Model
     {
         return $this->hasMany('App\Models\Images', 'sub_cat_id', 'sub_cat_id')->orderBy('image_type','asc');
     } 
+      public function video()
+    {
+        return $this->hasMany('App\Models\Images', 'sub_cat_id', 'sub_cat_id')->where('post_type',3)->orderBy('image_type','asc');
+    } 
     
     public function imagelist()
     {

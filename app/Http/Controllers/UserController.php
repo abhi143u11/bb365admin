@@ -154,7 +154,7 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = Users::where('usertype','admin')
+        $users = Users::where('usertype','customer')
                        ->get(); 
         return view('admin.users',compact('users'));
     }
@@ -255,5 +255,15 @@ class UserController extends Controller
 
         Session::flash('statuscode','success');
         return redirect('/users')->with('status','Record Deleted Successfully');
+    }
+
+    
+    public function settodaydownloads()
+    {
+
+        Users::where('deleted_at','=',NULL)->update(['todays_downloads' => 0]);
+
+        Session::flash('statuscode','success');
+        return redirect('/users')->with('status','Records Updated Successfully');
     }
 }

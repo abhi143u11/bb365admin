@@ -170,26 +170,6 @@ Route::resource('categories', 'CategoriesController');
       ]);
       Route::get('/notificationmessage-edit/{id}','NotificationController@edit');
 
-    // Recipes
-    Route::get('recipes','RecipesController@index');
-    Route::post('recipes_insert','RecipesController@store');
-    Route::get('/recipes-edit/{recipe_id}','RecipesController@edit');
-    Route::PUT('/recipes-update/{recipe_id}','RecipesController@update');
-    Route::delete('/recipes-delete/{recipe_id}','RecipesController@destroy');
-
-    //Recipe Ingredients
-    Route::post('ingredients_insert','RecipesIngredientsController@store');
-    Route::get('/ingredients-edit/{recipe_ing_id}','RecipesIngredientsController@edit');
-    Route::PUT('/ingredients-update/{recipe_ing_id}','RecipesIngredientsController@update');
-    Route::delete('/ingredients-delete/{recipe_ing_id}','RecipesIngredientsController@destroy');
-
-    // Blogs
-    Route::get('blogs','BlogController@index');
-    Route::post('blogs_insert','BlogController@store');
-    Route::get('/blogs-edit/{id}','BlogController@edit');
-    Route::PUT('/blogs-update/{id}','BlogController@update');
-    Route::delete('/blogs-delete/{id}','BlogController@destroy');
-
     // Video
     Route::get('videos','VideoController@index');
     Route::post('videos_insert','VideoController@store');
@@ -197,55 +177,13 @@ Route::resource('categories', 'CategoriesController');
     Route::PUT('/videos-update/{id}','VideoController@update');
     Route::delete('/videos-delete/{id}','VideoController@destroy');
 
-    
-
+  
     //Transaction
     Route::get('/transaction', 'TransactionController@index');
 
-    //Add Wallet Balance
-    Route::get('wallet_balance','CustomerController@getcustomers');
-    Route::post('add/blance','CustomerController@walletbalance');
+    });
 
-     //Bills
-  Route::get('/bill','BillController@index')->name('bill.index');
-  Route::post('/bill-insert', 'BillController@insert')->name('bill.insert');
-  Route::get('/bill-edit/{id}','BillController@edit');
-  Route::PUT('/bill-update/{id}','BillController@update');
-  Route::get('/billproduct-edit/{id}','BillProductController@edit');
-  Route::delete('/bill-delete/{id}','BillController@destroy');
-  Route::get('getbilldata/{billid}','BillController@getbilldata');
-  Route::get('bill-status/{billid}','BillController@updatestatus');
+    //Set All Users Todays Downloads = 0
+    Route::get('/settodaydownloads', 'UserController@settodaydownloads');
 
-    //Bill Product
-    Route::get('/billproduct','BillProductController@index');
-    Route::post('billproduct_insert', [
-      'uses' => 'BillProductController@insert'
-    ]);
-    Route::get('/billproduct-edit/{id}','BillProductController@edit');
-    Route::PUT('/billproduct-update/{id}','BillProductController@update');
-    Route::delete('/billproduct-delete/{id}','BillProductController@destroy');
-
-    //Coupons
-   Route::get('/coupons','CouponsController@index');
-   Route::post('coupons_insert', [
-     'uses' => 'CouponsController@store'
-   ]);
-   Route::get('/coupons-edit/{id}','CouponsController@edit');
-   Route::PUT('/coupons-update/{id}','CouponsController@update');
-   Route::delete('/coupons-delete/{id}','CouponsController@delete');
-
-   });
-
-   //Invoice
-   Route::get('invoice/{id}','BillController@invoice');
-   Route::get('mini-invoice/{id}','BillController@miniinvoice');
-   
-
-      // //email
-      // Route::get('order/',function(){
-      //   $bills =  Bills::where('id',3)->first();
-      //   $billproducts = BillProduct::where('bill_id',3)->get();
-      //   $transaction = Transaction::where('user_id',3)->first();
-        
-      //   return view('email.order-approve',compact('bills','billproducts','transaction'));
-      // });
+    
