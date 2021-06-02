@@ -23,6 +23,8 @@ Route::post('update','API\CustomerController@update');
 Route::get('users','API\CustomerController@index');
 Route::get('userdetail/{userid}','API\CustomerController@userdetail');
 Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
+Route::get('downloads/{customerid}/{categoryid}','API\CustomerController@customerdownloads');
+
 
 
 //Displaying particuler Pages based on Id
