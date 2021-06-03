@@ -103,19 +103,48 @@ class CustomerController extends Controller
     public function update(Request $request){
 
      
-       
+          $validator = Validator::make($request->all(), [
+            'id' => 'required',
+          ]);
+  
+          if ($validator->fails()) {
+              return response()->json(['error' => true, 'validation' => $validator->messages()->first()]);
+              //return response()->json(['error' => true, 'validation' => $validator->messages()->first()]);
+          }
+
 
      $user  = Users::findorFail($request->input('id'));
 
+   if(!empty($request->business_name)){
+       $user->business_name = $request->business_name;
+   }
+   if(!empty($request->category_id)){
+       $user->category_id = $request->category_id;
+   }
+   if(!empty($request->name)){
+        $user->name = $request->name;
+   }
+   if(!empty($request->email)){
+        $user->email = $request->email;
+   }
+   if(!empty($request->phone1)){
+      $user->phone1 = $request->phone1;
+   }
+   if(!empty($request->address)){
+      $user->address = $request->address;
+   }
+   if(!empty($request->city)){
+        $user->city = $request->city;
+   }
+   
+         
            
-           $user->business_name = $request->input('business_name');
-            $user->category_id = $request->input('category_id');
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->phone1 = $request->input('phone1');
-            $user->phone2 = $request->input('phone2');
-            $user->address = $request->input('address');
-            $user->city = $request->input('city');
+          
+          
+           
+           // $user->phone2 = $request->input('phone2');
+           
+           
          
   
               if ($request->input('photo')) {
@@ -133,8 +162,9 @@ class CustomerController extends Controller
                }else{
   return response()->json(['error' => true,'data' =>"Something went"]);
                }
+             
                
-            
+                
 
       
     
