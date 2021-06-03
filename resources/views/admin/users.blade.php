@@ -120,7 +120,7 @@ User
                         Phone
                       </th>
                       <th>
-                        Email
+                       Business Name
                       </th>
                       <th>
                         Usertype
@@ -142,7 +142,7 @@ User
                         {{ $row->phone }}
                         </td>
                         <td>
-                        {{ $row->email }}
+                        {{ $row->business_name }}
                         </td>
                         <td>
                         {{ $row->usertype }}

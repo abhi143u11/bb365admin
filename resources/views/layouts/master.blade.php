@@ -165,6 +165,11 @@
                                 class="nav-label">Transactions</span></a>
                     </li> 
 
+                    <li class="{{'subscriptions' == request()->path() ? 'active' : ''}}">
+                        <a href="{{url('/subscriptions')}}"><i class="fa fa-briefcase"></i> <span
+                                class="nav-label">Subscriptions</span></a>
+                    </li> 
+
                     <li>
                     <a href="#" aria-expanded="false"><i class="fa fa-bars"></i> <span
                             class="nav-label">Manage</span> <span class="fa arrow"></span></a>

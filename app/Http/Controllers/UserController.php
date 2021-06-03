@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 
 use App\Models\Users;
+use App\Models\Subscription;
+use App\Models\Categories;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -154,8 +158,7 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = Users::where('usertype','customer')
-                       ->get(); 
+        $users = Users::where('usertype','customer')->get(); 
         return view('admin.users',compact('users'));
     }
 
@@ -204,9 +207,11 @@ class UserController extends Controller
     public function edit(Request $request,$id)
     {
         $users =   Users::findOrFail($id);
+        $categories = Categories::all();
+        $subscriptions = Subscription::all();
 
         Session::flash('statuscode','success');
-        return view('admin.users-edit')->with('users',$users);
+        return view('admin.users-edit',compact('users','categories','subscriptions'));
     }
 
     public function update(Request $request, $id)
@@ -214,33 +219,53 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
-            'usertype' => 'required',
-            'email' => 'required',
+           // 'usertype' => 'required',
+           // 'email' => 'required',
             
         ]);
 
         if ($validator->fails()) {
 
-            Session::flash('statuscode', 'danger');
-            return redirect('/users')->with('status', $validator->messages()->first());
+            Session::flash('statuscode', 'error');
+            return back()->with('status', $validator->messages()->first());
             //return response()->json(['error' => true, 'validation' => $validator->messages()->first()], 200, []);
         }
-        if ($request->hasFile('photo')) {
+        // if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $name = $file->getClientOriginalName();
-            $filename = time() . '' . $name;
-            Storage::disk('local')->put($filename, file_get_contents($file->getRealPath()));
-        }
+        //     $file = $request->file('photo');
+        //     $name = $file->getClientOriginalName();
+        //     $filename = time() . '' . $name;
+        //     Storage::disk('local')->put($filename, file_get_contents($file->getRealPath()));
+        // }
 
         $users = Users::find($id);
-        if ($request->hasFile('photo')) {
-            $users->photo = $filename;
-        }
+
+            if ($request->hasFile('photo')) {
+              $image = $request->file('photo');
+              $name = time().'.'.$image->getClientOriginalExtension();
+             $ImageUpload = Image::make($image);
+              $thumbnailPath = public_path('/images/');
+              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+            $users->photo = $name;
+               // print_r($image);exit;
+                  }
+
         $users->name = $request->name;
         $users->phone = $request->phone;
-        $users->usertype = $request->usertype;
+        $users->usertype = 'customer';
         $users->email = $request->email;
+        $users->business_name = $request->business_name;
+        $users->package_type = $request->pack_type;
+        $users->package_start = $request->pack_start;
+        $users->package_end = $request->pack_end;
+        $users->category_id = $request->category;
+        $users->phone1 = $request->phone1;
+        $users->phone2 = $request->phone2;
+        $users->address = $request->address;
+        $users->city = $request->city;
+        $users->downloads = $request->downloads;
+        $users->todays_downloads = $request->todays_downloads;
+        $users->unlimited = $request->unlimited;
         $users->password = Hash::make($request->password);
         $users->update();
 
