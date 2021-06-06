@@ -242,9 +242,9 @@ class UserController extends Controller
 
             if ($request->hasFile('photo')) {
               $image = $request->file('photo');
-              $name = time().'.'.$image->getClientOriginalExtension();
+              $name = $id.".png";
              $ImageUpload = Image::make($image);
-              $thumbnailPath = public_path('/images/');
+              $thumbnailPath = public_path('/images/logo/');
               $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
             $users->photo = $name;
                // print_r($image);exit;

@@ -24,7 +24,7 @@
 
 <div class="row">
                                     <div class="form-group col-md-4">
-                                  <img src="{{ URL::to('/') }}/images/{{ $users->photo }}" class="img-thumbnail" width='80' />
+                                  <img src="{{ URL::to('/') }}/images/logo/{{ $users->photo }}" class="img-thumbnail" width='80' />
                                     </div>
 
                                     <div class="form-group col-md-4">
@@ -51,13 +51,13 @@
                                     </select>
                                     </div> -->
 
-                                    <!-- <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4">
                                     <label for="email" class="col-form-label">Email:</label>
                                     <input type="email" name="email" value="{{ $users->email }}" class="form-control">
-                                    </div> -->
+                                    </div>
 
                                     <div class="form-group col-md-4">
-                                    <label for="business_name" class="col-form-label">Business Email:</label>
+                                    <label for="business_name" class="col-form-label">Business Name:</label>
                                     <input type="text" name="business_name" value="{{ $users->business_name }}" class="form-control">
                                     </div>
 

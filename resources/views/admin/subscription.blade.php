@@ -106,7 +106,7 @@
                   <th>Downloads</th>
                    <th>Days</th>
                   <th>Edit</th>
-                  @if(Auth::user()->usertype == 'superadmin')
+                  @if(Auth::user()->usertype == 'admin')
                   <th>Delete</th>
                   @endif
               </thead>
@@ -124,7 +124,7 @@
                   <td>
                     <a href="{{ url('edit-subscriptions/'.$subscription->subscription_id) }}" class="btn btn-warning" data-toggle="tooltip" data-placement="left" title="" data-original-title="Edit"><i class="fa fa-edit"></i> </a>
                   </td>
-                  @if(Auth::user()->usertype == 'superadmin')
+                  @if(Auth::user()->usertype == 'admin')
                   <td data-url="{{ url('subscriptions-delete/'.$subscription->subscription_id) }}">
                     <a href="javascript:void(0)" class="btn btn-danger deletebtn" data-toggle="tooltip" data-placement="left" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
                   </td>
