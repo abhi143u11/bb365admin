@@ -54,13 +54,14 @@ class NotificationController extends Controller
 
     $sub_cat_id_name = explode("-",$request->sub_cat_id);
 
-    // print_r($sub_cat_id_name[1]);exit;
+   //  print_r($sub_cat_id_name[0]);
   
         $notification_message = new NotificationMessage;
 
 
         $notification_message->t_title = $request->input('t_title');
         $notification_message->t_message = $request->input('t_message');
+        $notification_message->sub_cat_id = $sub_cat_id_name[0];
         $path = "";
             if($image = $request->file('image')){
         $filename = str_replace(' ', '-',time().$image->getClientOriginalName());

@@ -232,7 +232,7 @@ Images
                                 {{ $image->subcategories['sub_cat_name'] }}
                             </td>
                              <td>
-                                <?php  if($image->post_type==2){ echo 'Story'; }else{ echo 'Post'; } ?>
+                                <?php  if($image->post_type==2){ echo 'Story'; }else if($image->post_type==3){ echo 'Video'; }else{ echo 'Post'; } ?>
                             </td>
                           <td>
                                 <?php  if($image->image_type==1){ echo 'Paid'; }else{ echo 'Free'; } ?>

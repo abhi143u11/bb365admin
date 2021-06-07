@@ -8,3 +8,7 @@ ALTER TABLE `images` ADD `video` TEXT NULL DEFAULT NULL AFTER `image`;
 ALTER TABLE `users` ADD `unlimited` TINYINT NOT NULL DEFAULT '0' AFTER `city`;
 
 
+//07-06-2021
+ALTER TABLE `notification_message` CHANGE `customer_id` `sub_cat_id` INT(11) NULL DEFAULT NULL;
+
+
