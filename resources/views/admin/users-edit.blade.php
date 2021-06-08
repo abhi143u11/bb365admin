@@ -57,7 +57,7 @@
                                     </div> -->
 
                                     <div class="form-group col-md-4">
-                                    <label for="business_name" class="col-form-label">Business Email:</label>
+                                    <label for="business_name" class="col-form-label">Business Name:</label>
                                     <input type="text" name="business_name" value="{{ $users->business_name }}" class="form-control">
                                     </div>
 

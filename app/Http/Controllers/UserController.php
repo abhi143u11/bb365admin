@@ -159,7 +159,10 @@ class UserController extends Controller
 
     public function index(){
         $users = Users::where('usertype','customer')->get(); 
-        return view('admin.users',compact('users'));
+                $categories = Categories::all();
+        $subscriptions = Subscription::all();
+
+        return view('admin.users',compact('users','categories','subscriptions'));
     }
 
     public function insert(Request $request){
