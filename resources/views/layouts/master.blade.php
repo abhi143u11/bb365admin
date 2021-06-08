@@ -110,10 +110,11 @@
                                 class="nav-label">Bills</span></a>
                     </li>  -->
 
-                  <li class="{{'customers' == request()->path() ? 'active' : ''}}">
-                        <a href="{{url('/customers')}}"><i class="fa fa-users"></i> <span
-                                class="nav-label">Customers</span></a>
-                    </li> 
+                <li class="{{'users' == request()->path() ? 'active' : ''}}">
+                            <a href="{{url('/users')}}"><i class="fa fa-user"></i> <span
+                                    class="nav-label">Users</span></a>
+
+                        </li>
 
                 
 
@@ -171,22 +172,8 @@
                     </li> 
 
                     <li>
-                    <a href="#" aria-expanded="false"><i class="fa fa-bars"></i> <span
-                            class="nav-label">Manage</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                        @if(Auth::user()->usertype=='admin')
-
-                        <li class="{{'users' == request()->path() ? 'active' : ''}}">
-                            <a href="{{url('/users')}}"><i class="fa fa-user"></i> <span
-                                    class="nav-label">User Profile</span></a>
-
-                        </li>
-
-                        <!-- <li class="{{'slider' == request()->path() ? 'active' : ''}}">
-                        <a href="{{url('/slider')}}"><i class="fa fa-sliders"></i> <span
-                                class="nav-label">Slides</span></a>
-                       </li>  -->
-
+                 
+           
                        
 
                         <li class="{{'pages' == request()->path() ? 'active' : ''}}">
@@ -194,8 +181,6 @@
                                     class="nav-label">Pages</span></a>
                         </li> 
  
-                        @endif
-                        </ul>
                     </li>
                 
                   @endif

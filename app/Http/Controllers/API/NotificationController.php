@@ -15,7 +15,7 @@ class NotificationController extends Controller
     {
     
    
-        $notification = NotificationMessage::limit(10)->get();
+        $notification = NotificationMessage::latest()->limit(10)->get();
         return response()->json(['error' => false, 'notification' => $notification], 200, []);
 
     }
