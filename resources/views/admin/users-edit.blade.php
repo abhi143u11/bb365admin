@@ -42,14 +42,6 @@
                                     <input type="text" name="phone" value="{{ $users->phone }}" class="form-control">
                                     </div>
 
-                                    <!-- <div class="form-group">
-                                    <label>User Type</label>
-                                    <select name="usertype" class="form-control">
-                                        <option value="">Select User Type</option>
-                                        <option value="customer" {{ ($users->usertype == "customer")? "selected" : "" }}>Customer</option>
-                                        <option value="admin" {{ ($users->usertype == "admin")? "selected" : "" }}>Admin</option>
-                                    </select>
-                                    </div> -->
 
                                     <div class="form-group col-md-4">
                                     <label for="email" class="col-form-label">Email:</label>

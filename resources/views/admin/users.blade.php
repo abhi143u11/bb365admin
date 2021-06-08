@@ -25,7 +25,7 @@ User
                               
                                     <div class="form-group col-md-4">
                                     <label for="photo" class="col-form-label">Photo:</label>
-                                    <input type="file" name="photo">
+                                    <input type="file" accept=".jpeg,.jpg,.png,.gif" name="photo">
                                     </div>
                                    
                                     <div class="form-group col-md-4">
