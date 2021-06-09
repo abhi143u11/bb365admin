@@ -22,8 +22,8 @@ Route::post('update','API\CustomerController@update');
 //Displaying All Users 
 Route::get('users','API\CustomerController@index');
 Route::get('userdetail/{userid}','API\CustomerController@userdetail');
-Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
-Route::get('catdownloads/{customerid}/{categoryid}','API\CustomerController@catdownloads');
+// Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
+Route::get('catdownloads/{customerid}/{categoryid}/','API\CustomerController@catdownloads');
 
 
 

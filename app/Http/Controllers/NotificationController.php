@@ -67,7 +67,7 @@ class NotificationController extends Controller
         $filename = str_replace(' ', '-',time().$image->getClientOriginalName());
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
          $path = 
-         'https://admin.brandbuilder365.com/images/notification/'.time().'.'.$ext;
+         'https://bb365.brandbuilder365.com/images/notification/'.time().'.'.$ext;
    
         $image_resize = Image::make($image->getRealPath());
         $image_resize->resize(600,400);

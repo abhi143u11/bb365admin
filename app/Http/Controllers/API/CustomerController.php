@@ -194,17 +194,26 @@ class CustomerController extends Controller
      public function catdownloads($customerid,$category_id){
 
    $user  = Users::findorFail($customerid);
-  
-         $downloadcount = CatDownloads::where('user_id',$customerid)->where('category_id',$category_id)->whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+  //Check user if package is unlimited
+    if($user->unlimited==1){ 
+        return response()->json(['error' => false,'data' =>"Success",'user'=>$user]);
+      
+    }else{
 
-         //print_r($downloadcount);
-        //  exit;
+      //check if package is purchased
+      if($user->package_type==0){
+        return response()->json(['error' => false,'data' =>"Free",'user'=>$user]);
+      }else if($user->package_type == 3 && $user->package_end>=Carbon::today()){
 
 
-      if($downloadcount<2){
+        
+  $downloadcount = CatDownloads::where('user_id',$customerid)->where('category_id',$category_id)->whereDate('created_at', '=', Carbon::today()->toDateString())->count();
 
-     
-         if($user->downloads>$user->todays_downloads)
+
+
+      if($downloadcount<4){
+        
+     if($user->downloads>$user->todays_downloads)
          {
            $user->todays_downloads = $user->todays_downloads+1;
          }else{
@@ -216,16 +225,92 @@ class CustomerController extends Controller
         'user_id' => $customerid,
         'category_id' => $category_id,
           ]);
-                      return response()->json(['error' => false,'data' =>"Success",'user'=>$user]);
+                       return response()->json(['error' => false,'data' =>"Festival",'user'=>$user]);
+
             }else{
               return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
               }else{
                   return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
               }
+
+        
+      }else if($user->package_type == 3 && $user->package_end<Carbon::today()){
+        return response()->json(['error' => false,'data' =>"Your Package is Expired",'user'=>$user]);
+      }else if($user->package_type == 1 && $user->package_end<Carbon::today()){
+        return response()->json(['error' => false,'data' =>"Your Package is Expired",'user'=>$user]);
+      }else if($user->package_type == 2 && $user->package_end<Carbon::today()){
+        return response()->json(['error' => false,'data' =>"Your Package is Expired",'user'=>$user]);
+      }else if($user->package_type == 1 && $user->package_end>=Carbon::today()){
+
+                
+  $downloadcount = CatDownloads::where('user_id',$customerid)->where('category_id',$category_id)->whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+
+
+
+      if($downloadcount<2){
+        
+     if($user->downloads>$user->todays_downloads)
+         {
+           $user->todays_downloads = $user->todays_downloads+1;
+         }else{
+           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
+            if($user->update()){
+              
+          CatDownloads::create([
+        'user_id' => $customerid,
+        'category_id' => $category_id,
+          ]);
+                       return response()->json(['error' => false,'data' =>"Monthly",'user'=>$user]);
+
+            }else{
+              return response()->json(['error' => true,'data' =>"Something went Wrong"]);
+               }
+              }else{
+                  return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
+       
+      }else if($user->package_type == 2 && $user->package_end>=Carbon::today()){
+
+                
+  $downloadcount = CatDownloads::where('user_id',$customerid)->where('category_id',$category_id)->whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+
+
+
+      if($downloadcount<2){
+        
+     if($user->downloads>$user->todays_downloads)
+         {
+           $user->todays_downloads = $user->todays_downloads+1;
+         }else{
+           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
+            if($user->update()){
+              
+          CatDownloads::create([
+        'user_id' => $customerid,
+        'category_id' => $category_id,
+          ]);
+                       return response()->json(['error' => false,'data' =>"Yearly",'user'=>$user]);
+
+            }else{
+              return response()->json(['error' => true,'data' =>"Something went Wrong"]);
+               }
+              }else{
+                  return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+              }
+       
+      }else{
+      
+      
+      
+    return response()->json(['error' => true,'data' =>"Something went Wrong"]);
         
      
     
     }
+  }
+  }
 
  }

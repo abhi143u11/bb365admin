@@ -65,6 +65,7 @@
                                     <label  class="col-form-label">Package Type</label>
                                     <select name="pack_type" class="form-control">
                                         <option value="">Select Package Type</option>
+                                        <option value="0">No Package</option>
                                        @foreach ($subscriptions as $subscription)
                                             <option value="{{$subscription['subscription_id']}}"
                                                 {{ $subscription['subscription_id'] == $users->package_type ? 'selected="selected"' : '' }}>
