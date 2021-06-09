@@ -159,14 +159,17 @@ class UserController extends Controller
 
     public function index(){
         $users = Users::where('usertype','customer')->get(); 
-        return view('admin.users',compact('users'));
+                $categories = Categories::all();
+        $subscriptions = Subscription::all();
+
+        return view('admin.users',compact('users','categories','subscriptions'));
     }
 
     public function insert(Request $request){
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required|numeric|unique:users',
+            'phone' => 'required|numeric',
             'usertype' => 'required',
             'email' => 'required',
         ]);
@@ -180,24 +183,37 @@ class UserController extends Controller
 
         $users = new Users();
 
-        if ($request->hasFile('photo')) {
-
-            $file = $request->file('photo');
-            $name = $file->getClientOriginalName();
-            $filename = time() . '' . $name;
-            Storage::disk('local')->put($filename, file_get_contents($file->getRealPath()));
-        }
-
-        if ($request->hasFile('photo')) {
-            $users->photo = $filename;
-        }
+       if ($request->hasFile('photo')) {
+              $image = $request->file('photo');
+              $name = time().$request->name.$image->getClientOriginalName();
+             $ImageUpload = Image::make($image);
+              $thumbnailPath = public_path('/images/logo/');
+              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+            $users->photo = $name;
+               // print_r($image);exit;
+                  }
         
-        $users->name = $request->name;
+           $users->name = $request->name;
         $users->phone = $request->phone;
         $users->usertype = $request->usertype;
         $users->email = $request->email;
-        $users->password = Hash::make($request->password);
-        
+        $users->business_name = $request->business_name;
+        $users->package_type = $request->pack_type;
+        $users->package_start = $request->pack_start;
+        $users->package_end = $request->pack_end;
+        $users->category_id = $request->category;
+        $users->phone1 = $request->phone1;
+        $users->phone2 = $request->phone2;
+        $users->address = $request->address;
+        $users->city = $request->city;
+        $users->downloads = $request->downloads;
+        $users->todays_downloads = $request->todays_downloads;
+        $users->unlimited = $request->unlimited;
+
+        if($request->password){
+   $users->password = Hash::make($request->password);
+        }
+     
         $users->save();
 
         Session::flash('statuscode','success');
@@ -242,7 +258,7 @@ class UserController extends Controller
 
             if ($request->hasFile('photo')) {
               $image = $request->file('photo');
-              $name = $id.".png";
+                  $name = time().$request->name.$image->getClientOriginalName();
              $ImageUpload = Image::make($image);
               $thumbnailPath = public_path('/images/logo/');
               $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
