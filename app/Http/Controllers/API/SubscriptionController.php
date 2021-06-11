@@ -11,7 +11,7 @@ class SubscriptionController extends Controller
 {
     public function subscriptionPackages()
     {
-        $subscriptions = Subscription::where('amount','>=',100)->orderBy('amount','asc')
+        $subscriptions = Subscription::orderBy('amount','asc')
                         ->get();
         return response()->json(['error'=> false,'data' => $subscriptions], 200, []);
     }
