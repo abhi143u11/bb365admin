@@ -23,9 +23,10 @@ class CustomImgController extends Controller
      */
     public function index()
     {
-        $custom_imgs = CustomImgs::all();
+        $custom_imgs = CustomImgs::with('subcategories')->get();
+        $subcategories = SubCategories::all();
  
-        return view('admin.images.customimg',compact('custom_imgs'));
+        return view('admin.images.customimg',compact('custom_imgs','subcategories'));
     }
 
     
@@ -49,6 +50,7 @@ class CustomImgController extends Controller
     {
         $validator = Validator::make($request->all(), [
          'image' => 'required|mimes:jpeg,jpg,png,svg,gif|max:2048',
+         'sub_cat_id' => 'required',
              ]);
 
              if ($validator->fails()) {
@@ -67,7 +69,7 @@ class CustomImgController extends Controller
          if ($request->hasFile('image')) {
              $image = $request->file('image');
              $name = time().'.'.$image->getClientOriginalExtension();
-             $destinationPath = public_path('/customimg2');
+             $destinationPath = public_path('/images/images');
              $image->move($destinationPath, $name);
              $custom_imgs->image = $name;
                    }
@@ -75,11 +77,12 @@ class CustomImgController extends Controller
          if ($request->hasFile('file')) {
              $image = $request->file('file');
              $name = time().'.'.$image->getClientOriginalExtension();
-             $destinationPath = public_path('/customimg2');
+             $destinationPath = public_path('/psd');
              $image->move($destinationPath, $name);
              $custom_imgs->psd = $name;
                    }
 
+         $custom_imgs->category = $request->sub_cat_id;
          $custom_imgs->save();
  
         Session::flash('statuscode','success');

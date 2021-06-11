@@ -46,7 +46,16 @@ PSD File
                         <label for="image" >Choose PSD File:</label>
                         <input type="file" name="file" accept=".psd" class="form-control">
                     </div>
-            
+
+                      <div class="form-group">
+                            <label for="category_id">Category:</label>
+                            <select class="form-control" name="sub_cat_id" id="sub_cat_id1">
+                                <option value="">Select Category</option>
+                                @foreach ($subcategories as $value)
+                                <option value="{{ $value->sub_cat_id  }}" >{{ $value->sub_cat_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,6 +119,9 @@ PSD File
                       <th>
                       File Name
                       </th>
+                      <th>
+                        Category
+                      </th>
                         <th>
                             Action
                         </th>
@@ -118,12 +130,14 @@ PSD File
                  @foreach ($custom_imgs as $image)
                         <tr>
                               <td>
-                                <img src="{{ URL::to('/') }}/customimg2/{{ $image->image }}" class="img-thumbnail" width='80' />
+                                <img src="{{ URL::to('/') }}/images/images/{{ $image->image }}" class="img-thumbnail" width='80' />
                             </td>
                               <td>
                                 {{ $image->psd }}
                             </td>
-
+                              <td>
+                                {{ $image->subcategories['sub_cat_name'] }}
+                            </td>
                             <td data-url="{{ url('customimg-delete/' . $image->image_id ) }}">
                                 <a href="javascript:void(0)" 
                                 class="btn-sm btn btn-danger deletebtn"

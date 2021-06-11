@@ -48,7 +48,7 @@ Categories
             {
                return false;
             }
-};
+        };
 </script>
 
 

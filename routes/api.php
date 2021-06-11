@@ -68,5 +68,8 @@ Route::post('bill/add','API\BillController@addbill');
 //All Videos
 Route::get('allvideos','API\VideoController@allvideos');
 
+//Custom Imgs
+Route::get('customimgs','API\ImagesController@index');
+
 //All Packages
 Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
