@@ -29,13 +29,17 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => true,'validation'=>$validator->messages()->first()], 200, []);
         }
+          $user = new  User();
         if ($request->hasFile('photo')) {
-            $image      = $request->file('photo');
-            $fileName   = 'images/photo'.'/'.time() . '.' . $image->getClientOriginalExtension();
-            Storage::disk('local')->put('images/1/smalls'.'/'.$fileName, $image, 'public');
+            $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id').'.png';
+            $destinationPath = public_path('/images/logo/');
+          Image::make($image)->save($destinationPath.$name);     
+  
+           $user->photo = $name;
         }
 
-       $user = new  User();
+     
        $user->name = $request->name;
        $user->mobile = $request->mobile;
        $user->photo = $fileName;
@@ -73,10 +77,12 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $name = $file->getClientOriginalName();
-            $filename = time() . '' . $name;
-            Storage::disk('local')->put($filename, file_get_contents($file->getRealPath()));
+                  $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id').'.png';
+            $destinationPath = public_path('/images/logo/');
+          Image::make($image)->save($destinationPath.$name);     
+  
+           $user->photo = $name;
         }
 
 
@@ -125,19 +131,21 @@ class UserController extends Controller
             return redirect('/role-register')->with('status',  $error->errors()->all());
             ///return response()->json(['error' => true, 'validation' => $validator->messages()->first()], 200, []);
 }
-
+   $users = User::find($id);
         if ($request->hasFile('photo')) {
 
-            $file = $request->file('photo');
-            $name = $file->getClientOriginalName();
-            $filename = time() . '' . $name;
-            Storage::disk('local')->put($filename, file_get_contents($file->getRealPath()));
+                $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id').'.png';
+            $destinationPath = public_path('/images/logo/');
+          Image::make($image)->save($destinationPath.$name);     
+  
+           $user->photo = $name;
         }
 
-        $users = User::find($id);
-        if ($request->hasFile('photo')) {
-            $users->photo = $filename;
-        }
+     
+        // if ($request->hasFile('photo')) {
+        //     $users->photo = $filename;
+        // }
         $users->name = $request->name;
         $users->phone = $request->phone;
         $users->usertype = $request->usertype;
@@ -260,8 +268,8 @@ class UserController extends Controller
 
             if ($request->hasFile('photo')) {
               $image = $request->file('photo');
-                  $name = time().$request->name.$image->getClientOriginalName();
-             $ImageUpload = Image::make($image);
+                  $name = $id.".png";
+             //$ImageUpload = Image::make($image);
               $thumbnailPath = public_path('/images/logo/');
               $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
             $users->photo = $name;
