@@ -141,15 +141,75 @@
                         </div>
 
                     </div>
+
+                    
+
                 </div>
             </div>
+
         </div>
 
+    <hr>
+<h4>Transaction</h4>
+<div class="ibox-content">
+    <table class="table dataTables-garment_table" class="garment_table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Amount</th>
+                </tr>
+        </thead>
+        <tbody>
+           @foreach($transactions as $transaction)
+            <tr>
+                <td>{{ $transaction->transaction_id }}</td>
+               <td>{{ date("d-m-Y", strtotime($transaction->created_at)) }}</td>
+             
+                <td>{{ $transaction->amount }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+</div>
 
 @endsection
 
-
-
 @section('scripts')
+<script>
+$(document).ready(function() {
+    $('.dataTables-garment_table').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [{
+                extend: 'copy'
+            },
+            {
+                extend: 'csv'
+            },
+            {
+                extend: 'excel'
+            },
+            {
+                extend: 'pdf'
+            },
+            {
+                extend: 'print',
+                customize: function(win) {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
 
+                    $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+    });
+
+    </script>
 @endsection

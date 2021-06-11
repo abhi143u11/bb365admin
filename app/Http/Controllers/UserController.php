@@ -7,6 +7,7 @@ use App\User;
 use App\Models\Users;
 use App\Models\Subscription;
 use App\Models\Categories;
+use App\Models\Transaction;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -225,9 +226,10 @@ class UserController extends Controller
         $users =   Users::findOrFail($id);
         $categories = Categories::all();
         $subscriptions = Subscription::all();
+        $transactions = Transaction::where('user_id',$id)->get();
 
         Session::flash('statuscode','success');
-        return view('admin.users-edit',compact('users','categories','subscriptions'));
+        return view('admin.users-edit',compact('users','categories','subscriptions','transactions'));
     }
 
     public function update(Request $request, $id)

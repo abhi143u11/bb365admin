@@ -5,13 +5,6 @@
 @endsection
 
 @section('content')
-<!-- Modal -->
-
-
-
-
-<!-- end delete Modal -->
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
