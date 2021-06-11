@@ -64,7 +64,7 @@ Images
                             <label for="post_type">Post Type:</label>
                             <select class="form-control" name="post_type" id="post_type">
                                 <option value="1">Post</option>    
-                                <option value="2">Story</option>
+                                <!-- <option value="2">Story</option> -->
                                  <option value="3">Video</option>
                             </select>
                         </div>
@@ -140,8 +140,6 @@ Images
                         </div>
 
                         </div>
-
-       
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -149,11 +147,10 @@ Images
             </div>
       </form>
         </div>
-     
     </div>
 </div>
-
 <!-- end  Modal -->
+
 <!-- delete Modal -->
 <div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

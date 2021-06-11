@@ -125,31 +125,13 @@
                         </div>
                     </div>
                  </div>
-
+                 
 <div class="row">
-     <div class="col-lg-12">
-                       <div class="ibox ">
-
-                            <div class="ibox-title">
-
-                                <h5>Daily Sales</h5>
-                            </div>
-
-                     <div class="ibox-content">
-
-                    <div id="morris-one-line-chart"></div>
-                    </div>
-                    </div>
-                    </div>
-
                     <div class="col-lg-12">
                        <div class="ibox ">
-
                             <div class="ibox-title">
-
                                 <h5>Todays Orders</h5>
                             </div>
-
 
   <div class="ibox-content">
           <table class="table" id="myTable2">
@@ -173,14 +155,11 @@
                                 Total Amount
                             </th>
                             <th>
-                                Status
-                            </th>
-                            <th>
                                 Action
                             </th>
                         </thead>
                         <tbody>
-                        @foreach ($bills as $bill)
+                        @foreach ($todays_transaction as $bill)
                                 <tr>
                                     <td>
                                         {{ $bill->id }}
@@ -198,15 +177,7 @@
                                         {{ $bill->area }}
                                     </td>
                                     <td>
-                                        {{ $bill->total_amount }}
-                                    </td>
-                                    <td>
-                                    @if($bill->status=='ordered')
-                                        <span style="display:inline-block; width:90px" class="label label-danger">Ordered</span> @elseif($bill->status=='inprogress')
-                                        <span style="display:inline-block; width:90px" class="label label-info">In-Progress</span>@elseif($bill->status=='inprogress')
-                                        <span style="display:inline-block; width:90px" class="label label-success">Delivering</span>@else
-                                        <span style="display:inline-block; width:90px" class="label label-warning">Delivered</span>
-                                        @endif
+                                        {{ $bill->amount }}
                                     </td>
                                     <td>
                                     <a href="javascript:void(0)" billid="{{ $bill->id }}"
@@ -229,21 +200,6 @@
 @section('scripts')
 
 <script type="text/javascript">
- Morris.Line({
-        element:'morris-one-line-chart',
-            data: {!! $orders !!},
-        xkey: 'days',
-        ykeys: ['sums'],
-        resize: true,
-        lineWidth:4,
-        labels: ['Total Amount'],
-        lineColors: ['#1ab394'],
-        pointSize:5,
-        xLabelFormat: function (d) {
-    return ("0" + d.getDate()).slice(-2) + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
-}
-    });
-
     jQuery(document).on('click', '.viewdetails', function () {
     var billid = jQuery(this).attr('billid');
    // alert(billid);
@@ -265,15 +221,10 @@
     });
 });
 
-// $(document).ready(function () {
-//     var graph = Graph();
 
-//     Morris.Donut({
-//         element: 'morris-donut-chart',
-//         data: graph[0].graph,
-//         resize: true
-//     });
-// });
+$(document).ready(function() {
+    $('#myTable2').DataTable();
+});
 
 // function Graph() {
 //     var data = "";
@@ -294,6 +245,7 @@
 
 //     return data;
 // }
+
 </script>
 
 @endsection

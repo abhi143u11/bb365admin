@@ -28,6 +28,7 @@ class ImagesController extends Controller
       return view('admin.images.images',compact('images','subcategories'));
     }
 
+
     public function insert(Request $request)
     {
     //  dd($request->all());
@@ -251,4 +252,5 @@ class ImagesController extends Controller
       return redirect('/imagesnew')->with('status','Record Deleted Successfully');
    
     }
+ 
 }

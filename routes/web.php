@@ -67,7 +67,11 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/addres-edit/{id}','CustomerAddressController@edit');
     Route::PUT('/address-update/{id}','CustomerAddressController@update');
     Route::delete('/addres-delete/{id}','CustomerAddressController@destroy');
-    
+
+    //Custom Images
+   Route::get('/customimg','CustomImgController@index');
+   Route::post('customimg_insert','CustomImgController@store');
+     Route::delete('/customimg-delete/{id}','CustomImgController@destroy');
 
 
   //Customers
