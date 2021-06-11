@@ -25,7 +25,6 @@ class CategoriesController extends Controller
 
       public function categorieswithsub()
     {
-  
 
  $categories = Categories::where('active', 1)->where('cat_type',2)->with('subcategories')->has('subcategories')->orderBy('order_no','asc')->get();
 
@@ -66,7 +65,8 @@ class CategoriesController extends Controller
     }
 
      public function subcategorieslist()
-    {   $categories = Categories::where('active', 1)->where('cat_type',2)->pluck('id')->toArray();
+    { 
+          $categories = Categories::where('active', 1)->where('cat_type',2)->pluck('id')->toArray();
         $subcategories = SubCategories::with('imagelist')->where('active',1)->whereIn('cat_id',$categories)->whereNull('festival_date')->get();
         if($subcategories->count() > 0){
         return response()->json(['error' =>false, 'data' =>  $subcategories],200);

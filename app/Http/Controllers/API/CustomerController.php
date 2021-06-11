@@ -15,7 +15,6 @@ use Carbon\Carbon;
 class CustomerController extends Controller
   {
 
-
     public function index(){
         $users = Users::all(); 
 

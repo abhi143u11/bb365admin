@@ -35,6 +35,18 @@ class ImagesController extends Controller
 
     }
 
+    public function sub_categories_wise($sub_id)
+    {
+         $customimgs = CustomImgs::with('subcategories')->where('category',$sub_id)->get();
+
+        if($customimgs ->count() > 0){
+            return response()->json($customimgs,200);
+        }else{
+            return response()->json(['error' => true, 'Message' => "No Custom Imgs found"], 200);
+        }
+
+    }
+
 
     public function insert(Request $request)
     {
