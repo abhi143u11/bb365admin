@@ -61,7 +61,7 @@
     $(document).ready(function() {
 
         $('.summernote').summernote({
-            height: 150 //set editable area's height
+            height: 500 //set editable area's height
 
         });
     });

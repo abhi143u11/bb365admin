@@ -88,9 +88,7 @@
                             <th>
                                 Page Title
                             </th>
-                            <th>
-                                Page Description
-                            </th>
+
                             <th>
                                 Action
                             </th>
@@ -102,19 +100,17 @@
                                     <td>
                                         {{ $page->page_title }}
                                     </td>
+                                
                                     <td>
-                                        {{ $page->page_description }}
-                                    </td>
-                                    <td data-url="{{ url('pages-delete/' . $page->id) }}">
                                         <a href="{{ url('pages-edit/' . $page->id) }}"
                                         class="btn-sm btn btn-warning"
                                         data-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fa fa-edit"></i>  </a>
-
+<!-- 
                                         <a href="javascript:void(0)"
                                         class="btn-sm btn btn-danger deletebtn"
                                         data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i
-                                        class="fa fa-trash"></i> </a>
+                                        class="fa fa-trash"></i> </a> -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -156,7 +152,7 @@
     $(document).ready(function() {
 
         $('.summernote').summernote({
-            height: 150 //set editable area's height
+            height: 500 //set editable area's height
 
         });
     });
