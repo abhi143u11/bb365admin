@@ -25,8 +25,6 @@ Route::get('userdetail/{userid}','API\CustomerController@userdetail');
 // Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
 Route::get('catdownloads/{customerid}/{categoryid}/','API\CustomerController@catdownloads');
 
-
-
 //Displaying particuler Pages based on Id
 Route::get('page/{id}','API\PageController@pagesdetails');
 
@@ -61,7 +59,6 @@ Route::get('subcatimages/{subcatid}','API\CategoriesController@subcatimages');
 Route::get('subcatvideos/{subcatid}','API\CategoriesController@subcatvideos');
 Route::get('subcatimages/story/{subcatid}','API\CategoriesController@subcatstoryimages');
 
-
 //Bills
 Route::post('bill/add','API\BillController@addbill');
 
@@ -70,7 +67,7 @@ Route::get('allvideos','API\VideoController@allvideos');
 
 //Custom Imgs
 Route::get('customimgs','API\ImagesController@index');
-Route::get('subcategorie/{id}','API\ImagesController@sub_categories_wise');
+Route::get('subcategory/{id}','API\ImagesController@sub_categories_wise');
 
 //All Packages
 Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');

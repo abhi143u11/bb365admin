@@ -12,8 +12,7 @@ class BillProduct extends Model
     protected $table = 'bill_products';
     protected $fillable = ['bill_id','product_cat_id','product_id',
                            'product_name','image','mrp','sub_total',
-                            'size','discount','vendor_id','quantity',
-                        ];
+                            'size','discount','vendor_id','quantity'];
 
 
     public function products()

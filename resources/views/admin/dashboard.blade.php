@@ -5,34 +5,6 @@
 @endsection
 
 @section('content')
-<!-- Modal -->
-<div class="modal fade" id="showmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Bills Detail</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <div class="biildetails col-md-12"></div>
-            <div class="totalamount col-md-12"></div>
-            <div class="transaction col-md-12"></div>
-      
-            </div>
-            <div class="modal-footer">
-         
-            </div>
-
-        </div>
-      
-    </div>
-</div>
-
-<!-- end  Modal -->
-
     <div class="row">
 
     <div class="col-lg-3">
@@ -44,7 +16,7 @@
                                 <h5>Todays Customers</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $todays_customers }}</h1>
+                                <h1 class="no-margins counter-count">{{ $todays_customers }}</h1>
                                 <div class="stat-percent font-bold text-success"><i class="fa fa-bolt"></i></div>
                             </div>
                         </div>
@@ -59,7 +31,7 @@
                                 <h5>Todays Orders</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $todays_orders }}</h1>
+                                <h1 class="no-margins counter-count">{{ $todays_orders }}</h1>
                                 <div class="stat-percent font-bold text-danger"><i class="fa fa-bolt"></i></div>
                             </div>
                             </div>
@@ -73,8 +45,8 @@
                                 </div>
                                 <h5>Todays Amount</h5>
                             </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">₹ {{ number_format((float)$todays_amount,2, ',', '') }}</h1>
+                            <div class="ibox-content"> 
+                                <h1 class="no-margins counter-count">{{ $todays_amount}}</h1>
                                 <div class="stat-percent font-bold text-success"><i class="fa fa-bolt"></i></div>
                             </div>
                         </div>
@@ -89,7 +61,7 @@
                                 <h5>Total Amount</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">₹{{ number_format((float)$total_amount,2,',', '') }}</h1>
+                                <h1 class="no-margins counter-count">{{ $total_amount}}</h1>
                                 <div class="stat-percent font-bold text-warning"><i class="fa fa-bolt"></i></div>
                             </div>
                         </div>
@@ -104,7 +76,7 @@
                                 <h5>Total Customers</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $total_customers }}</h1>
+                                <h1 class="no-margins counter-count">{{ $total_customers }}</h1>
                                 <div class="stat-percent font-bold text-info"><i class="fa fa-bolt"></i></div>
                             </div>
                         </div>
@@ -119,7 +91,7 @@
                                 <h5>Total Orders </h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $total_orders }}</h1>
+                                <h1 class="no-margins counter-count">{{ $total_orders }}</h1>
                                 <div class="stat-percent font-bold text-info"><i class="fa fa-bolt"></i></div>
                             </div>
                         </div>
@@ -137,7 +109,7 @@
           <table class="table" id="myTable2">
                     <thead>
                             <th>
-                                Order Id
+                                T.Id
                             </th>
                             <th>
                                 Bill Date
@@ -149,20 +121,18 @@
                                 Mobile
                             </th>
                             <th>
-                                Area
+                              Payment Method
                             </th>
                             <th>
                                 Total Amount
                             </th>
-                            <th>
-                                Action
-                            </th>
+
                         </thead>
                         <tbody>
                         @foreach ($todays_transaction as $bill)
                                 <tr>
                                     <td>
-                                        {{ $bill->id }}
+                                        {{ $bill->transaction_id }}
                                     </td>
                                     <td>
                                       {{ \Carbon\Carbon::parse($bill->bill_date)->format('d/m/Y')}}
@@ -171,20 +141,15 @@
                                    <p class="text-capitalize">{{ $bill->name }}</p>
                                     </td>
                                     <td>
-                                        {{ $bill->mobile }}
+                                        {{ $bill->mobile_number }}
                                     </td>
                                     <td>
-                                        {{ $bill->area }}
+                                        {{ $bill->payment_method }}
                                     </td>
                                     <td>
                                         {{ $bill->amount }}
                                     </td>
-                                    <td>
-                                    <a href="javascript:void(0)" billid="{{ $bill->id }}"
-                                        class="btn-sm btn btn-danger viewdetails"
-                                        data-toggle="tooltip" data-placement="top"  title="View"><i
-                                        class="fa fa-eye"></i> </a>
-                                    </td>
+                                 
                                 </tr>
                             @endforeach
                         </tbody>
@@ -223,8 +188,14 @@
 
 
 $(document).ready(function() {
-    $('#myTable2').DataTable();
+    $('#myTable2').DataTable({
+         buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
 });
+
+
 
 // function Graph() {
 //     var data = "";
@@ -245,6 +216,18 @@ $(document).ready(function() {
 
 //     return data;
 // }
+
+    $('.counter-count').each(function() {
+    $(this).prop('Counter', 0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function(now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
 
 </script>
 
