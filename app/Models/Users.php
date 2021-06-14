@@ -18,6 +18,16 @@ class Users extends Model
         
         return $this->hasMany('App\Models\CustomerAddress','customer_id','id');
     }
+
+    public function category(){
+        
+        return $this->hasOne('App\Models\Categories','id','category_id');
+    }
+
+    public function subscription(){
+        
+        return $this->hasOne('App\Models\Subscription','subscription_id','package_type');
+    }
    
       
 }

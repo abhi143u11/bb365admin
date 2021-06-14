@@ -190,9 +190,6 @@ User
             <div class="table-responsive">
                 <table class="table table-striped" id="myTable">
                     <thead>
-                    <th>
-                        Id
-                      </th>
                       <th>
                         Name
                       </th>
@@ -203,7 +200,19 @@ User
                        Business Name
                       </th>
                       <th>
-                        Usertype
+                       Category 
+                      </th>
+                      <th>
+                       Package Type 
+                      </th>
+                      <th>
+                       Package Start 
+                      </th>
+                      <th>
+                       Package End 
+                      </th>
+                      <th>
+                        Registered Date
                       </th>
                       <th>
                        Action
@@ -212,9 +221,6 @@ User
                     <tbody>
                     @foreach($users as $row)
                       <tr>
-                      <td>
-                          {{ $row->id }}
-                        </td>
                         <td>
                           {{ $row->name }}
                         </td>
@@ -225,7 +231,19 @@ User
                         {{ $row->business_name }}
                         </td>
                         <td>
-                        {{ $row->usertype }}
+                        {{ $row->category['cat_name'] }}
+                        </td>
+                        <td>
+                        {{ $row->subscription['subscription_name'] }}
+                        </td>
+                        <td>
+                        {{ date('d F Y', strtotime($row->package_start)) }}
+                        </td>
+                        <td>
+                        {{ date('d F Y', strtotime($row->package_end)) }}
+                        </td>
+                        <td>
+                        {{ date('d F Y', strtotime($row->created_at)) }}
                         </td>
                         <td data-url="{{ url('users-delete/' .$row->id) }}">
                                         <a href="{{ url('users-edit/'.$row->id) }}"

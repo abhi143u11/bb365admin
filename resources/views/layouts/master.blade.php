@@ -111,13 +111,12 @@
                     </li>  -->
 
                 <li class="{{'users' == request()->path() ? 'active' : ''}}">
-                            <a href="{{url('/users')}}"><i class="fa fa-user"></i> <span
-                                    class="nav-label">Users</span></a>
+                            <a href="{{url('/users')}}"><i class="fa fa-users"></i> <span
+                                    class="nav-label">Customers</span></a>
 
                         </li>
 
-                
-
+            
                     <!-- <li class="{{'bulkproducts' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/bulkproducts')}}"><i class="fa fa-pencil"></i> <span
                                 class="nav-label">Price Update</span></a>
@@ -138,10 +137,11 @@
                                 class="nav-label">Blogs</span></a>
                     </li>  -->
 
-                    <li class="{{'videos' == request()->path() ? 'active' : ''}}">
+                    <!-- <li class="{{'videos' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/videos')}}"><i class="fa fa-video-camera"></i> <span
                                 class="nav-label">Videos</span></a>
-                    </li> 
+                    </li>  -->
+
                      <li class="{{'categories' == request()->path() ? 'active' : ''}}">
                             <a href="{{url('/categories')}}"><i class="fa fa-align-justify"></i> <span
                                     class="nav-label">Categories</span></a>

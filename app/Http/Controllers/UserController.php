@@ -167,7 +167,7 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = Users::where('usertype','customer')->where('beepixl',0)->get(); 
+        $users = Users::where('usertype','customer')->with('category','subscription')->where('beepixl',0)->get(); 
          $categories = Categories::all();
         $subscriptions = Subscription::all();
 
