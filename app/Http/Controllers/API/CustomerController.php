@@ -253,7 +253,7 @@ class CustomerController extends Controller
          {
            $user->todays_downloads = $user->todays_downloads+1;
          }else{
-           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+           return response()->json(['error' => false,'data' =>"For this particular category you have reached daily limit"]);
               }
             if($user->update()){
               
@@ -267,7 +267,7 @@ class CustomerController extends Controller
               return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
               }else{
-                  return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+                  return response()->json(['error' => false,'data' =>"For this particular category you have reached daily limit"]);
               }
        
       }else if($user->package_type == 2 && $user->package_end>=Carbon::today()){
@@ -283,7 +283,7 @@ class CustomerController extends Controller
          {
            $user->todays_downloads = $user->todays_downloads+1;
          }else{
-           return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+           return response()->json(['error' => false,'data' =>"For this particular category you have reached daily limit"]);
               }
             if($user->update()){
               
@@ -297,7 +297,7 @@ class CustomerController extends Controller
               return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
               }else{
-                  return response()->json(['error' => false,'data' =>"You Have Already Downloaded"]);
+                  return response()->json(['error' => false,'data' =>"For this particular category you have reached daily limit"]);
               }
        
       }else{
