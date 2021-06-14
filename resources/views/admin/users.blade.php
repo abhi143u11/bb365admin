@@ -188,7 +188,7 @@ User
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
-                <table class="table table-striped" id="myTable">
+                <table class="table table-striped" id="myTable1">
                     <thead>
                       <th>
                         Name
@@ -271,7 +271,7 @@ User
 <script>
 $(document).ready(function() {
 
-    $('#myTable').on('click', '.deletebtn', function() {
+    $('#myTable1').on('click', '.deletebtn', function() {
 
         $tr = $(this).closest('tr');
         var url = $(this).parent("td").data('url');
@@ -287,9 +287,12 @@ $(document).ready(function() {
 
     });
 });
+
 $(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $('#myTable1').DataTable( {
+        "order": [[ 7, "desc" ]]
+    } );
+} );
 </script>
 
 
