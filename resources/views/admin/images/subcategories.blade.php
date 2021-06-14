@@ -114,7 +114,7 @@ Sub Category
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
-                <table class="table table-striped" id="myTable">
+                <table class="table table-striped" id="myTable2">
                     <thead>
                         <th>
                             Image
@@ -145,9 +145,10 @@ Sub Category
                              <td>
                                 {{ $subcategory->categories['cat_name'] }}
                             </td>
-                             <td>
-                                {{ $subcategory->festival_date }}
-                            </td>
+                    
+                              <td data-sort="<?php echo strtotime($subcategory->festival_date); ?>">
+                        {{ date('d F Y', strtotime($subcategory->festival_date)) }}
+                        </td>
                            
                             <td data-url="{{ url('subcategory-delete/' . $subcategory->sub_cat_id) }}">
                                 <a href="{{ url('subcategory-edit/' . $subcategory->sub_cat_id) }}" 
@@ -191,9 +192,13 @@ $(document).ready(function() {
 
     });
 });
+
+
 $(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $('#myTable2').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
 </script>
 
 

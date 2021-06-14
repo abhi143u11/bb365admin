@@ -37,7 +37,9 @@
                 @foreach($transactions as $transaction)
                 <tr>
                   <td>{{ $transaction->transaction_id }}</td>
-                  <td>{{ $transaction->created_at }}</td>
+                    <td data-sort="<?php echo strtotime($transaction->created_at); ?>">
+                  {{ date('d F Y', strtotime($transaction->created_at)) }}
+                  </td>
                   <td>{{ $transaction->name }}</td>
                     <td>{{ $transaction->mobile_number }}</td>
                  <td>{{ $transaction->status }}</td>
@@ -64,7 +66,7 @@
 
         //$('#client_table').DataTable();
         $('.dataTables').DataTable({
-            "order": [[ 0, "desc" ]],
+            "order": [[ 1, "desc" ]],
             pageLength: 10,
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',

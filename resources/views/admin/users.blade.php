@@ -236,13 +236,13 @@ User
                         <td>
                         {{ $row->subscription['subscription_name'] }}
                         </td>
-                        <td>
+                      <td data-sort="<?php echo strtotime($row->package_start); ?>">
                         {{ date('d F Y', strtotime($row->package_start)) }}
                         </td>
-                        <td>
+                        <td data-sort="<?php echo strtotime($row->package_end); ?>">
                         {{ date('d F Y', strtotime($row->package_end)) }}
                         </td>
-                        <td>
+                       <td data-sort="<?php echo strtotime($row->created_at); ?>">
                         {{ date('d F Y', strtotime($row->created_at)) }}
                         </td>
                         <td data-url="{{ url('users-delete/' .$row->id) }}">

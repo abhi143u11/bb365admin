@@ -134,9 +134,10 @@
                                     <td>
                                         {{ $bill->transaction_id }}
                                     </td>
-                                    <td>
-                                      {{ \Carbon\Carbon::parse($bill->bill_date)->format('d/m/Y')}}
-                                    </td>
+                                   
+                                     <td data-sort="<?php echo strtotime($bill->bill_date); ?>">
+                                        {{ date('d F Y', strtotime($bill->bill_date)) }}
+                                        </td>
                                     <td>
                                    <p class="text-capitalize">{{ $bill->name }}</p>
                                     </td>
@@ -191,7 +192,8 @@ $(document).ready(function() {
     $('#myTable2').DataTable({
          buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+        ],
+         "order": [[ 1, "desc" ]]
     });
 });
 
