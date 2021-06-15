@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 @extends('layouts.master')
 
 @section('title')
@@ -215,6 +218,9 @@ User
                         Registered Date
                       </th>
                       <th>
+                       Status
+                      </th>
+                      <th>
                        Action
                       </th>
                     </thead>
@@ -233,18 +239,39 @@ User
                         <td>
                         {{ $row->category['cat_name'] }}
                         </td>
-                        <td>
-                        {{ $row->subscription['subscription_name'] }}
+                        <td> @if(!empty($row->subscription['subscription_name']))
+                       {{ $row->subscription['subscription_name'] }}
+                        @else
+No Package
+                        @endif
                         </td>
                       <td data-sort="<?php echo strtotime($row->package_start); ?>">
+
+@if(!empty($row->package_start))
                         {{ date('d F Y', strtotime($row->package_start)) }}
+                        @else
+
+                        @endif
+
                         </td>
                         <td data-sort="<?php echo strtotime($row->package_end); ?>">
                         {{ date('d F Y', strtotime($row->package_end)) }}
                         </td>
+
                        <td data-sort="<?php echo strtotime($row->created_at); ?>">
                         {{ date('d F Y', strtotime($row->created_at)) }}
                         </td>
+
+                       <td>
+                       @if(!empty($row->package_end) && $row->package_end > Carbon::today())
+                      <span class="label label-primary" style="background-color: #4caf50 !important;">Active</span> 
+                        @elseif(!empty($row->package_end) && $row->package_end < Carbon::today())
+                    <span class="label label-danger">In-Active</span> 
+                    @else
+               <span class="label label-info">Free</span>          @endif
+                
+                        </td>
+
                         <td data-url="{{ url('users-delete/' .$row->id) }}">
                                         <a href="{{ url('users-edit/'.$row->id) }}"
                                         class="btn-sm btn btn-warning"
