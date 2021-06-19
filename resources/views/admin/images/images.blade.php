@@ -281,27 +281,19 @@ $(document).ready(function() {
 </script>
   <script type="text/javascript">
 
-$(document).ready(function() {
+
     $('#bulk').on('click',function(event){
-        event.preventDefault();
+       // event.preventDefault();
 //
 
         let image_type = $('#image_type1').val();
         let post_type = $('#post_type1').val();
         let sub_cat_id = $('#sub_cat_id1').val();
-        // alert(sub_cat_id);
-
-        $.ajax({
-          type: "get",
-  url: "bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id,
-
-  success: function(url){
-         window.location.href = "bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id;
-
-  },
-         });
+       // alert(sub_cat_id);
+ window.open("bulk/?id="+image_type+"/"+post_type+"/"+sub_cat_id,"_self");
+// alert(sub_cat_id);
         });
-        });
+  
 
          $(function () {
         $("select[name=post_type]").click(function () {
