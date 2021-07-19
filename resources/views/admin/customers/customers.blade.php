@@ -105,7 +105,7 @@ Customers Address's
                         <td>
                           {{ $row->phone }}
                         </td>
-                        <td>
+                        <td data-sort='{{strtotime($row->created_at) }}'>
                           {{ date("d-m-Y", strtotime($row->created_at)) }}
                         </td>
                         <td data-url="{{ url('customers-delete/'.$row->id) }}">
