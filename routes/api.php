@@ -61,6 +61,7 @@ Route::get('subcatimages/story/{subcatid}','API\CategoriesController@subcatstory
 
 //Bills
 Route::post('bill/add','API\BillController@addbill');
+Route::post('freetrial','API\BillController@freetrial');
 
 //All Videos
 Route::get('allvideos','API\VideoController@allvideos');

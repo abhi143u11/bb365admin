@@ -128,6 +128,16 @@ User
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
+
+                                    </div>
+
+                                        <div class="form-group col-md-4">
+                    
+                                        <label class="checkbox-inline i-checks" style="margin-top:35px;">
+      <div class="icheckbox_square-green form-group" >
+    <input type="checkbox" class="form-control" value="1" name="free_trial_checked" style="position: absolute; opacity: 0;">
+<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+</div> Free Trial</label>
                                     </div>
 
 

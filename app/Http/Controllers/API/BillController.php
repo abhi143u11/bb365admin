@@ -81,4 +81,61 @@ class BillController extends Controller
   return response()->json(['error' => true,'data' =>"Something went Wrong"]);
                }
   }
+
+    public function freetrial(Request $request)
+    {
+
+         $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'number' => 'required',
+             'userid' => 'required',
+          
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => true, 'validation' => $validator->messages()->first()], 200, []);
+        }
+     
+         $user  = Users::findorFail($request->input('userid'));
+
+         if($user->trial == 0){
+
+         
+      
+        $transaction = new Transaction();
+        $transaction->name = $request->input('name');
+        $transaction->mobile_number = $request->input('number');
+        $transaction->user_type = "customer";
+        $transaction->user_id = $request->input('userid');
+       // $transaction->order_id = $request->input('orderid');
+        $transaction->payment_id = 'direct';
+        $transaction->transaction_type = 'Free Trial';
+        $transaction->transaction_signature = 'Free Trial';
+        $transaction->status ='Free Trial';
+        $transaction->amount = 0;
+        $transaction->payment_method = 'direct';
+        $transaction->remarks = 'Free Trial';
+        $transaction->save();
+
+          $from_date = Carbon::now();
+        $to_date = Carbon::now()->addDays(7);
+    
+
+
+        $user->package_type = 2;
+        $user->package_start = $from_date;
+        $user->package_end =  $to_date;
+        $user->downloads = 10;
+          
+          
+
+      if($user->update()){
+  return response()->json(['error' => false,'data' =>$user]);
+               }else{
+  return response()->json(['error' => true,'data' =>"Something went Wrong"]);
+               }
+  }
+else{
+  return response()->json(['error' => true,'data' =>"You Have Already Used Free Trial"]);
+}
+    }
 } 

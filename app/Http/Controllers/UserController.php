@@ -218,6 +218,12 @@ class UserController extends Controller
         $users->downloads = $request->downloads;
         $users->todays_downloads = $request->todays_downloads;
         $users->unlimited = $request->unlimited;
+        
+          if($request->free_trial_checked){
+         $users->trial = $request->free_trial_checked;
+        }else{
+         $users->trial = 0;
+        }
 
         if($request->password){
    $users->password = Hash::make($request->password);
@@ -292,6 +298,13 @@ class UserController extends Controller
         $users->downloads = $request->downloads;
         $users->todays_downloads = $request->todays_downloads;
         $users->unlimited = $request->unlimited;
+
+        if($request->free_trial_checked){
+         $users->trial = $request->free_trial_checked;
+        }else{
+         $users->trial = 0;
+        }
+
         $users->password = Hash::make($request->password);
         $users->update();
 

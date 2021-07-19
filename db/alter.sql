@@ -16,3 +16,6 @@ ALTER TABLE `users` ADD `beepixl` TINYINT(1) NOT NULL DEFAULT '0' AFTER `email`;
 ALTER TABLE `custom_images` ADD `psd` TEXT NULL DEFAULT NULL AFTER `image`;
 ALTER TABLE `custom_images` ADD `category` VARCHAR(200) NULL DEFAULT NULL AFTER `psd`;
 
+//19-07-2021
+ALTER TABLE `users` ADD `trial` TINYINT NOT NULL DEFAULT '0' AFTER `device_token`;
+
