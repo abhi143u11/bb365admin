@@ -99,8 +99,6 @@ class BillController extends Controller
 
          if($user->trial == 0){
 
-         
-      
         $transaction = new Transaction();
         $transaction->name = $request->input('name');
         $transaction->mobile_number = $request->input('number');
@@ -116,15 +114,14 @@ class BillController extends Controller
         $transaction->remarks = 'Free Trial';
         $transaction->save();
 
-          $from_date = Carbon::now();
+        $from_date = Carbon::now();
         $to_date = Carbon::now()->addDays(7);
-    
-
 
         $user->package_type = 2;
         $user->package_start = $from_date;
         $user->package_end =  $to_date;
         $user->downloads = 10;
+        $user->trial = 1;
           
           
 
