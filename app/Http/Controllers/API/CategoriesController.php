@@ -51,6 +51,19 @@ class CategoriesController extends Controller
     }
       public function categorieswithfestivalvideo()
     {
+//    $date = Carbon::now();
+//    $date->addDays(15);
+
+//  $categories = SubCategories::where('active',1)->whereDate('festival_date','>=',Carbon::today())->whereDate('festival_date','<=',$date)->with('video')->has('video')->orderBy('festival_date','asc')->get();
+//  //$categories = SubCategories::where('active',1)->whereDate('festival_date','>=',Carbon::today())->whereDate('festival_date','<=',$date)->with('video')->has('video')->orderBy('festival_date','asc')->get();
+
+       
+        return response()->json(['error' =>false, 'data' =>  "No Festival Videos Found"],200);
+ 
+    }
+
+    public function categorieswithfestivalvideonew()
+    {
    $date = Carbon::now();
    $date->addDays(15);
 
