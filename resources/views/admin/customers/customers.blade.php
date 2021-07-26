@@ -75,8 +75,8 @@ Customers Address's
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
-            <table class="table table-striped" id="myTable">
-                    <thead>
+            <table class="table table-striped" id="mytable">
+                    <thead> 
                       <th>
                        Logo
                       </th>
@@ -152,6 +152,8 @@ $(document).ready(function() {
     });
 
 });
+
+
 
 </script>
 @endsection        

@@ -107,6 +107,7 @@ Route::get('/home', 'HomeController@index')->name('home');
    Route::delete('/categories-delete/{id}','CategoriesController@destroy');
     Route::get('getsubcat/{id}', 'SubCategoriesController@subcategories');
 Route::resource('categories', 'CategoriesController');
+ Route::get('/mostdownloadcat','CategoriesController@show');
 
        //SubCategories
    Route::get('/subcategories','SubCategoriesController@index');
@@ -184,6 +185,17 @@ Route::resource('categories', 'CategoriesController');
   
     //Transaction
     Route::get('/transaction', 'TransactionController@index');
+
+ //Coupons
+   Route::get('/coupons','CouponsController@index');
+   Route::get('getsubcat/{id}','CouponsController@getSubCategory');
+   Route::post('coupons_insert', [
+     'uses' => 'CouponsController@store'
+   ]);
+   Route::get('/coupons-edit/{id}','CouponsController@edit');
+   Route::get('coupons-edit/getsubcat/{id}','CouponsController@getSubCategory');
+   Route::PUT('/coupons-update/{id}','CouponsController@update');
+   Route::delete('/coupons-delete/{id}','CouponsController@delete');
 
     });
 

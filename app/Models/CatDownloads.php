@@ -8,5 +8,16 @@ class CatDownloads extends Model
 {
     protected $primaryKey = 'cat_ai';
     protected $table = 'cat_downloads';
-     protected $fillable = ['category_id','user_id'];
+     protected $fillable = ['cat_ai','category_id','user_id'];
+
+    
+     public function customers()
+    {
+        return $this->hasOne('App\Models\Users', 'id', 'user_id');
+    }  
+
+     public function category()
+    {
+        return $this->hasOne('App\Models\Categories', 'id', 'category_id');
+    }    
 }

@@ -20,7 +20,7 @@ class Coupons extends Model
 
     public function categories()
     {
-        return $this->hasOne('App\Models\ProductsCategories', 'id', 'coupon_categories');
+        return $this->hasOne('App\Models\Categories', 'id', 'coupon_categories');
     }
     
 

@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use App\Models\Images;
 use App\Models\Categories;
+use App\Models\CatDownloads;
 use App\Models\SubCategories;
 Use DB;
 use Auth;
@@ -88,9 +89,14 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $most_download_cate = CatDownloads::with('customers','category')->groupBy('category_id')->orderBy(DB::raw('COUNT(category_id)'),'DESC')->get();
+        //dd($most_download_cate);
+        // exit;
+
+        return view('admin.most-download-cat.show',compact('most_download_cate'));
+
     }
 
     /**

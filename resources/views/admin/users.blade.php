@@ -8,6 +8,13 @@ User
 @endsection
 
 @section('content')
+<style>
+    .btn-group, .btn-group-vertical {
+    float: right;
+    background-color: red;
+    color: #2f4050;
+}
+</style>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -278,8 +285,8 @@ No Package
                         @elseif(!empty($row->package_end) && $row->package_end < Carbon::today())
                     <span class="label label-danger">In-Active</span> 
                     @else
-               <span class="label label-info">Free</span>          @endif
-                
+                        <span class="label label-info">Free</span>    
+                     @endif
                         </td>
 
                         <td data-url="{{ url('users-delete/' .$row->id) }}">
@@ -327,7 +334,10 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#myTable1').DataTable( {
-        "order": [[ 7, "desc" ]]
+        dom: 'Bfrtip',
+        buttons: [
+            'csv'
+        ]
     } );
 } );
 </script>

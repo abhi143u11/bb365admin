@@ -72,3 +72,8 @@ Route::get('subcategory/{id}','API\ImagesController@sub_categories_wise');
 
 //All Packages
 Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
+
+//Coupons 
+Route::get('coupons','API\CouponsController@index');
+//Route::get('coupon/type/{coupon_type}/{points}','API\CouponsController@couponbytype');
+Route::post('couponcheck','API\CouponsController@coupon');

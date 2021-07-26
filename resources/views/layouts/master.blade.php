@@ -65,7 +65,7 @@
 .modal-open .select2-container--open 
 { 
     z-index: 999999 !important; width:100% !important; 
-    }
+}
     </style>
 
 </head>
@@ -156,6 +156,11 @@
                     @endif
                    
                     @if(Auth::user()->usertype=='admin')
+                       <li class="{{'coupons' == request()->path() ? 'active' : ''}}">
+                        <a href="{{url('/coupons')}}"><i class="fa fa-ticket"></i> <span
+                                class="nav-label">Coupons</span></a>
+                    </li>  
+                    
                     <li class="{{'notification-message' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/notification-message')}}"><i class="fa fa-bell"></i> <span
                                 class="nav-label">Notifications</span></a>
@@ -173,12 +178,14 @@
 
                     <li>
                  
-           
-                       
-
                         <li class="{{'pages' == request()->path() ? 'active' : ''}}">
                             <a href="{{url('/pages')}}"><i class="fa fa-file-text"></i> <span
                                     class="nav-label">Pages</span></a>
+                        </li> 
+ 
+                        <li class="{{'mostdownloadcat' == request()->path() ? 'active' : ''}}">
+                            <a href="{{url('/mostdownloadcat')}}"><i class="fa fa-download"></i> <span
+                                    class="nav-label">Most Download Cat</span></a>
                         </li> 
  
                     </li>
