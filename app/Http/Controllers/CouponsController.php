@@ -74,7 +74,7 @@ class CouponsController extends Controller
         $coupons->customer_id = $request->input('customer_id');
         $coupons->coupon_type = $request->input('coupon_type');
         $coupons->coupon_status = $request->input('status');
-      //  $coupons->minimum_price = $request->input('minimum_price');
+     $coupons->minimum_price = $request->input('minimum_price');
         $coupons->save();
 
     $coupons = Coupons::all();
@@ -118,6 +118,9 @@ class CouponsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // print_r($request->all());
+        // exit;
+
         $validator = Validator::make($request->all(), [
            'coupon_code' => 'required',
             // 'max_discount' => 'required',
@@ -134,10 +137,9 @@ class CouponsController extends Controller
         $coupons->customer_id = $request->input('customer_id');
         $coupons->coupon_type = $request->input('coupon_type');
         $coupons->coupon_status = $request->input('status');
-       // $coupons->minimum_price = $request->input('minimum_price');
+     $coupons->minimum_price = $request->input('minimum_price');
      
         $coupons->update();
-        $coupons = Coupons::all(); 
         Session::flash('statuscode','info');
         return redirect('/coupons')
                ->with('status', 'Data Updated successfully');

@@ -19,3 +19,6 @@ ALTER TABLE `custom_images` ADD `category` VARCHAR(200) NULL DEFAULT NULL AFTER 
 //19-07-2021
 ALTER TABLE `users` ADD `trial` TINYINT NOT NULL DEFAULT '0' AFTER `device_token`;
 
+//26-07-2021
+ALTER TABLE `coupons` ADD `minimum_price` INT NULL DEFAULT NULL AFTER `customer_id`;
+

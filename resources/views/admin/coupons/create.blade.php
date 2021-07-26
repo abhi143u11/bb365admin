@@ -57,11 +57,11 @@ Coupons
                         <label for="max_discount"><b>Max Discount:</b></label>
                         <input type="text" name="max_discount" class="form-control" id="">
                     </div>
-<!-- 
+
                        <div class="form-group">
                         <label for="minimum_price"><b>Minimum Cart Price:</b></label>
                         <input type="text" name="minimum_price" class="form-control" id="">
-                    </div> -->
+                    </div>
 
                     <div class="form-group">
                     <label for="name" class="col-form-label"><b>Customer:</b></label>
@@ -148,6 +148,9 @@ Coupons
                         <th>
                            Max Discount
                         </th>
+                        <th>
+                           Minimum Price
+                        </th>
 
                         <th>
                         Coupon Status
@@ -167,6 +170,9 @@ Coupons
                             </td>
                             <td>
                                 {{ $coupon->max_discount }}
+                            </td>
+                            <td>
+                                {{ $coupon->minimum_price }}
                             </td>
                             <td>
                             @if($coupon->coupon_status==0)

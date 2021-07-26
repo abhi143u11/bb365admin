@@ -45,10 +45,10 @@
                                     <input type="text" name="max_discount" class="form-control" id="" value="{{ $coupons->max_discount }}">
                                 </div>
 
-                                         <!-- <div class="form-group">
+                                         <div class="form-group">
                                     <label for="minimum_price"><b>Minimum Cart Amount:</b></label>
                                     <input type="text" name="minimum_price" class="form-control" id="" value="{{ $coupons->minimum_price }}">
-                                </div> -->
+                                </div>
 
                                     <div class="form-group">
                                     <label for="name" class="col-form-label"><b>Customer:</b></label>
