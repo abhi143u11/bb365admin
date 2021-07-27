@@ -18,16 +18,15 @@ Most Downloads Catgeories
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
-                <table class="table table-striped" id="myTable">
+                <table class="table table-striped" id="example">
                     <thead>
-                        <th>
-                          Id
-                        </th>
+
+
                         <th>
                           Category
                         </th>
                         <th>
-                           Customer
+                           Count
                         </th>
                         <!-- <th>
                             Action
@@ -37,14 +36,12 @@ Most Downloads Catgeories
    <?php $i=1; ?>
                     @foreach ($most_download_cate as $catgeory)
                         <tr>
-                            <td>
-                                {{ $i }}
-                            </td>
+
                             <td>
                                 {{ $catgeory->category['cat_name'] }}
                             </td>
                             <td>
-                                {{ $catgeory->customers['name'] }}
+                                {{ $catgeory->catgeory_count }}
                             </td>
 
                         </tr>
@@ -60,7 +57,11 @@ Most Downloads Catgeories
 
 @section('scripts')
 <script>
-
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 1, "desc" ]]
+    } );
+} );
 
 </script>
 

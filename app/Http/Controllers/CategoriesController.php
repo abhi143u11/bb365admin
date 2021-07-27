@@ -91,8 +91,12 @@ class CategoriesController extends Controller
      */
     public function show()
     {
-        $most_download_cate = CatDownloads::with('customers','category')->groupBy('category_id')->orderBy(DB::raw('COUNT(category_id)'),'DESC')->get();
-        //dd($most_download_cate);
+        $most_download_cate = CatDownloads::select(array('cat_downloads.*',DB::raw('COUNT(category_id) as catgeory_count')))
+                                            ->with('customers','category')
+                                            ->has('category')
+                                           ->groupBy('category_id')
+                                           ->get();
+      // dd($most_download_cate);
         // exit;
 
         return view('admin.most-download-cat.show',compact('most_download_cate'));
