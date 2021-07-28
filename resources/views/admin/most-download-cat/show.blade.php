@@ -56,14 +56,14 @@ Most Downloads Catgeories
 @endsection
 
 @section('scripts')
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#example').DataTable( {
         "order": [[ 1, "desc" ]]
     } );
 } );
 
-</script>
+</script> -->
 
 
 

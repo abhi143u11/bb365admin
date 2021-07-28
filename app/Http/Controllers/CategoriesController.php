@@ -95,6 +95,7 @@ class CategoriesController extends Controller
                                             ->with('customers','category')
                                             ->has('category')
                                            ->groupBy('category_id')
+                                           ->orderBy('catgeory_count','desc')
                                            ->get();
       // dd($most_download_cate);
         // exit;
