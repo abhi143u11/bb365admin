@@ -101,7 +101,6 @@ class CustomerController extends Controller
       //Update Customer Details
     public function update(Request $request){
 
-     
           $validator = Validator::make($request->all(), [
             'id' => 'required',
           ]);
