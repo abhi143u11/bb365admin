@@ -15,6 +15,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+  Route::group(['prefix' => 'v1'], function () {
+      
 //Creating Customer Along With wallet and Card 
 Route::post('insert','API\CustomerController@create');
 Route::post('update','API\CustomerController@update');
@@ -78,3 +81,5 @@ Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
 Route::get('coupons','API\CouponsController@index');
 //Route::get('coupon/type/{coupon_type}/{points}','API\CouponsController@couponbytype');
 Route::post('couponcheck','API\CouponsController@coupon');
+
+});

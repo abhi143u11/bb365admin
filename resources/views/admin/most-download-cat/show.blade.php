@@ -10,40 +10,29 @@ Most Downloads Catgeories
     <div class="ibox">
         <div class="ibox-title">
             <h4 class="card-title">@yield('title')
-                <!-- <button type="button" class="pull-right btn btn-primary" data-toggle="modal"
-                    data-target="#exampleModal">
-                    + ADD @yield('title')
-                </button> -->
             </h4>
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
                 <table class="table table-striped" id="example">
                     <thead>
-
-
                         <th>
                           Category
                         </th>
                         <th>
                            Count
                         </th>
-                        <!-- <th>
-                            Action
-                        </th> -->
                     </thead>
                     <tbody>
-   <?php $i=1; ?>
+                <?php $i=1; ?>
                     @foreach ($most_download_cate as $catgeory)
                         <tr>
-
                             <td>
                                 {{ $catgeory->category['cat_name'] }}
                             </td>
                             <td>
                                 {{ $catgeory->catgeory_count }}
                             </td>
-
                         </tr>
                         <?php $i++ ?>
                         @endforeach
