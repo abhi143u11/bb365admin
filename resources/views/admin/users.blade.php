@@ -333,8 +333,12 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#myTable1').DataTable( {
-        dom: 'Bfrtip',
+    $('#myTable1').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        // dom: 'Bfrtip',
+        "order": [[ 7, "desc" ]],
         buttons: [
             'csv'
         ]

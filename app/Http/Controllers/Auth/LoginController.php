@@ -28,12 +28,17 @@ class LoginController extends Controller
      * @var string
      */
     
-    protected $redirectTo = '/the-path-you-want-to-redirect-to';
+   // protected $redirectTo = '/';
     protected function redirectTo()
     {
+        // print(Auth::user()->usertype);
+        // exit;
         if(Auth::user()->usertype == 'admin')
         {
             return '/dashboard';
+        }else{
+            Auth::logout();
+            return redirect('/');
         }
         
     }

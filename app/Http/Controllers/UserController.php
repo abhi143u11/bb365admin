@@ -284,7 +284,7 @@ class UserController extends Controller
 
         $users->name = $request->name;
         $users->phone = $request->phone;
-        $users->usertype = 'customer';
+        // $users->usertype = 'customer';
         $users->email = $request->email;
         $users->business_name = $request->business_name;
         $users->package_type = $request->pack_type;
