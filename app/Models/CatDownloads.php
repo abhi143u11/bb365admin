@@ -18,6 +18,6 @@ class CatDownloads extends Model
 
      public function category()
     {
-        return $this->hasOne('App\Models\Categories', 'id', 'category_id');
+        return $this->hasOne('App\Models\SubCategories', 'sub_cat_id', 'category_id');
     }    
 }

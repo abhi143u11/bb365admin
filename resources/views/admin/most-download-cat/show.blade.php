@@ -28,7 +28,7 @@ Most Downloads Catgeories
                     @foreach ($most_download_cate as $catgeory)
                         <tr>
                             <td>
-                                {{ $catgeory->category['cat_name'] }}
+                                {{ $catgeory->category['sub_cat_name'] }}
                             </td>
                             <td>
                                 {{ $catgeory->catgeory_count }}
