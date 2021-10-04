@@ -124,7 +124,7 @@ Images
                             <select class="form-control" name="post_type" id="post_type1">              
                                 <option value="1">Post</option>    
                                 <option value="2">Story</option>
-                                <option value="3">Video</option>
+                              
                             </select>
                         </div>
                    
