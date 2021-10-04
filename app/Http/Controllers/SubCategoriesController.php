@@ -12,33 +12,33 @@ use Illuminate\Support\Facades\File;
 use App\Models\Images;
 use App\Models\Categories;
 use App\Models\SubCategories;
-Use DB;
+use DB;
 use Auth;
 
 
 class SubCategoriesController extends Controller
 {
 
-  public function subcategories($catid)
+    public function subcategories($catid)
     {
-        $subcategories = SubCategories::where('cat_id',$catid)->get();
-        if($subcategories->count() > 0){
-        return response()->json($subcategories);
-    }else{
-        return response()->json("");
+        $subcategories = SubCategories::where('cat_id', $catid)->get();
+        if ($subcategories->count() > 0) {
+            return response()->json($subcategories);
+        } else {
+            return response()->json("");
+        }
     }
-}
 
-/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $categories = Categories::orderby('cat_type','desc')->get();
+        $categories = Categories::orderby('cat_type', 'desc')->get();
         $subcategories = SubCategories::with('categories')->get();
-        return view('admin.images.subcategories',compact('categories','subcategories'));
+        return view('admin.images.subcategories', compact('categories', 'subcategories'));
     }
 
     /**
@@ -58,51 +58,49 @@ class SubCategoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insert(Request $request)
-    {
-        {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            //'order_no' => 'required|unique:categories',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-             ]);
-             if ($validator->fails()) {
-                Session::flash('statuscode','error');
+    { {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                //'order_no' => 'required|unique:categories',
+                // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            if ($validator->fails()) {
+                Session::flash('statuscode', 'error');
                 return back()->with('status', $validator->messages()->first());
             }
 
-          $subcategories = new SubCategories();
-           $subcategories->cat_id = $request->input('category_id');
-          $subcategories->sub_cat_name = $request->input('name');
-          $subcategories->active = $request->input('active');
-          if(!empty($request->input('festival_date'))){
-            $subcategories->festival_date = $request->input('festival_date');
+            $subcategories = new SubCategories();
+            $subcategories->cat_id = $request->input('category_id');
+            $subcategories->sub_cat_name = $request->input('name');
+            $subcategories->active = $request->input('active');
+            if (!empty($request->input('festival_date'))) {
+                $subcategories->festival_date = $request->input('festival_date');
+            }
+
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $ImageUpload = Image::make($image);
+
+                $ImageUpload->resize(300, 300);
+
+                $thumbnailPath = public_path('/images/thumbnails/');
+                $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
+
+
+                $image = $request->file('image');
+                // $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/images/subcategory/');
+                $image->move($destinationPath, $name);
+                $subcategories->img = $name;
+            }
+
+            $subcategories->save();
+            Session::flash('statuscode', 'success');
+            return redirect('/subcategories')
+                ->with('status', 'Data Added Successfully ');
         }
-
-
-        if ($request->hasFile('image')) {
-              $image = $request->file('image');
-              $name = time().'.'.$image->getClientOriginalExtension();
-             $ImageUpload = Image::make($image);
-
-              $ImageUpload->resize(300,300);
-              
-              $thumbnailPath = public_path('/images/thumbnails/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
-            
-
-            $image = $request->file('image');
-           // $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/subcategory/');
-            $image->move($destinationPath, $name);
-            $subcategories->img = $name;
-                  }
-        
-        $subcategories->save();
-        Session::flash('statuscode','success');
-        return redirect('/subcategories')
-             ->with('status','Data Added Successfully ');
-
-         }
     }
 
     /**
@@ -124,9 +122,9 @@ class SubCategoriesController extends Controller
      */
     public function edit($id)
     {
-       $subcategory = SubCategories::findorFail($id);
-       $categories = Categories::orderby('cat_type','desc')->get();
-       return view('admin.images.editsubcategories',compact('categories','subcategory'));
+        $subcategory = SubCategories::findorFail($id);
+        $categories = Categories::orderby('cat_type', 'desc')->get();
+        return view('admin.images.editsubcategories', compact('categories', 'subcategory'));
     }
 
     /**
@@ -140,49 +138,49 @@ class SubCategoriesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-          //  'order_no' => 'required|unique:categories',
-         // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          ]);
-          if ($validator->fails()) {
+            //  'order_no' => 'required|unique:categories',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        if ($validator->fails()) {
             // return response()->json(['error' => true,'validation'=>$validator->messages()->first()], 200, []);
-             Session::flash('statuscode','error');
-             return back()->with('status', $validator->messages()->first());
-          }
+            Session::flash('statuscode', 'error');
+            return back()->with('status', $validator->messages()->first());
+        }
         $subcategories = SubCategories::findorFail($id);
-         $subcategories->cat_id = $request->input('category_id');
-          $subcategories->sub_cat_name = $request->input('name');
-          $subcategories->active = $request->input('active');
-          if(!empty($request->input('festival_date'))){
+        $subcategories->cat_id = $request->input('category_id');
+        $subcategories->sub_cat_name = $request->input('name');
+        $subcategories->active = $request->input('active');
+        if (!empty($request->input('festival_date'))) {
             $subcategories->festival_date = $request->input('festival_date');
         }
-  
-    //    if($image   = $request->file('image')){
-    //   $filename = str_replace(' ', '-', time().'1.'.$image->getClientOriginalName());
-    //   $image_resize = Image::make($image->getRealPath());
-    //   $image_resize->save(public_path('images/' .$filename));
-    //   $categories->img = $filename;}
 
-     if ($request->hasFile('image')) {
-              $image = $request->file('image');
-              $name = time().'.'.$image->getClientOriginalExtension();
-             $ImageUpload = Image::make($image);
+        //    if($image   = $request->file('image')){
+        //   $filename = str_replace(' ', '-', time().'1.'.$image->getClientOriginalName());
+        //   $image_resize = Image::make($image->getRealPath());
+        //   $image_resize->save(public_path('images/' .$filename));
+        //   $categories->img = $filename;}
 
-              $ImageUpload->resize(300,300);
-              
-              $thumbnailPath = public_path('/images/thumbnails/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
-            
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $ImageUpload = Image::make($image);
+
+            $ImageUpload->resize(300, 300);
+
+            $thumbnailPath = public_path('/images/thumbnails/');
+            $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
+
 
             $image = $request->file('image');
-           // $name = time().'.'.$image->getClientOriginalExtension();
+            // $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images/subcategory/');
             $image->move($destinationPath, $name);
             $subcategories->img = $name;
-                  }
-        
+        }
+
         $subcategories->save();
         return redirect('/subcategories')
-               ->with('status', 'Data Updated successfully');
+            ->with('status', 'Data Updated successfully');
     }
 
     /**
@@ -194,33 +192,52 @@ class SubCategoriesController extends Controller
     public function destroy($id)
     {
         $categories = SubCategories::findorFail($id);
-      
-       $categories->delete();
-       Session::flash('statuscode','error');
-       return redirect('/subcategories')
-             ->with('status', 'Data Deleted successfully');
+
+        $categories->delete();
+        $imgs =  Images::where('sub_cat_id', $id)->get();
+        foreach ($imgs as $img) {
+
+
+            $filename = $img->image;
+            $imagepath =
+                public_path('/images/thumbnails/' . $filename);
+
+            if (File::exists($imagepath)) {
+                File::delete($imagepath);
+            }
+            $imagepath =
+                public_path('/images/images/' . $filename);
+            if (File::exists($imagepath)) {
+                File::delete($imagepath);
+            }
+            $imgs =  Images::where('sub_cat_id', $id)->delete();
+        }
+
+
+
+        Session::flash('statuscode', 'error');
+        return redirect('/subcategories')
+            ->with('status', 'Data Deleted successfully');
     }
 
 
-      public function allcategories()
+    public function allcategories()
     {
-        $categories = Categories::where('active',1)->get();
-        if($categories->count() > 0){
-        return response()->json(['error' =>false, 'data' =>  $categories],200);
-    }else{
-        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
+        $categories = Categories::where('active', 1)->get();
+        if ($categories->count() > 0) {
+            return response()->json(['error' => false, 'data' =>  $categories], 200);
+        } else {
+            return response()->json(['error' => true, 'data' => "No Categories Found"], 200);
+        }
+    }
+
+    public function categorieswithsub()
+    {
+        $categories = Categories::with('subcategories')->where('active', 1)->get();
+        if ($categories->count() > 0) {
+            return response()->json(['error' => false, 'data' =>  $categories], 200);
+        } else {
+            return response()->json(['error' => true, 'data' => "No Categories Found"], 200);
+        }
     }
 }
-
-      public function categorieswithsub()
-    {
-        $categories = Categories::with('subcategories')->where('active',1)->get();
-        if($categories->count() > 0){
-        return response()->json(['error' =>false, 'data' =>  $categories],200);
-    }else{
-        return response()->json(['error' =>true, 'data' => "No Categories Found"], 200);
-    }
-}
-
-
-}   

@@ -7,8 +7,7 @@ Sub Category
 @section('content')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,26 +19,26 @@ Sub Category
             <div class="modal-body">
                 <form action="{{ action('SubCategoriesController@insert') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-   <div class="row">
-                    <div class="form-group col-md-12">
-                        <label for="name">SubCategory Name</label>
-                        <input type="name" name="name" class="form-control" id="name">
-                    </div>
-                    
-                    <div class="form-group custom-file col-md-12">
-                        <input type="file" name="image" class="custom-file-input" id="image">
-                        <label class="custom-file-label" for="image"><b>Choose Image </b></label>
-                    </div>
-<!-- 
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="name">SubCategory Name</label>
+                            <input type="name" name="name" class="form-control" id="name">
+                        </div>
+
+                        <div class="form-group custom-file col-md-12">
+                            <input type="file" name="image" class="custom-file-input" id="image">
+                            <label class="custom-file-label" for="image"><b>Choose Image </b></label>
+                        </div>
+                        <!-- 
                     <div class="form-group col-md-6">
                         <label for="order no">Order No</label>
                         <input type="text" name="order_no" class="form-control" id="order_no">
                     </div> -->
- <div class="form-group col-md-6">
+                        <div class="form-group col-md-6">
                             <label for="subcategory_id">Festival Date:</label>
-                          <input type="date" name="festival_date" class="form-control">
+                            <input type="date" name="festival_date" class="form-control">
                         </div>
-                     
+
                         <div class="form-group col-md-6">
                             <label for="category_id">Category:</label>
                             <select class="form-control" name="category_id" id="category_id">
@@ -49,18 +48,19 @@ Sub Category
                                 @endforeach
                             </select>
                         </div>
-                    
 
-                    <div class="form-group col-md-6">
+
+                        <div class="form-group col-md-6">
                             <label for="active">Active:</label>
                             <select class="form-control" name="active" id="active">
                                 <option value="">Select Active</option>
-                                <option value="1">Active</option>    
-                                <option value="0">In-Active</option>    
+                                <option value="1">Active</option>
+                                <option value="0">In-Active</option>
                             </select>
                         </div>
 
-            </div>    </div>
+                    </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="submit" class="btn btn-primary" value="Submit" name="submit">
@@ -73,8 +73,7 @@ Sub Category
 
 <!-- end  Modal -->
 <!-- delete Modal -->
-<div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -106,8 +105,7 @@ Sub Category
     <div class="ibox">
         <div class="ibox-title">
             <h4 class="card-title">@yield('title')
-                <button type="button" class="pull-right btn btn-primary" data-toggle="modal"
-                    data-target="#exampleModal">
+                <button type="button" class="pull-right btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     + ADD @yield('title')
                 </button>
             </h4>
@@ -122,11 +120,11 @@ Sub Category
                         <th>
                             Sub Category Name
                         </th>
-                      <th>
-                             Category
+                        <th>
+                            Category
                         </th>
-                      <th>
-                             Festival Date
+                        <th>
+                            Festival Date
                         </th>
                         <th>
                             Action
@@ -134,7 +132,7 @@ Sub Category
                     </thead>
                     <tbody>
                         @foreach ($subcategories as $subcategory)
-                       
+
                         <tr>
                             <td>
                                 <img src="{{ URL::to('/') }}/images/subcategory/{{ $subcategory->img }}" class="img-thumbnail" width='60' />
@@ -142,24 +140,19 @@ Sub Category
                             <td>
                                 {{ $subcategory->sub_cat_name }}
                             </td>
-                             <td>
+                            <td>
                                 {{ $subcategory->categories['cat_name'] }}
                             </td>
-                    
-                              <td data-sort="<?php echo strtotime($subcategory->festival_date); ?>">
-                        {{ date('d F Y', strtotime($subcategory->festival_date)) }}
-                        </td>
-                           
+
+                            <td data-sort="<?php echo strtotime($subcategory->festival_date); ?>">
+                                {{ date('d F Y', strtotime($subcategory->festival_date)) }}
+                            </td>
+
                             <td data-url="{{ url('subcategory-delete/' . $subcategory->sub_cat_id) }}">
-                                <a href="{{ url('subcategory-edit/' . $subcategory->sub_cat_id) }}" 
-                                class="btn-sm btn btn-warning"
-                                data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="fa fa-edit"></i>  </a>
-                                
-                                <a href="javascript:void(0)"
-                                 class="btn-sm btn btn-danger deletebtn"
-                                data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i
-                                        class="fa fa-trash"></i> </a>
+                                <a href="{{ url('subcategory-edit/' . $subcategory->sub_cat_id) }}" class="btn-sm btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fa fa-edit"></i> </a>
+
+                                <a href="javascript:void(0)" class="btn-sm btn btn-danger deletebtn" data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i class="fa fa-trash"></i> </a>
                             </td>
                         </tr>
                         @endforeach
@@ -174,31 +167,33 @@ Sub Category
 
 @section('scripts')
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    $('#myTable').on('click', '.deletebtn', function() {
+        $('#myTable2').on('click', '.deletebtn', function() {
 
-        $tr = $(this).closest('tr');
-        var url = $(this).parent("td").data('url');
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+            $tr = $(this).closest('tr');
+            var url = $(this).parent("td").data('url');
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
 
-        $('#delete_id').val(data[0]);
+            $('#delete_id').val(data[0]);
 
-        $('#delete_modal_Form').attr('action', url);
+            $('#delete_modal_Form').attr('action', url);
 
-        $('#deletemodalpop').modal('show');
+            $('#deletemodalpop').modal('show');
 
+        });
     });
-});
 
 
-$(document).ready(function() {
-    $('#myTable2').DataTable( {
-        "order": [[ 3, "desc" ]]
-    } );
-} );
+    $(document).ready(function() {
+        $('#myTable2').DataTable({
+            "order": [
+                [3, "desc"]
+            ]
+        });
+    });
 </script>
 
 
