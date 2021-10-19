@@ -110,10 +110,22 @@ Images
                 <div class="row">
 
                     <div class="form-group col-md-6">
-                        <label for="subcategory_id">Image Type:</label>
-                        <select class="form-control" name="image_type" id="image_type1">
-                            <option value="0">Free</option>
-                            <option value="1" selected="selected">Paid</option>
+                        <label for="post_type">Post Type:</label>
+                        <select class="form-control" name="post_type" id="post_type1">
+                            <option value="1">Post</option>
+                            <option value="2">Story</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="category_id">Category:</label>
+                        <select class="form-control" name="sub_cat_id" id="sub_cat_id1">
+                            <option value="">Select Category</option>
+                            @foreach ($subcategories as $value)
+                            <option value="{{ $value->sub_cat_id  }}">{{ $value->sub_cat_name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
