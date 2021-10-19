@@ -1,14 +1,13 @@
 @extends('layouts.master')
 @section('title')
-Categories 
+Categories
 
 @endsection
 
 @section('content')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,7 +24,7 @@ Categories
                         <label for="name">Category Name</label>
                         <input type="name" name="name" class="form-control" id="name">
                     </div>
-                    
+
                     <div class="custom-file">
                         <input type="file" name="image" class="custom-file-input" id="image">
                         <label class="custom-file-label" for="image"><b>Choose Image </b></label>
@@ -35,34 +34,34 @@ Categories
                         <label for="order no">Order No</label>
                         <input type="text" name="order_no" class="form-control" id="order_no">
                     </div>
- <div class="form-group">
-                            <label for="active">Category Type:</label>
-                            <select class="form-control" name="cat_type" id="cat_type">
-                                <option value="">Select Category Type</option>
-                                <option value="1">Business</option>    
-                                <option value="2">Common</option>    
-                                <option value="3">Festival</option>    
-                            </select>
-                        </div>
-                    
+                    <div class="form-group">
+                        <label for="active">Category Type:</label>
+                        <select class="form-control" name="cat_type" id="cat_type">
+                            <option value="">Select Category Type</option>
+                            <option value="1">Business</option>
+                            <option value="2">Common</option>
+                            <option value="3">Festival</option>
+                        </select>
+                    </div>
+
 
                     <div class="form-group">
-                            <label for="active">Active:</label>
-                            <select class="form-control" name="active" id="active">
-                                <option value="">Select Active</option>
-                                <option value="1">Active</option>    
-                                <option value="0">In-Active</option>    
-                            </select>
-                        </div>
+                        <label for="active">Active:</label>
+                        <select class="form-control" name="active" id="active">
+                            <option value="">Select Active</option>
+                            <option value="1">Active</option>
+                            <option value="0">In-Active</option>
+                        </select>
+                    </div>
                     <div class="form-group">
-                            <label for="active">subcat:</label>
-                            <select class="form-control" name="subcat" id="subcat">
-                                <option value="">Sub Categories ?</option>
-                                <option value="0">No SubCategories</option>    
-                                <option value="1">Has SubCategories</option>    
-                              
-                            </select>
-                        </div>
+                        <label for="active">subcat:</label>
+                        <select class="form-control" name="subcat" id="subcat">
+                            <option value="">Sub Categories ?</option>
+                            <option value="0">No SubCategories</option>
+                            <option value="1">Has SubCategories</option>
+
+                        </select>
+                    </div>
 
             </div>
             <div class="modal-footer">
@@ -77,8 +76,7 @@ Categories
 
 <!-- end  Modal -->
 <!-- delete Modal -->
-<div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -110,8 +108,7 @@ Categories
     <div class="ibox">
         <div class="ibox-title">
             <h4 class="card-title">@yield('title')
-                <button type="button" class="pull-right btn btn-primary" data-toggle="modal"
-                    data-target="#exampleModal">
+                <button type="button" class="pull-right btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     + ADD @yield('title')
                 </button>
             </h4>
@@ -146,15 +143,10 @@ Categories
                                 {{ $categorie->order_no }}
                             </td>
                             <td data-url="{{ url('categories-delete/' . $categorie->id) }}">
-                                <a href="{{ url('categories-edit/' . $categorie->id) }}" 
-                                class="btn-sm btn btn-warning"
-                                data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="fa fa-edit"></i>  </a>
-                                
-                                <a href="javascript:void(0)"
-                                 class="btn-sm btn btn-danger deletebtn"
-                                data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i
-                                        class="fa fa-trash"></i> </a>
+                                <a href="{{ url('categories-edit/' . $categorie->id) }}" class="btn-sm btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fa fa-edit"></i> </a>
+
+                                <a href="javascript:void(0)" class="btn-sm btn btn-danger deletebtn" data-toggle="tooltip" data-placement="top" class="btn-sm btn btn-danger" title="Delete"><i class="fa fa-trash"></i> </a>
                             </td>
                         </tr>
                         @endforeach
@@ -169,27 +161,27 @@ Categories
 
 @section('scripts')
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    $('#myTable').on('click', '.deletebtn', function() {
+        $('#myTable').on('click', '.deletebtn', function() {
 
-        $tr = $(this).closest('tr');
-        var url = $(this).parent("td").data('url');
-        var data = $tr.children("td").map(function() {
-            return $(this).text();
-        }).get();
+            $tr = $(this).closest('tr');
+            var url = $(this).parent("td").data('url');
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
 
-        $('#delete_id').val(data[0]);
+            $('#delete_id').val(data[0]);
 
-        $('#delete_modal_Form').attr('action', url);
+            $('#delete_modal_Form').attr('action', url);
 
-        $('#deletemodalpop').modal('show');
+            $('#deletemodalpop').modal('show');
 
+        });
     });
-});
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 

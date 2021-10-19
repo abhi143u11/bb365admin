@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 
 /*
@@ -16,70 +17,73 @@ use Illuminate\Http\Request;
 // });
 
 
-  Route::group(['prefix' => 'v1'], function () {
-      
-//Creating Customer Along With wallet and Card 
-Route::post('insert','API\CustomerController@create');
-Route::post('update','API\CustomerController@update');
+Route::group(['prefix' => 'v1'], function () {
 
-//Displaying All Users 
-Route::get('users','API\CustomerController@index');
-Route::get('userdetail/{userid}','API\CustomerController@userdetail');
-// Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
-Route::get('catdownloads/{customerid}/{categoryid}/','API\CustomerController@catdownloads');
+  //Creating Customer Along With wallet and Card 
+  Route::post('insert', 'API\CustomerController@create');
+  Route::post('update', 'API\CustomerController@update');
 
-//Displaying particuler Pages based on Id
-Route::get('page/{id}','API\PageController@pagesdetails');
+  //Displaying All Users 
+  Route::get('users', 'API\CustomerController@index');
+  Route::get('userdetail/{userid}', 'API\CustomerController@userdetail');
+  // Route::get('downloads/{customerid}','API\CustomerController@customerdownloads');
+  Route::get('catdownloads/{customerid}/{categoryid}/', 'API\CustomerController@catdownloads');
 
-//Displaying All-Offers Slides
-Route::get('slides','API\OfferController@showslider');
+  //Displaying particuler Pages based on Id
+  Route::get('page/{id}', 'API\PageController@pagesdetails');
 
-//Displaying All-Products
-Route::get('allproducts2','API\ProductController@allproducts2');
-Route::get('products/categorynew/{id}','API\ProductController@allproductspaginate');
+  //Displaying All-Offers Slides
+  Route::get('slides', 'API\OfferController@showslider');
 
-Route::get('products/featured','API\ProductController@productsfeatured');
-Route::get('products/lowprice','API\ProductController@productslowprice');
-Route::get('allproducts','API\ProductController@allproductslist');
+  //Displaying All-Products
+  Route::get('allproducts2', 'API\ProductController@allproducts2');
+  Route::get('products/categorynew/{id}', 'API\ProductController@allproductspaginate');
 
-//updating customer Device-Token with phone number
-Route::post('customer/update','API\CustomerController@customerupdate');
+  Route::get('products/featured', 'API\ProductController@productsfeatured');
+  Route::get('products/lowprice', 'API\ProductController@productslowprice');
+  Route::get('allproducts', 'API\ProductController@allproductslist');
 
-//notification 
-Route::get('notification','API\NotificationController@Notification');
+  //updating customer Device-Token with phone number
+  Route::post('customer/update', 'API\CustomerController@customerupdate');
 
-//updating customer Device-Token with card number
-Route::post('customer-card/update','API\CustomerController@updatewithcard');
+  //notification 
+  Route::get('notification', 'API\NotificationController@Notification');
 
-//All Categories 
-Route::get('categories','API\CategoriesController@allcategories');
-Route::get('catwithsub','API\CategoriesController@categorieswithsub');
-Route::get('catwithfestival','API\CategoriesController@categorieswithfestival');
-Route::get('categorieswithvideo','API\CategoriesController@categorieswithfestivalvideo');
-Route::get('categorieswithvideonew','API\CategoriesController@categorieswithfestivalvideonew');
-Route::get('subcategorieslist','API\CategoriesController@subcategorieslist');
-Route::get('catbybusiness/{catid}','API\CategoriesController@catbybusiness');
-Route::get('subcatimages/{subcatid}','API\CategoriesController@subcatimages');
-Route::get('subcatvideos/{subcatid}','API\CategoriesController@subcatvideos');
-Route::get('subcatimages/story/{subcatid}','API\CategoriesController@subcatstoryimages');
+  //updating customer Device-Token with card number
+  Route::post('customer-card/update', 'API\CustomerController@updatewithcard');
 
-//Bills
-Route::post('bill/add','API\BillController@addbill');
-Route::post('freetrial','API\BillController@freetrial');
+  //All Categories 
+  Route::get('categories', 'API\CategoriesController@allcategories');
+  Route::get('catwithsub', 'API\CategoriesController@categorieswithsub');
+  Route::get('catwithfestival', 'API\CategoriesController@categorieswithfestival');
+  Route::get('categorieswithvideo', 'API\CategoriesController@categorieswithfestivalvideo');
+  Route::get('categorieswithvideonew', 'API\CategoriesController@categorieswithfestivalvideonew');
+  Route::get('subcategorieslist', 'API\CategoriesController@subcategorieslist');
+  Route::get('catbybusiness/{catid}', 'API\CategoriesController@catbybusiness');
+  Route::get('subcatimages/{subcatid}', 'API\CategoriesController@subcatimages');
+  Route::get('subcatvideos/{subcatid}', 'API\CategoriesController@subcatvideos');
+  Route::get('subcatimages/story/{subcatid}', 'API\CategoriesController@subcatstoryimages');
 
-//All Videos
-Route::get('allvideos','API\VideoController@allvideos');
+  //Bills
+  Route::post('bill/add', 'API\BillController@addbill');
+  Route::post('freetrial', 'API\BillController@freetrial');
 
-//Custom Imgs
-Route::get('customimgs','API\ImagesController@index');
-Route::get('subcategory/{id}','API\ImagesController@sub_categories_wise');
+  //All Videos
+  Route::get('allvideos', 'API\VideoController@allvideos');
 
-//All Packages
-Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
+  //Custom Imgs
+  Route::get('customimgs', 'API\ImagesController@index');
+  Route::get('subcategory/{id}', 'API\ImagesController@sub_categories_wise');
 
-//Coupons 
-Route::get('coupons','API\CouponsController@index');
-//Route::get('coupon/type/{coupon_type}/{points}','API\CouponsController@couponbytype');
-Route::post('couponcheck','API\CouponsController@coupon');
+  //All Packages
+  Route::get('subscription', 'API\SubscriptionController@subscriptionPackages');
 
+  //Coupons 
+  Route::get('coupons', 'API\CouponsController@index');
+
+  //Route::get('coupon/type/{coupon_type}/{points}','API\CouponsController@couponbytype');
+  Route::post('couponcheck', 'API\CouponsController@coupon');
+
+  //Settings 
+  Route::get('setting', 'API\SettingsController@setting');
 });
