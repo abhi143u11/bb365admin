@@ -14,8 +14,9 @@ class Categories extends Model
     protected $fillable = ['cat_name','order_no','img','active'];
                            
     public function subcategories() {
-
-    return $this->hasMany('App\Models\SubCategories','cat_id','id')->with('images')->has('images')->where('active',1)->where('festival_date',NULL)->orderBy('festival_date','asc');
+      //old working
+    //return $this->hasMany('App\Models\SubCategories','cat_id','id')->with('images')->has('images')->where('active',1)->where('festival_date',NULL)->orderBy('festival_date','asc');
+    return $this->hasMany('App\Models\SubCategories','cat_id','id')->with('images')->has('images')->where('active',1)->where('cat_id','!=',48)->orderBy('festival_date','asc');
 
       }
 
