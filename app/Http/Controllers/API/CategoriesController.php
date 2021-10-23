@@ -41,7 +41,21 @@ class CategoriesController extends Controller
         $date = Carbon::now();
         $date->addDays(15);
 
-        $categories = SubCategories::where('active', 1)->whereDate('festival_date', '>=', Carbon::today())->whereDate('festival_date', '<=', $date)->with('images')->has('images')->orderBy('festival_date', 'asc')->get();
+        $categories = SubCategories::where('active', 1)->where('sub_cat_id', '!=', 146)->whereDate('festival_date', '>=', Carbon::today())->whereDate('festival_date', '<=', $date)->with('images')->has('images')->orderBy('festival_date', 'asc')->get();
+
+        if ($categories->count() > 0) {
+            return response()->json(['error' => false, 'data' =>  $categories], 200);
+        } else {
+            return response()->json(['error' => true, 'data' => "No Festival Images Found"], 200);
+        }
+    }
+
+    public function categorieswithinternationalfestival()
+    {
+        $date = Carbon::now();
+        $date->addDays(15);
+
+        $categories = SubCategories::where('active', 1)->where('sub_cat_id', 146)->whereDate('festival_date', '>=', Carbon::today())->whereDate('festival_date', '<=', $date)->with('images')->has('images')->orderBy('festival_date', 'asc')->get();
 
         if ($categories->count() > 0) {
             return response()->json(['error' => false, 'data' =>  $categories], 200);
