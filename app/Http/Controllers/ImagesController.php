@@ -10,247 +10,245 @@ use Illuminate\Support\Facades\File;
 use App\Models\Images;
 use App\Models\Categories;
 use App\Models\SubCategories;
-Use DB;
+use DB;
 use Auth;
 
 class ImagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      
-        $images = Images::with('subcategories')->get();
-        $subcategories = SubCategories::all();
-      return view('admin.images.images',compact('images','subcategories'));
-    }
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+
+    $images = Images::with('subcategories')->get();
+    $subcategories = SubCategories::all();
+    return view('admin.images.images', compact('images', 'subcategories'));
+  }
 
 
-    public function insert(Request $request)
-    {
+  public function insert(Request $request)
+  {
     //  dd($request->all());
-        $validator = Validator::make($request->all(), [
-         'image' => 'required|max:2048|mimes:jpg,jpeg,png',
-      
-         'sub_cat_id' => 'required',
-         'image_type'=>'required'
-           
-             ]);
-             if ($validator->fails()) {
-                Session::flash('statuscode','error');
-                return back()->with('status', $validator->messages()->first());
-            }
+    $validator = Validator::make($request->all(), [
+      'image' => 'required|max:2048|mimes:jpg,jpeg,png',
 
-            $images = new Images();
-           
-            
-            if ($request->hasFile('image')) {
-                   $image = $request->file('image');
-              $name = time().'.'.$image->getClientOriginalExtension();
-             $ImageUpload = Image::make($image);
+      'sub_cat_id' => 'required',
+      'image_type' => 'required'
 
-              $ImageUpload->resize(300,300);
-              
-              $thumbnailPath = public_path('images/thumbnails/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
-            
+    ]);
+    if ($validator->fails()) {
+      Session::flash('statuscode', 'error');
+      return back()->with('status', $validator->messages()->first());
+    }
 
-            $image = $request->file('image');
-           // $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/images/');
-            $image->move($destinationPath, $name);
-            $images->image = $name;
-                  }
+    $images = new Images();
 
 
-            if ($request->hasFile('video')) {
-                 $video = $request->file('video');
-              $name = time().'.'.$video->getClientOriginalExtension();
+    if ($request->hasFile('image')) {
+      $image = $request->file('image');
+      $name = time() . '.' . $image->getClientOriginalExtension();
+      $ImageUpload = Image::make($image);
 
-              $destinationPath = public_path('images/videos/');
-               $video->move($destinationPath, $name);
-            
-               $images->video = $name;
-                  }
-  
-        
-             $images->image_type = $request->input('image_type');
-             $images->post_type = $request->input('post_type');
-  
-      
-            $images->sub_cat_id = $request->input('sub_cat_id');
-          
-            $images->save();
+      $ImageUpload->resize(300, 300);
 
-        $images = Images::all();
-        Session::flash('statuscode','success');
-        return redirect('/imagesnew')
-             ->with('status','Data Added Successfully ');
-         
+      $thumbnailPath = public_path('images/thumbnails/');
+      $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
+
+
+      $image = $request->file('image');
+      // $name = time().'.'.$image->getClientOriginalExtension();
+      $destinationPath = public_path('/images/images/');
+      $image->move($destinationPath, $name);
+      $images->image = $name;
     }
 
 
-       public function bulkinsert(Request $request,$img_type,$type,$sub_cat_id)
-    {
-  //  dd($request->file('file'));
-        // $validator = Validator::make($request->all(), [
-        //  'file' => 'required|max:2048|mimes:jpg,jpeg,png',
-      
-        //  'sub_cat_id' => 'required',
-        //  'image_type'=>'required'
-           
-        //      ]);
-        //      if ($validator->fails()) {
-        //      //   Session::flash('statuscode','error');
-        //       //  return back()->with('status', $validator->messages()->first());
-        //            return response()->json(['error'=>$validator->messages()->first()]);
-        //     }
+    if ($request->hasFile('video')) {
+      $video = $request->file('video');
+      $name = time() . '.' . $video->getClientOriginalExtension();
 
-            $images = new Images();
-           
-            
-            if ($request->hasFile('file')) {
-                   $image = $request->file('file');
-         
-              $name = time().'.'.$image->getClientOriginalName();
+      $destinationPath = public_path('images/videos/');
+      $video->move($destinationPath, $name);
 
-              //                 print_r($name);
-              // exit;
-        
-             $ImageUpload = Image::make($image);
-
-              $ImageUpload->resize(300,300);
-              
-              $thumbnailPath = public_path('images/thumbnails/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
-            
-
-            $image = $request->file('file');
-           // $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/images/');
-            $image->move($destinationPath, $name);
-            $images->image = $name;
-                  }
-  
-        
-           
-         $images->image_type = $img_type;
-          $images->post_type = $type;
-  
-      
-           $images->sub_cat_id = $sub_cat_id;
-          
-            $images->save();
-
-        $images = Images::all();
-        return response()->json(['success'=>$name]);
-         
+      $images->video = $name;
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    $images->image_type = $request->input('image_type');
+    $images->post_type = $request->input('post_type');
+
+
+    $images->sub_cat_id = $request->input('sub_cat_id');
+
+    $images->save();
+
+    $images = Images::all();
+    Session::flash('statuscode', 'success');
+    return redirect('/imagesnew')
+      ->with('status', 'Data Added Successfully ');
+  }
+
+
+  public function bulkinsert(Request $request, $img_type, $type, $sub_cat_id)
+  {
+    //  dd($request->file('file'));
+    // $validator = Validator::make($request->all(), [
+    //  'file' => 'required|max:2048|mimes:jpg,jpeg,png',
+
+    //  'sub_cat_id' => 'required',
+    //  'image_type'=>'required'
+
+    //      ]);
+    //      if ($validator->fails()) {
+    //      //   Session::flash('statuscode','error');
+    //       //  return back()->with('status', $validator->messages()->first());
+    //            return response()->json(['error'=>$validator->messages()->first()]);
+    //     }
+
+
+    // print_r($img_type);
+    // //  print_r($type);
+    // //  print_r($sub_cat_id);
+    // exit;
+
+    $images = new Images();
+
+
+    if ($request->hasFile('file')) {
+      $image = $request->file('file');
+
+      $name = $image->getClientOriginalName();
+
+      //                 print_r($name);
+      // exit;
+
+      $ImageUpload = Image::make($image);
+
+      $ImageUpload->resize(300, 300);
+
+      $thumbnailPath = public_path('images/thumbnails/');
+      $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
+
+
+      $image = $request->file('file');
+      // $name = time().'.'.$image->getClientOriginalExtension();
+      $destinationPath = public_path('/images/images/');
+      $image->move($destinationPath, $name);
+      $images->image = $name;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    $images->image_type = $img_type;
+    $images->post_type = $type;
 
-    public function edit($product_id)
-    {
-    
-        $images = Images::findorFail($product_id);
-        $categories = Categories::all();
-        return view('admin.images.edit-images',compact('categories','images'));
-           
+
+    $images->sub_cat_id = $sub_cat_id;
+
+    $images->save();
+
+    $images = Images::all();
+    return response()->json(['success' => $name]);
+  }
+
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+
+  public function edit($product_id)
+  {
+
+    $images = Images::findorFail($product_id);
+    $categories = Categories::all();
+    return view('admin.images.edit-images', compact('categories', 'images'));
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+
+  public function update(Request $request, $product_id)
+  {
+    $validator = Validator::make($request->all(), [
+      'image' => 'required|max:10000|mimes:jpg,jpeg,svg,png'
+
+      //  'order_no' => 'required|unique:categories',
+      // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+    if ($validator->fails()) {
+      // return response()->json(['error' => true,'validation'=>$validator->messages()->first()], 200, []);
+      Session::flash('statuscode', 'error');
+      return back()->with('status', $validator->messages()->first());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    $images = Images::findorFail($product_id);
 
-    public function update(Request $request,$product_id)
-    {
-        $validator = Validator::make($request->all(), [
-            'image' => 'required|max:10000|mimes:jpg,jpeg,svg,png'
-         
-          //  'order_no' => 'required|unique:categories',
-         // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          ]);
-          if ($validator->fails()) {
-            // return response()->json(['error' => true,'validation'=>$validator->messages()->first()], 200, []);
-             Session::flash('statuscode','error');
-             return back()->with('status', $validator->messages()->first());
-          }
-   
-            $images = Images::findorFail($product_id);
-         
-    
-            if ($request->hasFile('image')) {
-               $image = $request->file('image');
-              $name = time().'.'.$image->getClientOriginalExtension();
-              $image->resize(300,300);
-              $destinationPath = public_path('/images/thumbnails/');
-              $image->move($destinationPath, $name);
-              $images->image = $name;
 
-              $image = $request->file('image');
-             // $name = time().'.'.$image->getClientOriginalExtension();
-              $destinationPath = public_path('/images/images/');
-              $image->move($destinationPath, $name);
-              $images->image = $name;
-                    }
-                    
-         
-            $images->featured = $request->input('featured');
-       
-         
-            $images->update();
+    if ($request->hasFile('image')) {
+      $image = $request->file('image');
+      $name = time() . '.' . $image->getClientOriginalExtension();
+      $image->resize(300, 300);
+      $destinationPath = public_path('/images/thumbnails/');
+      $image->move($destinationPath, $name);
+      $images->image = $name;
 
-        $images = Images::all(); 
-        Session::flash('statuscode','info');
-        return redirect('/imagesnew')
-               ->with('status', 'Data Updated successfully');
-      
+      $image = $request->file('image');
+      // $name = time().'.'.$image->getClientOriginalExtension();
+      $destinationPath = public_path('/images/images/');
+      $image->move($destinationPath, $name);
+      $images->image = $name;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($product_id)
-    { 
 
-      $images = Images::findOrFail($product_id);
-      $filename = $images->image;
-      $imagepath = 'images/images/'.$filename;
-        if(File::exists($imagepath)) {
-            File::delete($imagepath);
-          }
-      $images->delete();
+    $images->featured = $request->input('featured');
 
-      Session::flash('statuscode','success');
-      return redirect('/imagesnew')->with('status','Record Deleted Successfully');
-   
+
+    $images->update();
+
+    $images = Images::all();
+    Session::flash('statuscode', 'info');
+    return redirect('/imagesnew')
+      ->with('status', 'Data Updated successfully');
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function delete($product_id)
+  {
+
+    $images = Images::findOrFail($product_id);
+    $filename = $images->image;
+    $imagepath = 'images/images/' . $filename;
+    if (File::exists($imagepath)) {
+      File::delete($imagepath);
     }
- 
+    $images->delete();
+
+    Session::flash('statuscode', 'success');
+    return redirect('/imagesnew')->with('status', 'Record Deleted Successfully');
+  }
 }

@@ -297,10 +297,10 @@ Images
         // event.preventDefault();
         //
 
-        let image_type = $('#image_type1').val();
+        let image_type = $('#image_type').val();
         let post_type = $('#post_type1').val();
         let sub_cat_id = $('#sub_cat_id1').val();
-        // alert(sub_cat_id);
+        // alert(image_type);
         window.open("bulk/?id=" + image_type + "/" + post_type + "/" + sub_cat_id, "_self");
         // alert(sub_cat_id);
     });
