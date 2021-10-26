@@ -68,6 +68,8 @@ Images
                             </select>
                         </div>
 
+
+
                         <div class="form-group col-md-6">
                             <label for="category_id">Category:</label>
                             <select class="form-control" name="sub_cat_id" id="sub_cat_id">
@@ -105,39 +107,22 @@ Images
             </div>
             <div class="modal-body">
 
-
-
                 <div class="row">
-
                     <div class="form-group col-md-6">
                         <label for="post_type">Post Type:</label>
                         <select class="form-control" name="post_type" id="post_type1">
                             <option value="1">Post</option>
                             <option value="2">Story</option>
-
-                        </select>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                        <label for="category_id">Category:</label>
-                        <select class="form-control" name="sub_cat_id" id="sub_cat_id1">
-                            <option value="">Select Category</option>
-                            @foreach ($subcategories as $value)
-                            <option value="{{ $value->sub_cat_id  }}">{{ $value->sub_cat_name }}</option>
-                            @endforeach
                         </select>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="post_type">Post Type:</label>
-                        <select class="form-control" name="post_type" id="post_type1">
-                            <option value="1">Post</option>
-                            <option value="2">Story</option>
-                            <option value="3">Video</option>
+                        <label for="subcategory_id">Image Type:</label>
+                        <select class="form-control" name="image_type" id="image_type2">
+                            <option value="0">Free</option>
+                            <option value="1" selected="selected">Paid</option>
                         </select>
                     </div>
-
 
                     <div class="form-group col-md-6">
                         <label for="category_id">Category:</label>
@@ -297,10 +282,10 @@ Images
         // event.preventDefault();
         //
 
-        let image_type = $('#image_type').val();
+        let image_type = $('#image_type2').val();
         let post_type = $('#post_type1').val();
         let sub_cat_id = $('#sub_cat_id1').val();
-        // alert(image_type);
+        //  alert(image_type);
         window.open("bulk/?id=" + image_type + "/" + post_type + "/" + sub_cat_id, "_self");
         // alert(sub_cat_id);
     });

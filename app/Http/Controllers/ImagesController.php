@@ -31,10 +31,9 @@ class ImagesController extends Controller
 
   public function insert(Request $request)
   {
-    //  dd($request->all());
+
     $validator = Validator::make($request->all(), [
       'image' => 'required|max:2048|mimes:jpg,jpeg,png',
-
       'sub_cat_id' => 'required',
       'image_type' => 'required'
 
@@ -45,7 +44,6 @@ class ImagesController extends Controller
     }
 
     $images = new Images();
-
 
     if ($request->hasFile('image')) {
       $image = $request->file('image');
@@ -94,6 +92,10 @@ class ImagesController extends Controller
 
   public function bulkinsert(Request $request, $img_type, $type, $sub_cat_id)
   {
+
+    // print_r($request->all());
+    // exit;
+
     //  dd($request->file('file'));
     // $validator = Validator::make($request->all(), [
     //  'file' => 'required|max:2048|mimes:jpg,jpeg,png',
