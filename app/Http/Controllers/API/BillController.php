@@ -115,7 +115,7 @@ class BillController extends Controller
         $transaction->save();
 
         $from_date = Carbon::now();
-        $to_date = Carbon::now()->addDays(7);
+        $to_date = Carbon::now()->subDays(2);
 
         $user->package_type = 2;
         $user->package_start = $from_date;
