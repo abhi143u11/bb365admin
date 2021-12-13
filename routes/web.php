@@ -209,6 +209,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
   //Reseller 
   Route::resource('reseller', 'ResellerController');
+
+  //Frmaes
+  Route::resource('customer/frame', 'FramesController');
 });
 
 //Set All Users Todays Downloads = 0

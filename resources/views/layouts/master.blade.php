@@ -168,10 +168,14 @@
                         <a href="{{url('/subscriptions')}}"><i class="fa fa-briefcase"></i> <span class="nav-label">Subscriptions</span></a>
                     </li>
 
-                    <li>
+
 
                     <li class="{{'pages' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/pages')}}"><i class="fa fa-file-text"></i> <span class="nav-label">Pages</span></a>
+                    </li>
+
+                    <li class="{{'customer/frame' == request()->path() ? 'active' : ''}}">
+                        <a href="{{url('/customer/frame')}}"><i class="fa fa-file-video-o"></i> <span class="nav-label">Frames</span></a>
                     </li>
 
                     <li class="{{'mostdownloadcat' == request()->path() ? 'active' : ''}}">
@@ -182,7 +186,6 @@
                         <a href="{{url('/setting')}}"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span></a>
                     </li>
 
-                    </li>
 
                     @endif
                     <li>

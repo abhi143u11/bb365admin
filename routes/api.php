@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -56,7 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
   Route::get('catwithsub', 'API\CategoriesController@categorieswithsub');
   Route::get('catwithfestival', 'API\CategoriesController@categorieswithfestival');
   Route::get('internationalfestival', 'API\CategoriesController@categorieswithinternationalfestival');
-  
+
   Route::get('categorieswithvideo', 'API\CategoriesController@categorieswithfestivalvideo');
   Route::get('categorieswithvideonew', 'API\CategoriesController@categorieswithfestivalvideonew');
   Route::get('subcategorieslist', 'API\CategoriesController@subcategorieslist');
@@ -87,4 +89,7 @@ Route::group(['prefix' => 'v1'], function () {
 
   //Settings 
   Route::get('setting', 'API\SettingsController@setting');
+
+  //frame
+  Route::get('user/{phone}', 'API\FramesController@index');
 });
