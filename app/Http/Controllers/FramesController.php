@@ -20,7 +20,7 @@ class FramesController extends Controller
     public function index()
     {
         $frames = Frames::with('customer')->get();
-        $customers = Users::where('usertype', 'customer')->get();
+        $customers = Users::where('usertype', 'customer')->where('beepixl', 0)->get();
 
         return view('admin.frames.create', compact('frames', 'customers'));
     }
@@ -80,7 +80,7 @@ class FramesController extends Controller
     public function edit($id)
     {
         $frame = Frames::find($id);
-        $customers = Users::where('usertype', 'customer')->get();
+        $customers = Users::where('usertype', 'customer')->where('beepixl', 0)->get();
 
         return view('admin.frames.edit', compact('frame', 'customers'));
     }

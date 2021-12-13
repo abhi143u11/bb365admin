@@ -91,5 +91,5 @@ Route::group(['prefix' => 'v1'], function () {
   Route::get('setting', 'API\SettingsController@setting');
 
   //frame
-  Route::get('user/{phone}', 'API\FramesController@index');
+  Route::get('user/frames/{phone}', 'API\FramesController@index');
 });
