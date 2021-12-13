@@ -210,17 +210,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 //Set All Users Todays Downloads = 0
 Route::get('/settodaydownloads', 'UserController@settodaydownloads');
 
-Route::get('addreferral_code', function () {
+// Route::get('addreferral_code', function () {
 
-  $users =   Users::all();
+//   $users =   Users::whereNull('referral_code')->take(1000)->get();
 
-  foreach ($users as $user) {
-    $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    $seed = str_split($chars); // and any other characters
-    shuffle($seed); // probably optional since array_is randomized; this may be redundant
-    $rand = '';
-    foreach (array_rand($seed, 6) as $k) $rand .= $seed[$k];
-    $user->referral_code = $rand;
-    $user->update();
-  }
-});
+//   foreach ($users as $user) {
+//     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//     $seed = str_split($chars); // and any other characters
+//     shuffle($seed); // probably optional since array_is randomized; this may be redundant
+//     $rand = '';
+//     foreach (array_rand($seed, 6) as $k) $rand .= $seed[$k];
+//     $user->referral_code = $rand;
+//     $user->update();
+//   }
+//   echo "Users Code Updated";
+// });
