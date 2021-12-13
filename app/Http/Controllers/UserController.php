@@ -27,38 +27,36 @@ class UserController extends Controller
             'photo' => 'required|image'
         ]);
         if ($validator->fails()) {
-            return response()->json(['error' => true,'validation'=>$validator->messages()->first()], 200, []);
+            return response()->json(['error' => true, 'validation' => $validator->messages()->first()], 200, []);
         }
-          $user = new  User();
+        $user = new  User();
         if ($request->hasFile('photo')) {
             $image = base64_decode($request->input('photo'));
-            $name =  $request->input('id').'.png';
+            $name =  $request->input('id') . '.png';
             $destinationPath = public_path('/images/logo/');
-          Image::make($image)->save($destinationPath.$name);     
-  
-           $user->photo = $name;
+            Image::make($image)->save($destinationPath . $name);
+
+            $user->photo = $name;
         }
 
-     
-       $user->name = $request->name;
-       $user->mobile = $request->mobile;
-       $user->photo = $fileName;
-       $user->save();
 
-        return response()->json(['error' => false,'user'=>$user], 200, []);
+        $user->name = $request->name;
+        $user->mobile = $request->mobile;
+        $user->photo = $fileName;
+        $user->save();
 
-
+        return response()->json(['error' => false, 'user' => $user], 200, []);
     }
 
     public function registered()
     {
-        $users = User::Where('usertype','admin')->orWhere('usertype','moderator')->get();
-        return view('admin.register')->with('users',$users);
+        $users = User::Where('usertype', 'admin')->orWhere('usertype', 'moderator')->get();
+        return view('admin.register')->with('users', $users);
     }
 
     public function store(Request $request)
     {
-      
+
         $rules = array(
             'name'    =>  'required',
             'phone' => 'required|numeric|unique:users',
@@ -77,12 +75,12 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
 
-                  $image = base64_decode($request->input('photo'));
-            $name =  $request->input('id').'.png';
+            $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id') . '.png';
             $destinationPath = public_path('/images/logo/');
-          Image::make($image)->save($destinationPath.$name);     
-  
-           $user->photo = $name;
+            Image::make($image)->save($destinationPath . $name);
+
+            $user->photo = $name;
         }
 
 
@@ -97,16 +95,16 @@ class UserController extends Controller
         $users->password = Hash::make($request->password);
         $users->save();
 
-        Session::flash('statuscode','success');
-        return redirect('/role-register')->with('status','Record Inserted Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/role-register')->with('status', 'Record Inserted Successfully');
     }
 
-    public function registeredit(Request $request,$id)
+    public function registeredit(Request $request, $id)
     {
         $users =   User::findOrFail($id);
 
-        Session::flash('statuscode','success');
-        return view('admin.register-edit')->with('users',$users);
+        Session::flash('statuscode', 'success');
+        return view('admin.register-edit')->with('users', $users);
     }
 
     public function registerupdate(Request $request, $id)
@@ -115,34 +113,33 @@ class UserController extends Controller
         $rules = array(
             'name'    =>  'required',
             'phone' => [
-        'required',
-        Rule::unique('users')->ignore($id),
-    ],
-           'email' => [
-        'required',
-        Rule::unique('users')->ignore($id),
-    ],
+                'required',
+                Rule::unique('users')->ignore($id),
+            ],
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($id),
+            ],
 
-            );
-            $error = Validator::make($request->all(), $rules);
-            if($error->fails())
-{
+        );
+        $error = Validator::make($request->all(), $rules);
+        if ($error->fails()) {
             Session::flash('statuscode', 'danger');
             return redirect('/role-register')->with('status',  $error->errors()->all());
             ///return response()->json(['error' => true, 'validation' => $validator->messages()->first()], 200, []);
-}
-   $users = User::find($id);
+        }
+        $users = User::find($id);
         if ($request->hasFile('photo')) {
 
-                $image = base64_decode($request->input('photo'));
-            $name =  $request->input('id').'.png';
+            $image = base64_decode($request->input('photo'));
+            $name =  $request->input('id') . '.png';
             $destinationPath = public_path('/images/logo/');
-          Image::make($image)->save($destinationPath.$name);     
-  
-           $user->photo = $name;
+            Image::make($image)->save($destinationPath . $name);
+
+            $user->photo = $name;
         }
 
-     
+
         // if ($request->hasFile('photo')) {
         //     $users->photo = $filename;
         // }
@@ -153,8 +150,8 @@ class UserController extends Controller
         $users->password = Hash::make($request->password);
         $users->update();
 
-        Session::flash('statuscode','success');
-        return redirect('/role-register')->with('status','Record Updated Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/role-register')->with('status', 'Record Updated Successfully');
     }
 
     public function registerdelete($id)
@@ -162,19 +159,21 @@ class UserController extends Controller
         $users = User::findOrFail($id);
         $users->delete();
 
-        Session::flash('statuscode','success');
-        return redirect('/role-register')->with('status','Record Deleted Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/role-register')->with('status', 'Record Deleted Successfully');
     }
 
-    public function index(){
-        $users = Users::where('usertype','customer')->with('category','subscription')->where('beepixl',0)->get(); 
-         $categories = Categories::all();
+    public function index()
+    {
+        $users = Users::where('usertype', 'customer')->with('category', 'subscription')->where('beepixl', 0)->get();
+        $categories = Categories::all();
         $subscriptions = Subscription::all();
 
-        return view('admin.users',compact('users','categories','subscriptions'));
+        return view('admin.users', compact('users', 'categories', 'subscriptions'));
     }
 
-    public function insert(Request $request){
+    public function insert(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -192,17 +191,17 @@ class UserController extends Controller
 
         $users = new Users();
 
-       if ($request->hasFile('photo')) {
-              $image = $request->file('photo');
-              $name = time().$request->name.$image->getClientOriginalName();
-             $ImageUpload = Image::make($image);
-              $thumbnailPath = public_path('/images/logo/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = time() . $request->name . $image->getClientOriginalName();
+            $ImageUpload = Image::make($image);
+            $thumbnailPath = public_path('/images/logo/');
+            $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
             $users->photo = $name;
-               // print_r($image);exit;
-                  }
-        
-           $users->name = $request->name;
+            // print_r($image);exit;
+        }
+
+        $users->name = $request->name;
         $users->phone = $request->phone;
         $users->usertype = $request->usertype;
         $users->email = $request->email;
@@ -218,32 +217,39 @@ class UserController extends Controller
         $users->downloads = $request->downloads;
         $users->todays_downloads = $request->todays_downloads;
         $users->unlimited = $request->unlimited;
-        
-          if($request->free_trial_checked){
-         $users->trial = $request->free_trial_checked;
-        }else{
-         $users->trial = 0;
+
+        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        $seed = str_split($chars); // and any other characters
+        shuffle($seed); // probably optional since array_is randomized; this may be redundant
+        $rand = '';
+        foreach (array_rand($seed, 6) as $k) $rand .= $seed[$k];
+        $users->referral_code = $rand;
+
+        if ($request->free_trial_checked) {
+            $users->trial = $request->free_trial_checked;
+        } else {
+            $users->trial = 0;
         }
 
-        if($request->password){
-   $users->password = Hash::make($request->password);
+        if ($request->password) {
+            $users->password = Hash::make($request->password);
         }
-     
+
         $users->save();
 
-        Session::flash('statuscode','success');
-        return redirect('/users')->with('status','Record Inserted Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/users')->with('status', 'Record Inserted Successfully');
     }
 
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         $users =   Users::findOrFail($id);
         $categories = Categories::all();
         $subscriptions = Subscription::all();
-        $transactions = Transaction::where('user_id',$id)->get();
+        $transactions = Transaction::where('user_id', $id)->get();
 
-        Session::flash('statuscode','success');
-        return view('admin.users-edit',compact('users','categories','subscriptions','transactions'));
+        Session::flash('statuscode', 'success');
+        return view('admin.users-edit', compact('users', 'categories', 'subscriptions', 'transactions'));
     }
 
     public function update(Request $request, $id)
@@ -251,9 +257,9 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
-           // 'usertype' => 'required',
-           // 'email' => 'required',
-            
+            // 'usertype' => 'required',
+            // 'email' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -272,15 +278,15 @@ class UserController extends Controller
 
         $users = Users::find($id);
 
-            if ($request->hasFile('photo')) {
-              $image = $request->file('photo');
-                  $name = $id.".png";
-             $ImageUpload = Image::make($image);
-              $thumbnailPath = public_path('/images/logo/');
-              $ImageUpload = $ImageUpload->save($thumbnailPath.$name);
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = $id . ".png";
+            $ImageUpload = Image::make($image);
+            $thumbnailPath = public_path('/images/logo/');
+            $ImageUpload = $ImageUpload->save($thumbnailPath . $name);
             $users->photo = $name;
-               // print_r($image);exit;
-                  }
+            // print_r($image);exit;
+        }
 
         $users->name = $request->name;
         $users->phone = $request->phone;
@@ -299,17 +305,17 @@ class UserController extends Controller
         $users->todays_downloads = $request->todays_downloads;
         $users->unlimited = $request->unlimited;
 
-        if($request->free_trial_checked){
-         $users->trial = $request->free_trial_checked;
-        }else{
-         $users->trial = 0;
+        if ($request->free_trial_checked) {
+            $users->trial = $request->free_trial_checked;
+        } else {
+            $users->trial = 0;
         }
 
         $users->password = Hash::make($request->password);
         $users->update();
 
-        Session::flash('statuscode','success');
-        return redirect('/users')->with('status','Record Updated Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/users')->with('status', 'Record Updated Successfully');
     }
 
     public function delete($id)
@@ -317,17 +323,17 @@ class UserController extends Controller
         $users = Users::findOrFail($id);
         $users->delete();
 
-        Session::flash('statuscode','success');
-        return redirect('/users')->with('status','Record Deleted Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/users')->with('status', 'Record Deleted Successfully');
     }
 
-    
+
     public function settodaydownloads()
     {
 
-        Users::where('deleted_at','=',NULL)->update(['todays_downloads' => 0]);
+        Users::where('deleted_at', '=', NULL)->update(['todays_downloads' => 0]);
 
-        Session::flash('statuscode','success');
-        return redirect('/users')->with('status','Records Updated Successfully');
+        Session::flash('statuscode', 'success');
+        return redirect('/users')->with('status', 'Records Updated Successfully');
     }
 }

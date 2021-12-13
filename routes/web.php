@@ -63,13 +63,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
   Route::delete('/users-delete/{id}', 'UserController@delete');
 
   //Address
-  Route::get('/address', 'CustomerAddressController@index');
-  Route::post('address_insert', [
-    'uses' => 'CustomerAddressController@insert'
-  ]);
-  Route::get('/addres-edit/{id}', 'CustomerAddressController@edit');
-  Route::PUT('/address-update/{id}', 'CustomerAddressController@update');
-  Route::delete('/addres-delete/{id}', 'CustomerAddressController@destroy');
+  // Route::get('/address', 'CustomerAddressController@index');
+  // Route::post('address_insert', [
+  //   'uses' => 'CustomerAddressController@insert'
+  // ]);
+  // Route::get('/addres-edit/{id}', 'CustomerAddressController@edit');
+  // Route::PUT('/address-update/{id}', 'CustomerAddressController@update');
+  // Route::delete('/addres-delete/{id}', 'CustomerAddressController@destroy');
 
   //Custom Images
   Route::get('/customimg', 'CustomImgController@index');
@@ -205,6 +205,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
   Route::get('coupons-edit/getsubcat/{id}', 'CouponsController@getSubCategory');
   Route::PUT('/coupons-update/{id}', 'CouponsController@update');
   Route::delete('/coupons-delete/{id}', 'CouponsController@delete');
+
+
+  //Reseller 
+  Route::resource('reseller', 'ResellerController');
 });
 
 //Set All Users Todays Downloads = 0

@@ -36,12 +36,11 @@ Route::group(['prefix' => 'v1'], function () {
   Route::get('slides', 'API\OfferController@showslider');
 
   //Displaying All-Products
-  Route::get('allproducts2', 'API\ProductController@allproducts2');
-  Route::get('products/categorynew/{id}', 'API\ProductController@allproductspaginate');
-
-  Route::get('products/featured', 'API\ProductController@productsfeatured');
-  Route::get('products/lowprice', 'API\ProductController@productslowprice');
-  Route::get('allproducts', 'API\ProductController@allproductslist');
+  // Route::get('allproducts2', 'API\ProductController@allproducts2');
+  // Route::get('products/categorynew/{id}', 'API\ProductController@allproductspaginate');
+  // Route::get('products/featured', 'API\ProductController@productsfeatured');
+  // Route::get('products/lowprice', 'API\ProductController@productslowprice');
+  // Route::get('allproducts', 'API\ProductController@allproductslist');
 
   //updating customer Device-Token with phone number
   Route::post('customer/update', 'API\CustomerController@customerupdate');
