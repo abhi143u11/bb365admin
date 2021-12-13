@@ -4,6 +4,11 @@ use App\Models\Bills;
 use App\Models\Users;
 use App\Models\Transaction;
 use App\Models\BillProduct;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 /*
@@ -204,3 +209,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 //Set All Users Todays Downloads = 0
 Route::get('/settodaydownloads', 'UserController@settodaydownloads');
+
+Route::get('addreferral_code', function () {
+
+  $users =   Users::all();
+
+  foreach ($users as $user) {
+    $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    $seed = str_split($chars); // and any other characters
+    shuffle($seed); // probably optional since array_is randomized; this may be redundant
+    $rand = '';
+    foreach (array_rand($seed, 6) as $k) $rand .= $seed[$k];
+    $user->referral_code = $rand;
+    $user->update();
+  }
+});

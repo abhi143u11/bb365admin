@@ -22,3 +22,8 @@ ALTER TABLE `users` ADD `trial` TINYINT NOT NULL DEFAULT '0' AFTER `device_token
 //26-07-2021
 ALTER TABLE `coupons` ADD `minimum_price` INT NULL DEFAULT NULL AFTER `customer_id`;
 
+
+//13-12-2021
+ALTER TABLE `users` ADD `referral_code` VARCHAR(20) NULL DEFAULT NULL AFTER `device_token`;
+ALTER TABLE `users` ADD `referred_by` VARCHAR(6) NULL DEFAULT NULL AFTER `referral_code`;
+ALTER TABLE `users` ADD UNIQUE(`referral_code`);

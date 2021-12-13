@@ -69,6 +69,15 @@ class CustomerController extends Controller
       $customers->device_token = $request->input('device_token');
       $customers->device_type = $request->input('device_type');
 
+      $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+      $seed = str_split($chars); // and any other characters
+      shuffle($seed); // probably optional since array_is randomized; this may be redundant
+      $rand = '';
+      foreach (array_rand($seed, 6) as $k) $rand .= $seed[$k];
+
+      $customers->referral_code = $rand;
+      $customers->referred_by = $request->referred_by;
 
       $customers->usertype = "customer";
 
@@ -82,10 +91,6 @@ class CustomerController extends Controller
 
       $device_token = $request->input('device_token');
       $device_type = $request->input('device_type');
-
-
-
-
 
       Users::where('phone', $phone)->update([
 
