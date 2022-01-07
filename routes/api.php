@@ -50,8 +50,8 @@ Route::group(['prefix' => 'v1'], function () {
   //notification 
   Route::get('notification', 'API\NotificationController@Notification');
 
-  //updating customer Device-Token with card number
-  Route::post('customer-card/update', 'API\CustomerController@updatewithcard');
+  // //updating customer Device-Token with card number
+  // Route::post('customer-card/update', 'API\CustomerController@updatewithcard');
 
   //All Categories 
   Route::get('categories', 'API\CategoriesController@allcategories');

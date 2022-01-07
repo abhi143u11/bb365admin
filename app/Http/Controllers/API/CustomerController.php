@@ -33,7 +33,7 @@ class CustomerController extends Controller
   public function userdetail($userid)
   {
 
-    $customerdetails = Users::findorFail($userid);
+    $customerdetails = Users::where('id',$userid)->with('frames')->get();
     if ($customerdetails->count() > 0) {
       //return response()->json(['error' => false, 'customer' => $customerdetails]);
       return response()->json(['error' => false, 'data' => $customerdetails], 200);

@@ -28,6 +28,11 @@ class Users extends Model
         
         return $this->hasOne('App\Models\Subscription','subscription_id','package_type');
     }
+
+    public function frames(){
+        
+        return $this->hasMany('App\Models\Frames','customer_phone','phone');
+    }
    
       
 }
