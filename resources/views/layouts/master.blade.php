@@ -174,9 +174,9 @@
                         <a href="{{url('/pages')}}"><i class="fa fa-file-text"></i> <span class="nav-label">Pages</span></a>
                     </li>
 
-                    <!-- <li class="{{'customer/frame' == request()->path() ? 'active' : ''}}">
+                    <li class="{{'customer/frame' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/customer/frame')}}"><i class="fa fa-file-video-o"></i> <span class="nav-label">Frames</span></a>
-                    </li> -->
+                    </li>
 
                     <li class="{{'mostdownloadcat' == request()->path() ? 'active' : ''}}">
                         <a href="{{url('/mostdownloadcat')}}"><i class="fa fa-download"></i> <span class="nav-label">Most Download Cat</span></a>
